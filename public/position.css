@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+  }
+
+  .upper-50 {
+    /*this controls the height of the banner*/
+    height: 135px;
+    float: left;
+  }
+
+  #title-button-div {
+    width: 65%;
+    font-size: 300%;
+    text-align: left;
+    padding-left: 70px;
+    border: 0px; /* Get's rid of an ugly white default outline*/
+    outline:0; /* gets rid of blue outline when clicked */
+  }
+
+  #login-button-div {
+    width: 35%;
+    font-size: 300%;
+    border: 0px; /* Get's rid of an ugly white default outline*/
+    outline:0; /* gets rid of blue outline when clicked */
+  }
+
+  #map {
+    height: 100%;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }

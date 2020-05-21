@@ -1,0 +1,31 @@
+#title-button-div, #login-button-div {
+    background: black;
+    font-family: 'Caveat', cursive;
+  }
+
+  #title-button-div {
+    color: #398e8a;
+  }
+
+  #login-button-div {
+    color: #ff6655;
+  }
+
+  #title-button-div:hover {
+    background: #575757;
+    color: #fcd161;
+  }
+  
+  #login-button-div:hover {
+    background: #575757;
+    color: #b2daff;
+  }
+  
+  #title-button-div:active {
+    color: #575757;
+  }
+  
+  #login-button-div:active {
+    font-size: 300%;
+  }
+
