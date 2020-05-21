@@ -11,7 +11,7 @@ function googleLogin(){
     .then(result => {
         const user = result.user;
         //document.write(`Hello ${user.displayName}`);
-        document.getElementById("login-button-div").innerText = `${user.displayName}`;
+        document.getElementById("banner-login").innerText = `${user.displayName}`;
         //use the user object for something if you want
         console.log(user);
     })

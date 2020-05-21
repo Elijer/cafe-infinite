@@ -12,13 +12,13 @@ body {
     height: 100%;
   }
 
-  .upper-50 {
+  .top {
     /*this controls the height of the banner*/
     height: 135px;
     float: left;
   }
 
-  #title-button-div {
+  #banner-title {
     width: 65%;
     font-size: 300%;
     text-align: left;
@@ -27,7 +27,7 @@ body {
     outline:0; /* gets rid of blue outline when clicked */
   }
 
-  #login-button-div {
+  #banner-login {
     width: 35%;
     font-size: 300%;
     border: 0px; /* Get's rid of an ugly white default outline*/

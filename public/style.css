@@ -1,31 +1,31 @@
-#title-button-div, #login-button-div {
+#banner-title, #banner-login {
     background: black;
-    font-family: 'Caveat', cursive;
+    font-family: 'Caveat', Tahoma;
   }
 
-  #title-button-div {
+  #banner-title {
     color: #398e8a;
   }
 
-  #login-button-div {
+  #banner-login {
     color: #ff6655;
   }
 
-  #title-button-div:hover {
+  #banner-title:hover {
     background: #575757;
     color: #fcd161;
   }
   
-  #login-button-div:hover {
+  #banner-login:hover {
     background: #575757;
     color: #b2daff;
   }
   
-  #title-button-div:active {
+  #banner-title:active {
     color: #575757;
   }
   
-  #login-button-div:active {
+  #banner-login:active {
     font-size: 300%;
   }
 

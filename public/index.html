@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+   <!--Caveat Font Link-->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/7.14.4/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -11,25 +12,27 @@
     <script defer src="/__/firebase/7.14.4/firebase-database.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-messaging.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
 
-    <!--Caveat Font Link-->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+
+    <script defer src="/__/firebase/init.js"></script>
     
+    <!-- initialize the SDK after all desired features are loaded -->
+    <link async defer href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+
     <!--CSS LINKS-->
     <link href = "position.css" rel = "stylesheet" type = "text/css" />
     <link href = "style.css" rel = "stylesheet" type = "text/css" />
+    <link href = "animation.css" rel = "stylesheet" type = "text/css" />
   </head>
 
   <body>
     <!--HTML-->
     <div id="banner">
-      <button id="title-button-div" class = "upper-50">
-        cafe infinite
+      <button id="banner-title" class = "top">
+        <span id = "fade-in"> cafe infinite </span>
       </button>
-      <button id="login-button-div" class = "upper-50" onclick = "googleLogin()">
-        login
+      <button id="banner-login" class = "top" onclick = "googleLogin()">
+        <span id = "fade-in"> login </span>
       </button>
     </div>
 
