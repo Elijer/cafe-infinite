@@ -1,19 +1,37 @@
 document.addEventListener("DOMContentLoaded", event => {
     const app = firebase.app();
+
+    const db = firebase.firestore();
+
+    const someUser = db.collection('users').doc('RyjhQwEZhXFq51WNhCCr');
+
     //console.log(app);
+    
+    /*someUser.get()
+      .then(doc => {
+        const data = doc.data();
+        console.log(data.jose);
+      })*/
+
+      someUser.onSnapshot(doc => {
+
+        const data = doc.data();
+        console.log(data);
+      })
 });
 
 // Auth function
 function googleLogin(){
+    //Logins in user to google
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider)
 
     .then(result => {
         const user = result.user;
+        console.log(user);
         //document.write(`Hello ${user.displayName}`);
         document.getElementById("banner-login").innerText = `${user.displayName}`;
         //use the user object for something if you want
-        console.log(user);
     })
     .catch(console.log);
 }
@@ -25,6 +43,14 @@ function initMap() {
     zoom: 8
   });
 }
+
+
+
+
+
+
+
+
 /*
 //Map Function
 function initMap() {
