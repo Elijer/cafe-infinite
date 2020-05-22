@@ -29,7 +29,13 @@
     font-size: 300%;
   }
 
-  #testies {
+  
+  #data-item {
     background: #ff90a5;
-    padding: 2%;
+    padding-top: 2%;
+  }
+
+  #theList {
+    padding-bottom: 2%;
+    background: #ff90a5;
   }
