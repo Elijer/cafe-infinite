@@ -32,7 +32,8 @@
   <body>
     <!--HTML-->
     <div id="banner">
-      <button id="banner-title" class = "top">
+      <button id="banner-title" class = "top" onclick = "uploadClick()">
+        <input id = "uploadInput" type = "file" onchange = "uploadFile(this.files)">
         <span id = "fade-in"> cafe infinite </span>
       </button>
       <button id="banner-login" class = "top" onclick = "googleLogin()">
@@ -40,6 +41,7 @@
       </button>
     </div>
 
+    <img id = "imgUpload" src = "" width = "100">
     <h1 id = "testies"> testies </h1>
     <div id = "theList"></div>
 

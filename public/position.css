@@ -43,3 +43,8 @@ body {
     margin: 0;
     padding: 0;
   }
+
+  /*this hides the input that ends up getting used with JS */
+  #uploadInput {
+    display: none;
+  }
