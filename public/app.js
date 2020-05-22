@@ -3,26 +3,39 @@ document.addEventListener("DOMContentLoaded", event => {
 
     const db = firebase.firestore();
 
-    const products = db.collection('products').doc('HzTEK6EP0ekwxeSVwx1n');
+    //const products = db.collection('products').doc('HzTEK6EP0ekwxeSVwx1n');
 
     //console.log(app);
     
-    /*products.get()     //get a single product
+    /*products.get()                //get a single product
       .then(doc => {
         const data = doc.data();
         console.log(data.name);
       })*/
 
-
-      products.onSnapshot(doc => { //get a single product when it changes. also does this when app loads, unfortunately
+      /*products.onSnapshot(doc => { //get a single product whenever db changes. also does this when app loads, unfortunately. It probably does this because it's still loading though, soooo if I just move it maybe it will act differently
         const data = doc.data();
-        newElly(data.name);
-        //console.log(data);
-        //document.write(data.name + `<br>`); //adds new line for every change in this item, eggs
-      })
+        newElement(data.name);
+        //document.write(data.name + `<br>`);
+      })*/
+
+
+
+      const productsRef = db.collection('products');
+      const query = productsRef.where('price', '<', 10); // where is a db qeury. here it's saying, get all products with a price that is less than 10
+      console.log({query});
+      query.get()
+        .then(products => {
+          products.forEach(doc => {
+            data = doc.data()
+            newElement(data.name);
+          })
+        })
+
+
 });
 
-function newElly(theText){
+function newElement(theText){
   var node = document.createElement("h1");                 // Create a <li> node
   node.id = "testies";            //give it an ID
   node.innerText = theText;
