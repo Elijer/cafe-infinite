@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", event => {
 
       const productsRef = db.collection('products');
       const query = productsRef.where('price', '<', 10); // where is a db qeury. here it's saying, get all products with a price that is less than 10
+      //const query = productsRef.where('price', '==', 10); // where is a db qeury. here it's saying, get all products with a price that is less than 10
+
+      
       console.log({query});
       query.get()
         .then(products => {
