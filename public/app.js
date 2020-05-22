@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", event => {
         .then(products => {
           products.forEach(doc => {
             data = doc.data()
-            newElement(data.name);
+            newElement(data.name + " at $" + data.price);
           })
         })
 
