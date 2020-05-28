@@ -31,28 +31,18 @@
   </head>
 
   <body>
-    <!--HTML-->
-    <div id="banner">
-      <button id="banner-title" class = "top" onclick = "uploadClick()">
-        <input id = "uploadInput" type = "file" onchange = "uploadFile(this.files)">
-        <span id = "fade-in"> cafe infinite </span>
-      </button>
-      <button id="banner-login" class = "top" onclick = "googleLogin()">
-        <span id = "fade-in"> login </span>
-      </button>
-    </div>
-
-    <img id = "imgUpload" src = "" width = "100">
-    
-    <div id = "theList"></div>
-
-    <!--<div id="map">
-    </div>-->
-
-    <!--JS-->
+    <a href ="https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com">
+      Connect With Stripe
+      <!--Customize banner: https://dashboard.stripe.com/settings/applications-->
+      <!--Page in Docs that helps create this link: https://stripe.com/docs/connect/enable-payment-acceptance-guide#step-21-add-an-authentication-buttonclient-side
+        On my to-do list here. Add:
+        1. state: A unique unguessable value generated and saved on server for security purposes.
+        2. Add a redirect URI in the platform settings here: https://dashboard.stripe.com/settings/applications
+        3. Create a page that user gets redirected to where we say hey, you're all done, now finish creating your account! Or something like that.
+      
+      -->
+    </a>
     <script src = "/app.js">
     </script>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcFvCdo_5DPAUfRdhVq8sttNxwLAhLpUI&callback=initMap"
-    async defer></script>-->
   </body>
 </html>
