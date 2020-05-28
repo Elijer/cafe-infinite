@@ -34,9 +34,10 @@ body {
     outline:0; /* gets rid of blue outline when clicked */
   }
 
+  /*
   #map {
     height: 100%;
-  }
+  }*/
 
   html, body {
     height: 100%;
