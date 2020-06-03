@@ -32,8 +32,8 @@
   </head>
 
   <body>
-    <a href ="https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com">
-      Connect With Stripe
+    <a href ="https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com">
+      Set up your physical business up on Cafe Infinite so that new customers can find and pay you on their phones!
       <!--Customize banner: https://dashboard.stripe.com/settings/applications-->
       <!--Page in Docs that helps create this link: https://stripe.com/docs/connect/enable-payment-acceptance-guide#step-21-add-an-authentication-buttonclient-side
         On my to-do list here. Add:
@@ -41,10 +41,15 @@
         2. Add a redirect URI in the platform settings here: https://dashboard.stripe.com/settings/applications
         3. Create a page that user gets redirected to where we say hey, you're all done, now finish creating your account! Or something like that.
         4. "Save the Account ID" -- save the stripe_user_id parameter that will be returned to upon URI redirect. Save it to firestore
-      
+
+
+        // my test id // ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
+        // my real id // ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH
+        // test URL // https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
+        // real URL // https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
       -->
     </a>
-    <script src = "/app.js">
+    <a href = "stripe_return.html"> click here to go to page 2! </a>
     </script>
   </body>
 </html>
