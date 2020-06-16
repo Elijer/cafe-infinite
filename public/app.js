@@ -23,9 +23,12 @@ function googleLogin(){
 
 function onboardBusiness(){
   var onboardingURL;
-  var state;
-  onboardingURL = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
+  var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state=";
+  var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
+  var state = "23823948qfnadgba8sas";
+  onboardingURL = firstChunk + state + secondChunk;
   window.location.replace(onboardingURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
+
 
   /*
   Customize banner: https://dashboard.stripe.com/settings/applications-->
