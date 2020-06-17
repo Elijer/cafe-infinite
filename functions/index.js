@@ -1,14 +1,12 @@
+/*>>>>>CURRENT ISSUE: Detailed stack trace: Error: Cannot find module 'stripe'
+*/
+
 //Firebase and Firestore
 const functions = require('firebase-functions'); // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const admin = require('firebase-admin'); //initialize an admin app instance from which Cloud Firestore changes can be made // The Firebase Admin SDK to access Cloud Firestore.
 admin.initializeApp();
 let db = admin.firestore();
 const stripe = require('stripe')('sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ', {apiVersion: ''});
-//>>>CURRENT ISSUE: says 'could not find module 'stripe''
-/* I'm getting this problem in the logs when I try to install stripe via NPM:
-npm WARN saveError ENOENT: no such file or directory, open '/Users/jah/Desktop/Firebase Projects/firestripe/package.json'
-npm WARN enoent ENOENT: no such file or directory, open '/Users/jah/Desktop/Firebase Projects/firestripe/package.json'
-*/
 
 //express
 const express = require('express');
