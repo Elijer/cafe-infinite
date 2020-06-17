@@ -3,12 +3,54 @@ const functions = require('firebase-functions'); // The Cloud Functions for Fire
 const admin = require('firebase-admin'); //initialize an admin app instance from which Cloud Firestore changes can be made // The Firebase Admin SDK to access Cloud Firestore.
 admin.initializeApp();
 let db = admin.firestore();
+const stripe = require('stripe')('sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ', {apiVersion: ''});
+//>>>CURRENT ISSUE: says 'could not find module 'stripe''
+/* I'm getting this problem in the logs when I try to install stripe via NPM:
+npm WARN saveError ENOENT: no such file or directory, open '/Users/jah/Desktop/Firebase Projects/firestripe/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/Users/jah/Desktop/Firebase Projects/firestripe/package.json'
+*/
 
 //express
 const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors({ origin: true }));
+
+app.get("/api", async (req, res) => {
+    const { code, state } = req.query;
+
+    // Assert the state matches the state you provided in the OAuth link (optional).
+    if(state != "23823948qfnadgba8sas") {
+      return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
+    }
+  
+    // Send the authorization code to Stripe's API.
+    stripe.oauth.token({
+      grant_type: 'authorization_code',
+      code
+    }).then(
+      (response) => {
+        var connected_account_id = response.stripe_user_id;
+        let data = {
+            businessID: connected_account_id,
+          };
+        let id = db.collection('businesses').doc('firstBiz').set(data);
+  
+        // Render some HTML or redirect to a different page.
+        return res.status(200).json({success: true});
+      },
+      (err) => {
+        if (err.type === 'StripeInvalidGrantError') {
+          return res.status(400).json({error: 'Invalid authorization code: ' + code});
+        } else {
+          return res.status(500).json({error: 'An unknown error occurred.'});
+        }
+      }
+    );
+  });
+  
+
+exports.app = functions.https.onRequest(app);
 
 /*
 // build multiple CRUD interfaces:              CRUD stands for CREATE, READ, UPDATE, and DELETE. This is routing for direct database alterations!! Exciting!
