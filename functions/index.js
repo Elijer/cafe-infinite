@@ -32,6 +32,48 @@ app.get("/api", async (req, res) => {
         let data = {
             businessID: connected_account_id,
           };
+
+        /* check to see if any businesses already have this stripe biz id,
+        cause that would be a problem. And also check to see
+        if the current logged in google Uath already has a stripe biz id
+        cause that ALSO would be a problem. That's a 'contact administrator' type of
+        problem. I should be able to fix that.
+        The question is, how do I access the UAth session from this index.js file?
+
+        Here are all the options I can think of:
+        1. pass the user id through the stripe link (I think I can do that. Dunno how to use it though)
+        2. Pass the user email through the link. Same challenges I think, plus it's more prone to error, in theory.
+        3. Trigger something in the client somehow? The client should have the data in their window.
+
+
+        Okay yeah definitely 1 or 2, whatever works. Think how easy it would be. I want to do this:
+        let id = db.collection('businesses').doc('userID').set(data);
+
+        AND THEN. Once you're done with that, I think I know how to do the state stuff the right way.
+        You're going to have to call a google cloud function FROM the client from the same
+        onClick function you have for the stripe link.
+        That onClick function will fire a google cloud functon, passing
+        it the google Auth account, which will run a hash generator
+        and save the temporary 'state'. Then in THIS routing event,
+        farther up where its validating the 'state' (where I currently have a fake one)
+        it will first get the UAth ID from #1 or #2 in the list above and use
+        that to make a database query about the state. Then I'll have the UAuth already
+        saved to save the Stripe Account ID! That's it. It'll look sort of like
+
+        var googleCloudFunctionCalledFromClient = function(GoogleUID){
+            var state = new Hash("14 digits");
+            var data = {
+                state: state
+            }
+            db.collection('businesses').doc(GoogleUID).set(data);
+        }
+
+        My biggest concern with this method is promises and if they work alongside HTTP
+        requests. Cause I have no idea if they do. However, I haven't
+        had a problem with them so far, as I have been
+        setting data to the database here already. I can do that
+        at least.
+        */
         let id = db.collection('businesses').doc('firstBiz').set(data);
   
         // Render some HTML or redirect to a different page.
