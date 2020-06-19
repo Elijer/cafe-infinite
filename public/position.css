@@ -49,3 +49,7 @@ body {
   #uploadInput {
     display: none;
   }
+
+  #business-login {
+    display: none;
+  }

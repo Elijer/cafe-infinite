@@ -32,14 +32,19 @@
   </head>
 
   <body>
-    <a onClick = "onboardBusiness()">
-      Set up your physical business up on Cafe Infinite so that new customers can find and pay you on their phones!
-    </a>
-    <a href = "stripe_return.html"> click here to go to page 2! </a>
-
+    <!--Normal Login-->
     <button id="banner-login" class = "top" onclick = "googleLogin()">
-      <span id = "fade-in"> login </span>
+      <span id = "fade-in"> loading... </span>
     </button>
+
+    <!-- Business Login that appears after normal login -->
+    <a id = "business-login" onClick = "onboardBusiness()">
+      Are you a business?
+    </a>
+
+    <!-- Link to go to the business page
+    <a href = "stripe_return.html"> click here to go to page 2! </a>
+    -->
 
     <script src = "/app.js">
     </script>
