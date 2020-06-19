@@ -13,10 +13,40 @@ function googleLogin(){
   firebase.auth().signInWithPopup(provider)
   .then(result => {
       const user = result.user;
-      console.log(user);
+      //console.log(user);
       //document.write(`Hello ${user.displayName}`);
       document.getElementById("banner-login").innerText = `${user.displayName}`;
       //use the user object for something if you want
+      //console.log(user.displayName);
+
+      //top one id = AIzaSyD3cl1hLrxS7EVLJHkGj0fpwNROOrsOcI0
+      //nope id is this I guess = H7EOGhnQW5fkOWY8lXmKUpEbjRk1
+      //and the other id is cJuXijzikvZWfVzdGnKHlCjdGUh1
+      console.log("email is " + user.email);
+      console.log("photo URL is " + user.photoURL)
+      console.log("id is " + user.uid)
+      console.log("Display name is " + user.displayName)
+
+      //let id = db.collection('businesses').doc('user.uid').set(data);
+
+      const db = firebase.firestore();
+      const usersRef = db.collection('businesses').doc(user.uid);
+
+      usersRef.get()
+        .then((docSnapshot) => {
+          //you can make it so that if it doesn't exist, you add a login time. Idk why exactly I'd need that,
+          //but it's something to do.
+          if (!docSnapshot.exists) {
+            let data = {
+              name: user.displayName,
+              email: user.email,
+              profilePic: user.photoURL,
+              createdAt: new Date()
+            };
+            usersRef.set(data) // create the document
+          }
+      });
+
   })
   .catch(console.log);
 }

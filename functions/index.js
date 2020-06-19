@@ -7,7 +7,7 @@ const admin = require('firebase-admin'); //initialize an admin app instance from
 admin.initializeApp();
 let db = admin.firestore();
 const stripe = require('stripe')('sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ', {apiVersion: ''});
-
+//here's the page for the stripe npm module https://github.com/stripe/stripe-node
 //express
 const express = require('express');
 const cors = require('cors');
