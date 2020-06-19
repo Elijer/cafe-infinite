@@ -92,6 +92,41 @@ app.get("/api", async (req, res) => {
 
 exports.app = functions.https.onRequest(app);
 
+exports.stripeState = functions.https.onCall((data, context) => {
+    // Message text passed from the client.
+    const text = data.text;
+    // Authentication / user information is automatically added to the request.
+    const uid = context.auth.uid;
+    const name = context.auth.token.name || null;
+    const picture = context.auth.token.picture || null;
+    const email = context.auth.token.email || null;
+    // error example #1
+    if (!(typeof text === 'string') || text.length === 0) {
+        // Throwing an HttpsError so that the client gets the error details.
+        throw new functions.https.HttpsError('invalid-argument', 'The function must be called with ' +
+            'one arguments "text" containing the message text to add.');
+    }
+    // error example #2
+    if (!context.auth) {
+        // Throwing an HttpsError so that the client gets the error details.
+        throw new functions.https.HttpsError('failed-precondition', 'The function must be called ' +
+            'while authenticated.');
+    }
+
+    //merge state with text input by client
+    var output = text + uid;
+    var data = {
+        state: output
+    }
+
+    return db.collection('businesses').doc(uid).set(data)
+    .then(() => {
+      console.log('New Message written');
+      // Returning the sanitized message to the client.
+      return { text: "Finished the job! Yay! State has been sent in"};
+    })
+});
+
 /*
 // build multiple CRUD interfaces:              CRUD stands for CREATE, READ, UPDATE, and DELETE. This is routing for direct database alterations!! Exciting!
 app.get('/:id', (req, res) => res.send(Widgets.getById(req.params.id)));

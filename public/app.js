@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
+  //const functions = firebase.functions();
+  /*
+  const firebase = require("firebase");
+  require("firebase/functions");
+  */
+
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 });
@@ -41,12 +47,19 @@ function googleLogin(){
 }
 
 function onboardBusiness(){
-  var onboardingURL;
-  var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state=";
-  var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
-  var state = "23823948qfnadgba8sas";
-  onboardingURL = firstChunk + state + secondChunk;
-  window.location.replace(onboardingURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
+  var stripeState = firebase.functions().httpsCallable('stripeState');
+  stripeState({text: "1234"}).then(function(result) {
+    var successfulState = result.data.text;
+    console.log(successfulState);
+  })
+  .then(() => {
+    var onboardingURL;
+    var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state=";
+    var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
+    var state = successfulState;
+    onboardingURL = firstChunk + state + secondChunk;
+    window.location.replace(onboardingURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
+  })
 }
 
 
