@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
+  var functions = firebase.functions();
   //const functions = firebase.functions();
   /*
   const firebase = require("firebase");
@@ -52,7 +53,7 @@ function onboardBusiness(){
     var successfulState = result.data.text;
     console.log(successfulState);
   })
-  .then(() => {
+  .then((successfulState) => {
     var onboardingURL;
     var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state=";
     var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";

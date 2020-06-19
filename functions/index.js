@@ -93,6 +93,19 @@ app.get("/api", async (req, res) => {
 exports.app = functions.https.onRequest(app);
 
 exports.stripeState = functions.https.onCall((data, context) => {
+    response.set('Access-Control-Allow-Origin', '*'); this might help for testing?
+
+    /* Okay so now the problems I'm having:
+    Well, state doesn't work because it doesn't match the one that's hard-coded in
+    from before. Also, it seems that when the stripe-business-onboarding link is pressed
+    and that new data with the state is passed it,
+    it overwrites all OTHER business data for that document. So I need to change
+    the way I do that so it doesn't do that. That's bad.
+    */
+
+    /* It would also be nice to figure out a way to test this better
+    locally, but nbd */
+
     // Message text passed from the client.
     const text = data.text;
     // Authentication / user information is automatically added to the request.
