@@ -51,6 +51,6 @@ body {
   }
 
   #business-login {
-    visibility: visible;
+    display: none;
     width: 35%;
   }

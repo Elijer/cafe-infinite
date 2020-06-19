@@ -13,7 +13,7 @@ function googleLogin(){
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider)
   .then(result => {
-      document.getElementById("business-login").style.visibility = 'visible';
+      document.getElementById("business-login").style.display = 'inline';
       const user = result.user;
       document.getElementById("banner-login").innerText = `${user.displayName}`;
 
