@@ -16,7 +16,6 @@ app.use(cors({ origin: true }));
 // Route that Stripe uses when onboarding is complete
 app.get("/api", async (req, res) => {
     const { code, state } = req.query;
-
     /*>> [2] TO CODE:
     (1) separate the state variable here into state and uid.
     (2) Use the UID to query firestore for a current business. (or use cookies/user sessions to do this)
@@ -24,9 +23,19 @@ app.get("/api", async (req, res) => {
     (4) Compare that state with the one from (1)
     (5) Throw an error if they are not the same
     (6) If they are the same, DELETE the state from the database and then continue*/
-    if(state != "23823948qfnadgba8sas") { //state is currently hard-coded
+
+    console.log(state);
+
+    /*
+    var thing = "12345678912letters";
+    var one = thing.substring(0, 11);
+    var two = thing.slice(11);
+    console.log(two);
+    */
+
+    /*if(state != "23823948qfnadgba8sas") {
       return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
-    }
+    }*/
   
     // Send the authorization code to Stripe's API.
     stripe.oauth.token({
