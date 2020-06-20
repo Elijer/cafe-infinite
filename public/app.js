@@ -50,17 +50,18 @@ function googleLogin(){
 function onboardBusiness(){
   var stripeState = firebase.functions().httpsCallable('stripeState');
   stripeState({text: "1234"}).then(function(result) {
-    var successfulState = result.data.text;
-    console.log(successfulState);
+    var returnedURL = result.data.text;
+    console.log("new state in database, URL returned successfully, redirecting now")
   })
-  .then((successfulState) => {
-    var onboardingURL;
-    var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state=";
-    var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
-    var state = successfulState;
-    onboardingURL = firstChunk + state + secondChunk;
-    window.location.replace(onboardingURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
+  .then((returnedURL) => {
+    console.log(returnedURL);
+    //window.location.replace(returnedURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
   })
+}
+
+function randomEleven(){
+  //return a random alphanumeric string with 11 digits
+  return Math.random().toString(36).slice(2);
 }
 
 
@@ -78,3 +79,14 @@ function onboardBusiness(){
   test URL // https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
   real URL // https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
   */
+
+
+
+  /*function randomStr(length, characters) { //console.log(randomStr(8, '123456abcdefg'));
+  var ans = ''; 
+  for (var i = length; i > 0; i--) { 
+      ans +=  
+        characters[Math.floor(Math.random() * characters.length)]; 
+  } 
+  return ans; 
+}*/
