@@ -49,15 +49,12 @@ function googleLogin(){
 
 function onboardBusiness(){
   var stripeState = firebase.functions().httpsCallable('stripeState');
-  stripeState({text: "1234"}).then(function(result) {
-    var returnedURL = result.data.text;
+  stripeState({text: "1234"})
+  .then(function(result){
     console.log("new state in database, URL returned successfully, redirecting now");
     console.log(returnedURL);
-  })
-  .then(result => {
-    //console.log(returnedURL);
-    //window.location.replace(returnedURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
-    window.open(result.data.text, '_blank');
+    var returnedURL = result.data.text;
+    window.location.replace(returnedURL);
   })
 }
 
