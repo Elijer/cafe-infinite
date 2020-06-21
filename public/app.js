@@ -2,19 +2,10 @@ document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
   var functions = firebase.functions();
-  //const functions = firebase.functions();
-  /*
-  const firebase = require("firebase");
-  require("firebase/functions");
-  */
-
+  //do I need to 'require' any of these?
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 });
-
-function createState(){
-  console.log("state Created");
-}
 
 function googleLogin(){
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -29,8 +20,6 @@ function googleLogin(){
 
       usersRef.get()
         .then((docSnapshot) => {
-          //you can make it so that if it doesn't exist, you add a login time. Idk why exactly I'd need that,
-          //but it's something to do.
           if (!docSnapshot.exists) {
             let data = {
               name: user.displayName,
@@ -38,7 +27,7 @@ function googleLogin(){
               profilePic: user.photoURL,
               createdAt: new Date()
             };
-            usersRef.set(data) // create the document
+            usersRef.set(data, {merge: true}) // create the document
             console.log("new user created with the following data " + data);
           }
       })
@@ -48,11 +37,18 @@ function googleLogin(){
 }
 
 function onboardBusiness(){
+  var user = firebase.auth().currentUser;
+  console.log(user);
+  if (!user){
+    alert("you have to be logged in to register your business with Cafe Infinite!");
+    return;
+  } else {
+    console.log("the user is " + user.displayName);
+  }
   var stripeState = firebase.functions().httpsCallable('stripeState');
   stripeState({text: "1234"})
   .then(function(result){
     console.log("new state in database, URL returned successfully, redirecting now");
-    console.log(returnedURL);
     var returnedURL = result.data.text;
     window.location.replace(returnedURL);
   })

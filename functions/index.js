@@ -60,7 +60,7 @@ app.get("/api", async (req, res) => {
             stripeBusinessID: connected_account_id,
           };
 
-        let id = db.collection('businesses').doc(justUID).set({data}, {merge: true});
+        let id = db.collection('businesses').doc(justUID).set(data, {merge: true});
   
         /*>> [3] TO CODE: This is where I will redirect user to their business portal*/
         // Render some HTML or redirect to a different page.
