@@ -51,11 +51,13 @@ function onboardBusiness(){
   var stripeState = firebase.functions().httpsCallable('stripeState');
   stripeState({text: "1234"}).then(function(result) {
     var returnedURL = result.data.text;
-    console.log("new state in database, URL returned successfully, redirecting now")
-  })
-  .then((returnedURL) => {
+    console.log("new state in database, URL returned successfully, redirecting now");
     console.log(returnedURL);
-    window.location.replace(returnedURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
+  })
+  .then(result => {
+    //console.log(returnedURL);
+    //window.location.replace(returnedURL); //Note: The difference between href and replace, is that replace() removes the URL of the current document from the document history, meaning that it is not possible to use the "back" button to navigate back to the original document.
+    window.open(result.data.text, '_blank');
   })
 }
 
