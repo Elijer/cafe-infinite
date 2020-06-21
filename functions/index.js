@@ -29,6 +29,7 @@ app.get("/api", async (req, res) => {
     var justState = state.substring(0, 11);
     var justUID = state.slice(11);
     let docRef = db.collection('businesses').doc(justUID);
+    //get state field of doc with corredct uid to see if that state parameter matches
     let getDoc = docRef.get()
       .then(doc => {
         if (!doc.exists) {
@@ -56,14 +57,15 @@ app.get("/api", async (req, res) => {
       (response) => {
         var connected_account_id = response.stripe_user_id;
         let data = {
-            businessID: connected_account_id,
+            stripeBusinessID: connected_account_id,
           };
 
-        let id = db.collection('businesses').doc('firstBiz').set(data);
+        let id = db.collection('businesses').doc(justUID).set({data}, {merge: true});
   
         /*>> [3] TO CODE: This is where I will redirect user to their business portal*/
         // Render some HTML or redirect to a different page.
-        return res.status(200).json({success: true});
+        //return res.status(200).json({success: true});
+        return res.redirect('/stripe_return.html');
       },
       (err) => {
         if (err.type === 'StripeInvalidGrantError') {
