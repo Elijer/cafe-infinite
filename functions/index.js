@@ -24,18 +24,29 @@ app.get("/api", async (req, res) => {
     (5) Throw an error if they are not the same
     (6) If they are the same, DELETE the state from the database and then continue*/
 
-    console.log(state);
-
-    /*
-    var thing = "12345678912letters";
-    var one = thing.substring(0, 11);
-    var two = thing.slice(11);
-    console.log(two);
-    */
-
-    /*if(state != "23823948qfnadgba8sas") {
-      return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
-    }*/
+    //separate state from UID (they are passed back together as a single string, state first, then UID)
+    //And alternative to this is getting the UID from a session variable/a cookie, but I haven't looked into it yet.
+    var justState = state.substring(0, 11);
+    var justUID = state.slice(11);
+    let docRef = db.collection('businesses').doc(justUID);
+    let getDoc = docRef.get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('No such document!');
+        } else {
+          //console.log('Document data:', doc.data().state);
+          if (justState == doc.data().state){
+            console.log("the returned state matches!")
+          } else if (justState != doc.data().state){
+            return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
+          } else {
+            return res.status(403).json({ error: 'Incorrect and possibly missing state parameter: ' + state });
+          }
+        }
+      })
+      .catch(err => {
+        console.log('Error getting document', err);
+      });
   
     // Send the authorization code to Stripe's API.
     stripe.oauth.token({
