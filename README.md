@@ -6,15 +6,18 @@ This repo is a boiler-plate for integrating Stripe Connect features with Firebas
 **Stripe**: Probably the most widely-used API for managing different kinds of payments online. Useful for entrepreneurs building web marketplaces or platforms.
 
 ### Table of Contents
-1. Stripe
-   1. Signing Up
-   1. Business Onboarding
-   1. Accept a Payment
-   1. Dev Tips
-1. Firebase
-   1. Getting Started
-   1. Pain Points
-   1. Using the Emulators
+- [Stripe](#stripe)
+    + [Signing Up](#signing-up)
+    + [Business Onboarding](#business-onboarding)
+    + [Accept a Payment](#accept-a-payment)
+    + [Dev Tips](#dev-tips)
+- [FireBase](#firebase)
+    + [Getting Started](#getting-started)
+        * [General Pain Points](#general-pain-points)
+    + [Using the Emulators](#using-the-emulators)
+        * [Pain Points](#pain-points)
+        
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 <br/><br/>
 
