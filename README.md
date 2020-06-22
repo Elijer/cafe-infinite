@@ -1,9 +1,22 @@
 # About
-This repo is a boiler-plate I am building as I learn to integrate different Stripe features with firebase. I ultimately plan on incorporating it into another project, but as I'm new to both Stripe and Firebase, I thought I would create an isolated version that I could refer back to in the future and build upon. For one, Stripe is really useful if you're creating any kind of business online. Secondly, Firebase is looking hella powerful and Stripe is a diverse API that brings out a lot of Firebases cool features and puts them out in the open. If you are using these two technologies together, I hope that this is a useful reference for how they integrate.
+This repo is a boiler-plate for integrating Stripe Connect features with Firebase.
 
-* **Firebase**: A rapid development web-development tool released by google in 2018. It modularly allows for the convenient integration of a database, hosting, a testing suite, file storage, and cloud functions. If you're interested in learning more, [this is the intro](https://www.youtube.com/watch?v=9kRgVxULbag) that peaked my interest initially.
+**Firebase**: A rapid development web-development tool released by google in 2018. It modularly allows for the convenient integration of a database, hosting, a testing suite, file storage, and cloud functions. If you're interested in learning more, [this is the intro](https://www.youtube.com/watch?v=9kRgVxULbag) that peaked my interest initially.
 
-* **Stripe** is probably the most widely-used (at least by developers) and feature-rich API for managing different kinds of payments online.
+**Stripe**: Probably the most widely-used API for managing different kinds of payments online. Useful for entrepreneurs building web marketplaces or platforms.
+
+### Table of Contents
+1. Stripe
+  1. Signing Up
+  1. Business Onboarding
+  1. Accept a Payment
+  1. Dev Tips
+1. Firebase
+  1. Getting Started
+  1. Pain Points
+  1. Using the Emulators
+    1. Pain Points
+
 <br/><br/>
 
 # Stripe
@@ -23,7 +36,7 @@ Securely onboard new businesses through a link and upon return to a stripe-facin
 This is a continuation of accepting direct payments, [also outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide). I haven't gotten here yet.
 <br/>
 
-### Tips
+### Dev Tips
 * If you are logged in, the code snippets in the docs include your various api keys automatically in them, so you can just copy and paste them
 * If you actually want to use stripe, you need to get your Connect Account authorized by stripe by sending in a Platform Profile. Hypothetically, stripe can reject this, so it might be a good idea to get it accepted before continuing on with development.
 * Stripe offers many products. Connect is just one of them. If you are interested in creating a store just for yourself, Connect is far more elaborate than you need. Or if you want to make it easy for people to donate to you, Paypal or Patreon could easily be better options.
@@ -48,7 +61,7 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 * You're getting `npm WARN enoent ENOENT: no such file or directory`. Are you in the ``function`` folder of your firebase project? Cause you should be.
 </br>
 
-### Setting up Emulators
+### Using the Emulators
 By running ```firebase serve``` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite. I'm still figuring it out.
 
 * [Google.Dev? What is this?](https://google.dev/pathways/firebase-emulators)
