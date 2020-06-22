@@ -15,7 +15,7 @@ This repo is a boiler-plate for integrating Stripe Connect features with Firebas
    1. Getting Started
    1. Pain Points
    1. Using the Emulators
-      1. Pain Points
+     1. Pain Points
 
 <br/><br/>
 
