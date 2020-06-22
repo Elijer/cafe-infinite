@@ -33,6 +33,9 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 (8) To serve app locally: `firebase serve` (you’ll find it on localhost:5000)
 (9) To deploy it to the inter webs, run `firebase deploy`. This will give you back a live URL
 
+#### Paint Points
+(1) If you're getting this error from NPM: pm WARN enoent ENOENT: no such file or directory, it's because you're trying to run NPM functions from the `functions` directory in your firebase project. Switch up to the main Firebase Directory. If that's not it, [try this](https://github.com/visionmedia/debug/issues/261)
+
 ### Setting up Emulators for Firebase
 By running `firebase serve` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite. I'm still figuring it out.
 
@@ -42,17 +45,14 @@ By running `firebase serve` in your app, you can run your app locally, which is 
 (3) [Run Functions Locally](https://firebase.google.com/docs/functions/local-emulator)
 (4) Run Firestore locally ---- Haven't found a link for this yet.
 
-### Commands
+#### Commands
 `firebase emulators:start`
 
-### Notes
+#### Notes
 * `localhost:500` is still the default address for your index.html to run
 * `localhost:900` is the default emulator suite dashboard port
 
-
-
-
-###Pain Points
+#### Pain Points
 (1) Make absolute sure that your JAVA Developer Kit (JDK) [is fully updated or the emulator suite won't work.](https://stackoverflow.com/questions/56819840/firebase-cloud-functions-emulator-throws-exited-with-code-1-error) The short way to check this is 
 (2) You should probably make sure your Firebase CLI tools are up to date for good measure. Useful commands: `firebase --version`, `npm install firebase-tools` 
 
