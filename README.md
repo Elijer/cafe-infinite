@@ -6,7 +6,6 @@ Stripe is probably the most widely-used (at least by developers) and feature-ric
 This repo is a boiler-plate I am building as I learn to integrate different Stripe features with firebase. I ultimately plan on incorporating it into another project, but as I'm new to both Stripe and Firebase, I thought I would create an isolated version that I could refer back to in the future and build upon. For one, Stripe is really useful if you're creating any kind of business online. Secondly, Firebase is looking hella powerful and Stripe is a diverse API that brings out a lot of Firebases cool features and puts them out in the open.
 
 If you are using these two technologies together, I hope that this is a useful reference for how they integrate.
-<br/><br/><br/>
 
 # Stripe
 #### (0) Signing Up
