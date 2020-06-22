@@ -8,9 +8,9 @@ This repo is a boiler-plate for integrating Stripe Connect features with Firebas
 ### Table of Contents
 1. Stripe
   1. Signing Up
-   1. Business Onboarding
-   1. Accept a Payment
-   1. Dev Tips
+  1. Business Onboarding
+  1. Accept a Payment
+  1. Dev Tips
 1. Firebase
   1. Getting Started
   1. Pain Points
