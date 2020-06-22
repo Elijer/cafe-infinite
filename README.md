@@ -6,6 +6,7 @@ Stripe is probably the most widely-used (at least by developers) and feature-ric
 This repo is a boiler-plate I am building as I learn to integrate different Stripe features with firebase. I ultimately plan on incorporating it into another project, but as I'm new to both Stripe and Firebase, I thought I would create an isolated version that I could refer back to in the future and build upon. For one, Stripe is really useful if you're creating any kind of business online. Secondly, Firebase is looking hella powerful and Stripe is a diverse API that brings out a lot of Firebases cool features and puts them out in the open.
 
 If you are using these two technologies together, I hope that this is a useful reference for how they integrate.
+<br/><br/>
 
 # Stripe
 #### (0) Signing Up
@@ -17,6 +18,7 @@ Securely onboard new businesses through a link and upon return to a stripe-facin
 
 #### (2) Accept a Payment
 This is a continuation of accepting direct payments, [also outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide). I haven't gotten here yet.
+<br/><br/>
 
 # FireBase
 If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship](https://www.youtube.com/watch?v=9kRgVxULbag) and then [get acquainted with the docs here](https://firebase.google.com/docs). I set up my first few projects by watching the Fireship video above, but also referenced [this page in the docs](https://firebase.google.com/docs/web/setup), which is a bit confusing. You'll be using the CLI (command line tools) heavily to use firebase. [Here is a link if you have any questions about the firebase CLI tools](https://firebase.google.com/docs/cli#mac-linux-npm). I've added my own list of steps below that hopefully simplify the process further:
@@ -54,7 +56,8 @@ By running `firebase serve` in your app, you can run your app locally, which is 
 
 #### Pain Points
 (1) Make absolute sure that your JAVA Developer Kit (JDK) [is fully updated or the emulator suite won't work.](https://stackoverflow.com/questions/56819840/firebase-cloud-functions-emulator-throws-exited-with-code-1-error) The short way to check this is 
-(2) You should probably make sure your Firebase CLI tools are up to date for good measure. Useful commands: `firebase --version`, `npm install firebase-tools` 
+(2) You should probably make sure your Firebase CLI tools are up to date for good measure. Useful commands: `firebase --version`, `npm install firebase-tools`
+<br/><br/>
 
 ### Google Maps
 I will be using the Google maps API, and possibly other google cloud APIs. We'll see.
