@@ -17,7 +17,7 @@ This repo is a boiler-plate for integrating Stripe Connect features with Firebas
     + [Using the Emulators](#using-the-emulators)
         * [Pain Points](#pain-points)
         
-*Table of contents generated with* [markdown-toc](http://ecotrust-canada.github.io/markdown-toc/)
+*Table of contents generated with markdown-toc:* [check it out](http://ecotrust-canada.github.io/markdown-toc/)
 
 <br/><br/>
 
