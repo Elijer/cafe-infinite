@@ -45,7 +45,7 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 1. To deploy it to the inter webs, run `firebase deploy`. This will give you back a live URL
 
 ##### General Pain Points
-* You're getting `npm WARN enoent ENOENT: no such file or directory`. Are you in the `functions` directory of your firebase project? You have to be in the main directory. If that's not it, [try this](https://github.com/visionmedia/debug/issues/261). You can also [look at this](https://github.com/firebase/firebase-admin-node/issues/121)
+* You're getting `npm WARN enoent ENOENT: no such file or directory`. Are you in the ``function`` folder of your firebase project? Cause you should be.
 </br>
 
 ### Setting up Emulators
