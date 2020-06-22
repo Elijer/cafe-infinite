@@ -21,6 +21,7 @@ Securely onboard new businesses through a link and upon return to a stripe-facin
 
 ### Accept a Payment
 This is a continuation of accepting direct payments, [also outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide). I haven't gotten here yet.
+<br/>
 
 ### Tips
 * If you are logged in, the code snippets in the docs include your various api keys automatically in them, so you can just copy and paste them
@@ -44,16 +45,17 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 1. To deploy it to the inter webs, run `firebase deploy`. This will give you back a live URL
 
 ##### General Pain Points
-* If you're getting this error from NPM: pm WARN enoent ENOENT: no such file or directory, it's because you're trying to run NPM functions from the `functions` directory in your firebase project. Switch up to the main Firebase Directory. If that's not it, [try this](https://github.com/visionmedia/debug/issues/261)
+* You're getting `npm WARN enoent ENOENT: no such file or directory`. Are you in the `functions` directory of your firebase project? You have to be in the main directory. If that's not it, [try this](https://github.com/visionmedia/debug/issues/261)
 </br>
 
-### Setting up Emulators for Firebase
+### Setting up Emulators
 By running ```firebase serve``` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite. I'm still figuring it out.
 
 * [Google.Dev? What is this?](https://google.dev/pathways/firebase-emulators)
 * [Install, configure and integrate Local Emulator Suite](https://firebase.google.com/docs/emulator-suite/install_and_configure?authuser=0)
 * [Run Functions Locally](https://firebase.google.com/docs/functions/local-emulator)
 * Run Firestore locally ---- Haven't found a link for this yet.
+</br>
 
 ##### Pain Points
 * Make absolute sure that your JAVA Developer Kit (JDK) [is fully updated or the emulator suite won't work.](https://stackoverflow.com/questions/56819840/firebase-cloud-functions-emulator-throws-exited-with-code-1-error) The short way to check this is 
