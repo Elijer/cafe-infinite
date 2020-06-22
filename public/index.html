@@ -6,12 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- update the version number as needed -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
     <script defer src="/__/firebase/7.14.4/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/7.14.4/firebase-auth.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-firestore.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-messaging.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-storage.js"></script>
+    <script defer src="/__/firebase/7.14.4/firebase-functions.js"></script>
 
     
     <!-- initialize the SDK after all desired features are loaded -->
@@ -30,29 +33,21 @@
   </head>
 
   <body>
-    <!--HTML-->
-    <div id="banner">
-      <button id="banner-title" class = "top" onclick = "uploadClick()">
-        <input id = "uploadInput" type = "file" onchange = "uploadFile(this.files)">
-        <span id = "fade-in"> cafe infinite </span>
-      </button>
-      <button id="banner-login" class = "top" onclick = "googleLogin()">
-        <span id = "fade-in"> login </span>
-      </button>
-    </div>
+    <!--Normal Login-->
+    <button id="banner-login" class = "top" onclick = "googleLogin()">
+      <span id = "fade-in"> loading... </span>
+    </button>
 
-    <img id = "imgUpload" src = "" width = "100">
-    
-    <div id = "theList"></div>
+    <!-- Business Login that appears after normal login -->
+    <a id = "business-login" onClick = "onboardBusiness()">
+      <span id = "fade-in"> Are you a business? </span>
+    </a>
 
-    <div id="map">
-    </div>
+    <!-- Link to go to the business page
+    <a href = "stripe_return.html"> click here to go to page 2! </a>
+    -->
 
-
-    <!--JS-->
     <script src = "/app.js">
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcFvCdo_5DPAUfRdhVq8sttNxwLAhLpUI&callback=initMap"
-    async defer></script>
   </body>
 </html>

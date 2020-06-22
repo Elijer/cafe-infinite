@@ -34,9 +34,10 @@ body {
     outline:0; /* gets rid of blue outline when clicked */
   }
 
+  /*
   #map {
     height: 100%;
-  }
+  }*/
 
   html, body {
     height: 100%;
@@ -47,4 +48,10 @@ body {
   /*this hides the input that ends up getting used with JS */
   #uploadInput {
     display: none;
+  }
+
+  #business-login {
+    display: inline;
+    /*production>> display: none; */
+    width: 35%;
   }
