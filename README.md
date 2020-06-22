@@ -21,7 +21,7 @@ This is a continuation of accepting direct payments, [also outlined here on the 
 # FireBase
 If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship](https://www.youtube.com/watch?v=9kRgVxULbag) and then [get acquainted with the docs here](https://firebase.google.com/docs). I set up my first few projects by watching the Fireship video above, but also referenced [this page in the docs](https://firebase.google.com/docs/web/setup), which is a bit confusing. You'll be using the CLI (command line tools) heavily to use firebase. [Here is a link if you have any questions about the firebase CLI tools](https://firebase.google.com/docs/cli#mac-linux-npm). I've added my own list of steps below that hopefully simplify the process further:
 
-## Getting Started
+### Getting Started
 (2) Go to firebase.com, log in with a google acount, and create a firebase project.
 (1) Download Node.js on your machine
 (3) Create empty directory on your computer and name it the same as the project you created on firebase.com
@@ -33,13 +33,24 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 (8) To serve app locally: `firebase serve` (you’ll find it on localhost:5000)
 (9) To deploy it to the inter webs, run `firebase deploy`. This will give you back a live URL
 
-## Setting up Emulators for Firebase
-By running `firebase serve` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite
+### Setting up Emulators for Firebase
+By running `firebase serve` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite. I'm still figuring it out.
 
+### Reading
+(1) [Google.Dev? What is this?](https://google.dev/pathways/firebase-emulators)
+(2) [Install, configure and integrate Local Emulator Suite](https://firebase.google.com/docs/emulator-suite/install_and_configure?authuser=0)
+(3) [Run Functions Locally](https://firebase.google.com/docs/functions/local-emulator)
+(4) Run Firestore locally ---- Haven't found a link for this yet.
+
+### Commands
 `firebase emulators:start`
 
+### Notes
 * `localhost:500` is still the default address for your index.html to run
 * `localhost:900` is the default emulator suite dashboard port
+
+
+
 
 ###Pain Points
 (1) Make absolute sure that your JAVA Developer Kit (JDK) [is fully updated or the emulator suite won't work.](https://stackoverflow.com/questions/56819840/firebase-cloud-functions-emulator-throws-exited-with-code-1-error) The short way to check this is 
