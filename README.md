@@ -5,11 +5,11 @@ Stripe is probably the most widely-used (at least by developers) and feature-ric
 
 This repo is a boiler-plate I am building as I learn to integrate different Stripe features with firebase. I ultimately plan on incorporating it into another project, but as I'm new to both Stripe and Firebase, I thought I would create an isolated version that I could refer back to in the future and build upon. For one, Stripe is really useful if you're creating any kind of business online. Secondly, Firebase is looking hella powerful and Stripe is a diverse API that brings out a lot of Firebases cool features and puts them out in the open.
 
-If you are using these two technologies together, I hope that this is a useful reference for how they integrate.
+If you are using these two technologies together, I hope that this is a useful reference for how they integrate. &nbsp;  
 
 # Stripe
 #### (0) Signing Up
-To sign up for a stripe account, create a stripe account. Then create a stripe connect account and fill out the Platform Profile, which will allow you to move forward with both testing stripe connect AND give you recommenation of what stripe Connect Connected Account type you'll want to use: Standard, Express, Or Custom (I'm using Standard in this repo, as I said above.)
+To sign up for a stripe account, create a stripe account. Then create a stripe connect account and fill out the Platform Profile, which will allow you to move forward with both testing stripe connect AND give you recommenation of what stripe Connect Connected Account type you'll want to use: Standard, Express, Or Custom (I'm using Standard in this repo, as I said above). 
 
 #### (1) Business Onboarding
 This is a part of the process of accepting direct payments [as outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide)
