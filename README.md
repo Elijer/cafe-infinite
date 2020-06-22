@@ -1,4 +1,4 @@
-# Cafe-infinite
+# Firestripe
 You can check out my progress here, probably: https://cafe-infinite.web.app/
 
 ### About
