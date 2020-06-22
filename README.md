@@ -34,7 +34,7 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 (9) To deploy it to the inter webs, run `firebase deploy`. This will give you back a live URL
 
 #### Paint Points
-(1) If you're getting this error from NPM: pm WARN enoent ENOENT: no such file or directory, it's because you're trying to run NPM functions from the `functions` directory in your firebase project. Switch up to the main Firebase Directory. If that's not it, [try this](https://github.com/visionmedia/debug/issues/261)
+(1) If you're getting this error from NPM: pm WARN enoent ENOENT: no such file or directory, it's because you're trying to run NPM functions from the `functions` directory in your firebase project. Switch up to the main Firebase Directory. If that's not it, [try this](https://github.com/visionmedia/debug/issues/261) 
 
 ### Setting up Emulators for Firebase
 By running `firebase serve` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite. I'm still figuring it out.
