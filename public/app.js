@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", event => {
     const app = firebase.app();
-
     const db = firebase.firestore();
 
     //const products = db.collection('products').doc('HzTEK6EP0ekwxeSVwx1n');
@@ -38,8 +37,6 @@ document.addEventListener("DOMContentLoaded", event => {
             newElement(data.name + " at $" + data.price);
           })
         })
-
-
 });
 
 function newElement(theText){
