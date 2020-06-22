@@ -55,7 +55,6 @@ By running ```firebase serve``` in your app, you can run your app locally, which
 * [Install, configure and integrate Local Emulator Suite](https://firebase.google.com/docs/emulator-suite/install_and_configure?authuser=0)
 * [Run Functions Locally](https://firebase.google.com/docs/functions/local-emulator)
 * Run Firestore locally ---- Haven't found a link for this yet.
-</br>
 
 ##### Pain Points
 * Make absolute sure that your JAVA Developer Kit (JDK) [is fully updated or the emulator suite won't work.](https://stackoverflow.com/questions/56819840/firebase-cloud-functions-emulator-throws-exited-with-code-1-error) The short way to check this is 
