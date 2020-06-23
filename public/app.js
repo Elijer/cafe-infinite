@@ -1,12 +1,64 @@
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
+
+  if (window.location.hostname === "localhost") {
+    console.log("localhost detected!");
+    db.settings({
+      host: "localhost:8080",
+      ssl: false
+    });
+  }
+
   var functions = firebase.functions();
   //do I need to 'require' any of these?
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 });
 
+function anonLogin(){
+  firebase.auth().signInAnonymously().catch(function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log("There is an error with the login of code: " + errorCode + " and message: " + errorMessage);
+  })
+  .then( result => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        console.log("User is: " + uid + " .Is anonymous? " + isAnonymous);
+  
+        document.getElementById("business-login").style.display = 'inline';
+        document.getElementById("banner-login").style.fontSize = '30px';
+        document.getElementById("banner-login").style.width = '45%';
+        document.getElementById("banner-login").innerText = `${uid}`;
+  
+        const db = firebase.firestore();
+        const usersRef = db.collection('businesses').doc(uid);
+  
+        usersRef.get()
+          .then((docSnapshot) => {
+            if (!docSnapshot.exists) {
+              let data = {
+                isAnonymous: isAnonymous,
+                createdAt: new Date()
+              };
+              usersRef.set(data, {merge: true}) // create the document
+              console.log("new user created with the following data " + data);
+            }
+          })
+        .catch(console.log);
+      } else {
+        console.log("user is not signed in");
+      }
+    });
+  })
+}
+
+
+/*
 function googleLogin(){
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider)
@@ -35,6 +87,8 @@ function googleLogin(){
   })
   .catch(console.log);
 }
+*/
+
 
 function onboardBusiness(){
   var user = firebase.auth().currentUser;

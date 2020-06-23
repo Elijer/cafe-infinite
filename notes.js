@@ -1,7 +1,9 @@
 /*
 
+0. Business stripe
 1. If the "are you a business" button is pressed multiple times before the page redirects
-the wrong state gets used
+the wrong state gets used. Avoid this, but if this error DOES happen, should return user back
+to a page where they can try again
 2. Can go through the "are you a business" without logging in. currently that's because
 the button is not active. However, this shouldn't even be possible in the server --
 the 
