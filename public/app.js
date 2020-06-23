@@ -1,3 +1,12 @@
+/* Instructions for changing to server-facing
+instead of emulator-facing:
+1. get rid of if (window.location.hostname === "localhost") codeblock
+2. anonlogin
+3. Consider firestore rules
+4. Possibly disable anonymous auth on firebase console
+
+*/
+
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
