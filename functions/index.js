@@ -4,6 +4,14 @@ const admin = require('firebase-admin'); //initialize an admin app instance from
 admin.initializeApp();
 let db = admin.firestore();
 
+<<<<<<< HEAD
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+exports.helloWorld = functions.https.onRequest((request, response) => {
+    response.send("Hello from Firebase!");
+});
+=======
 //stripe
 const stripe = require('stripe')('sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ', {apiVersion: ''});
 
@@ -268,3 +276,4 @@ exports.addState = db.collection('states').add({
         setting data to the database here already. I can do that
         at least.
         */
+>>>>>>> cc63b24b33a9f56da84f89e8a7547387840d8360
