@@ -4,6 +4,7 @@ instead of emulator-facing:
 2. anonlogin
 3. Consider firestore rules
 4. Possibly disable anonymous auth on firebase console
+5. Change stripe tag in index.html to https if it is http only
 
 */
 
@@ -20,7 +21,6 @@ document.addEventListener("DOMContentLoaded", event => {
   }
 
   var functions = firebase.functions();
-  //do I need to 'require' any of these?
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 });
@@ -55,7 +55,7 @@ function anonLogin(){
                 createdAt: new Date()
               };
               usersRef.set(data, {merge: true}) // create the document
-              console.log("new user created with the following data " + data);
+              console.log("new user created with the following data " + user);
             }
           })
         .catch(console.log);
