@@ -25,16 +25,13 @@ This repo is a boiler-plate for integrating Stripe Connect features with Firebas
 * Fill out the Platform Profile, which will allow you to move forward with both testing stripe connect AND give you recommenation of what stripe Connect Connected Account type you'll want to use: Standard, Express, Or Custom (I'm using Standard in this repo, as I said above).
 * Begin exploring the Stripe website, which is pretty elaborate
 * In particular, begin exploring the stripe docs at [stripe.com/docs](https://stripe.com/docs), which are also intimidating, but are pretty impressively organized once you get used to them.
-<br/>
 
 ### Business Onboarding
 This is a part of the process of accepting direct payments [as outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide)
 Securely onboard new businesses through a link and upon return to a stripe-facing URI, save the business's ID to firestore. Stripe refers to this as "Stripe Connect" for "Standard Accounts". This project only focuses on onboarding "Standard Accounts" because Stipe requires a lot of information from the business and consequently volunteers to cover financial disputes. However, "Express Accounts" represent another option that can be used with Stripe Connect and are attractive because they require less information and have a more visually simple (and pretty) onboarding interface that would essentially make for a much faster (hence "express) and less intimidating onboarding process for potential business partners. However, Stripe does NOT assume liability for these businesses, which is why they are probably not a good choice for a budding online marketplace with limited (read "no") legal and financial staff.
-<br/>
 
 ### Accept a Payment
 This is a continuation of accepting direct payments, [also outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide). I haven't gotten here yet.
-<br/>
 
 ### Dev Tips
 * If you are logged in, the code snippets in the docs include your various api keys automatically in them, so you can just copy and paste them
@@ -59,7 +56,6 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 
 ##### General Pain Points
 * You're getting `npm WARN enoent ENOENT: no such file or directory`. Are you in the ``function`` folder of your firebase project? Cause you should be.
-</br>
 
 ### Using the Emulators
 By running ```firebase serve``` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite.
