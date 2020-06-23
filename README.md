@@ -62,9 +62,11 @@ If you're new to firebase, [watch this tutorial by the amazing youtuber Fireship
 </br>
 
 ### Using the Emulators
-By running ```firebase serve``` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite. I'm still figuring it out.
+By running ```firebase serve``` in your app, you can run your app locally, which is awesome. It runs fast. However, firebase has an even more powerful tool at your disposal for full local testing, from firestore to cloud functions. It's called the emulators suite.
 
-* [Google.Dev? What is this?](https://google.dev/pathways/firebase-emulators)
+[**Here's is a google code lab**](https://google.dev/pathways/firebase-emulators) to learn how to use it correctly. Tips: when it says 'use default', it means actually type out 'default', not your project ID. It doesn't matter what project you use.
+
+##### Other Links
 * [Install, configure and integrate Local Emulator Suite](https://firebase.google.com/docs/emulator-suite/install_and_configure?authuser=0)
 * [Run Functions Locally](https://firebase.google.com/docs/functions/local-emulator)
 * Run Firestore locally ---- Haven't found a link for this yet.
