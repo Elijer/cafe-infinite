@@ -3,38 +3,17 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-<<<<<<< HEAD
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint"
-    ]
-  },
-=======
->>>>>>> cc63b24b33a9f56da84f89e8a7547387840d8360
   "hosting": {
     "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-<<<<<<< HEAD
-    ]
-=======
     ],
-<<<<<<< HEAD
-    "rewrites": [
-      {
-        "source": "**",
-        "function": "app"
-      }
-    ]
-=======
     "rewrites": [ {
       "source": "**",
       "function": "app"
     } ]
->>>>>>> cc63b24b33a9f56da84f89e8a7547387840d8360
->>>>>>> 6f9dec1b48576bcf948c13724a81013ea7b70eff
   },
   "storage": {
     "rules": "storage.rules"
@@ -50,12 +29,8 @@
       "port": 5000
     },
     "ui": {
-<<<<<<< HEAD
-      "enabled": true
-=======
       "enabled": true,
       "port": "9000"
->>>>>>> cc63b24b33a9f56da84f89e8a7547387840d8360
     }
   }
 }
