@@ -62,6 +62,20 @@ By running ```firebase serve``` in your app, you can run your app locally, which
 
 [**Here's is a google code lab**](https://google.dev/pathways/firebase-emulators) to learn how to use it correctly. Tips: when it says 'use default', it means actually type out 'default', not your project ID. It doesn't matter what project you use.
 
+In order to direct the code in your public folder to talk to firestore emulator and/or the functions emulator instead of the REAL firestore or the REAL functions, add this block in:
+
+````
+  if (window.location.hostname === "localhost") {
+    firebase.functions().useFunctionsEmulator("http://localhost:5001"); //enforces functions to run through functions emulator
+    console.log("localhost detected!");
+    db.settings({ //directs firestore to run through firestore emulator
+      host: "localhost:8080",
+      ssl: false
+    });
+  }
+````
+It should live inside of whatever codes when your doc loads. Make sure it is after wherever you load your app, db and functions.
+
 ##### Other Links
 * [Install, configure and integrate Local Emulator Suite](https://firebase.google.com/docs/emulator-suite/install_and_configure?authuser=0)
 * [Run Functions Locally](https://firebase.google.com/docs/functions/local-emulator)
