@@ -1,3 +1,7 @@
+/* CURRENT PROBLEM >> STATE is still being sent to the actual server and not
+The emulators, even though the routing IS being applied to localhost, and the database
+is running on localhost as well. Dunno what that's about */
+
 /* Instructions for changing to server-facing
 instead of emulator-facing:
 1. get rid of if (window.location.hostname === "localhost") codeblock

@@ -16,16 +16,6 @@ app.use(cors({ origin: true }));
 // Route that Stripe uses when onboarding is complete
 app.get("/api", async (req, res) => {
     const { code, state } = req.query;
-    /*>> [2] TO CODE:
-    (1) separate the state variable here into state and uid.
-    (2) Use the UID to query firestore for a current business. (or use cookies/user sessions to do this)
-    (3) Get the state from that business.
-    (4) Compare that state with the one from (1)
-    (5) Throw an error if they are not the same
-    (6) If they are the same, DELETE the state from the database and then continue*/
-
-    //separate state from UID (they are passed back together as a single string, state first, then UID)
-    //And alternative to this is getting the UID from a session variable/a cookie, but I haven't looked into it yet.
     var justState = state.substring(0, 11);
     var justUID = state.slice(11);
     let docRef = db.collection('businesses').doc(justUID);
@@ -113,6 +103,16 @@ exports.stripeState = functions.https.onCall((data, context) => {
 
 
 
+/*>> [2] TO CODE:
+    (1) separate the state variable here into state and uid.
+    (2) Use the UID to query firestore for a current business. (or use cookies/user sessions to do this)
+    (3) Get the state from that business.
+    (4) Compare that state with the one from (1)
+    (5) Throw an error if they are not the same
+    (6) If they are the same, DELETE the state from the database and then continue*/
+
+    //separate state from UID (they are passed back together as a single string, state first, then UID)
+    //And alternative to this is getting the UID from a session variable/a cookie, but I haven't looked into it yet.
 
 
 
