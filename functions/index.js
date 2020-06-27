@@ -23,7 +23,7 @@ app.get("/api", async (req, res) => {
     let getDoc = docRef.get()
       .then(doc => {
         if (!doc.exists) {
-          console.log('No such document!');
+          console.log("No such document for UID: " + justUID + "With state of: " + justState);
         } else {
           //console.log('Document data:', doc.data().state);
           if (justState == doc.data().state){
@@ -32,6 +32,8 @@ app.get("/api", async (req, res) => {
             return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
           } else {
             return res.status(403).json({ error: 'Incorrect and possibly missing state parameter: ' + state });
+            // this is where I want to break away, otherwise a Business ID is going to be returned to the database and just float around, unconnected to any UID
+            // Also -- if the UID already has a business ID, it shouldn't go through all this anyways.
           }
         }
       })

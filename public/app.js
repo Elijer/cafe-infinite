@@ -5,25 +5,28 @@ is running on localhost as well. Dunno what that's about */
 /* Instructions for changing to server-facing
 instead of emulator-facing:
 1. get rid of if (window.location.hostname === "localhost") codeblock
-2. anonlogin
+2. change "anonlogin" to "googleLogin" in index.html
 3. Consider firestore rules
 4. Possibly disable anonymous auth on firebase console
 5. Change stripe tag in index.html to https if it is http only
+6. the localhost stuff should take care of itself.
+7. Consider this warning: Your GOOGLE_APPLICATION_CREDENTIALS environment variable points to /Users/jah/Desktop/Keys/cafe-infinite-277904-3e4b0682c518.json. Non-emulated services will access production using these credentials. Be careful!
 */
 
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
+  var functions = firebase.functions();
 
   if (window.location.hostname === "localhost") {
+    firebase.functions().useFunctionsEmulator("http://localhost:5001"); //enforces functions to run through functions emulator
     console.log("localhost detected!");
-    db.settings({
+    db.settings({ //directs firestore to run through firestore emulator
       host: "localhost:8080",
       ssl: false
     });
   }
 
-  var functions = firebase.functions();
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 });
