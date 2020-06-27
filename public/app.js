@@ -5,7 +5,6 @@ instead of emulator-facing:
 3. Consider firestore rules
 4. Possibly disable anonymous auth on firebase console
 5. Change stripe tag in index.html to https if it is http only
-
 */
 
 document.addEventListener("DOMContentLoaded", event => {
