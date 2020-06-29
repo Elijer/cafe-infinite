@@ -1,12 +1,16 @@
-/* >>>>CURRENT PROBLEM: Somewhere in the last 3 commits, my "are you a business"
-stops finishing. Figure out why. Still works before the commit with the parens.
-This might somehow just be the same problem. It looks like a new Biz account ID
-is showing up in the database along with a totally new UID, and not in the
-supposedly current anonymous account like it was before and it like it should.
-However, it would only do this the first time before, and the second time around it
-would still fuck it up by adding a new one if the first one already
-did have a business ID. I think that what happens in the /"api" endpoint just
-needs looking at -- I wrote it and then never reassessed it.
+/* >>>>CURRENT PROBLEM: Really just the overall flow of creating a business ID
+has no control. At one point, I could keep going in for one ID and logging business
+Id after business ID (they're all the same, but I'll get to that) to no avail!
+The firebase doc that was supposed to be logged to never got it for some reason.
+I think. And then sometimes, the id gets added no problem and when you try
+again it shuts you down with the message I recently made, "biz id already exists",
+so that works well but. Only sometimes. 
+And it still doesn't answer the question of, where does this other UID come from
+that's used to create these stray firestore documents? Is it possible firebase AUTH
+is somehow keeping a couple UIDs alive at a time and using them at random? I don't know yet,
+but I think that even if I did fix THIS problem, it wouldn't solve the bigger problem
+that I barely have any validation for the coordination of the OATH and firestore. There
+need to be more checks in place here.
 "*/
 
 document.addEventListener("DOMContentLoaded", event => {
@@ -150,6 +154,8 @@ function onboardBusiness(){
   } else {
     console.log("the user is " + user.displayName);
   }
+
+  //check to also see if there's an actual User Account, too
 
   //check to see if the account already has business ID
       const db = firebase.firestore(); //will this fuck up the locahost thing?
