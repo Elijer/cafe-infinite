@@ -92,8 +92,7 @@ function anonLogin(){
   })
 }
 
-
-/*
+// Not being used rn
 function googleLogin(){
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider)
@@ -122,25 +121,50 @@ function googleLogin(){
   })
   .catch(console.log);
 }
-*/
 
 
 function onboardBusiness(){
   var user = firebase.auth().currentUser;
   console.log(user);
+
+  // check to see if someone is logged in
   if (!user){
     alert("you have to be logged in to register your business with Cafe Infinite!");
     return;
   } else {
     console.log("the user is " + user.displayName);
   }
+
+  //check to see if the account already has business ID
+      const db = firebase.firestore(); //will this fuck up the locahost thing?
+      const docRef = db.collection('businesses').doc(user.uid);
+      docRef.get().then(function(doc) {
+        if (doc.data().stripeBusinessID) {
+          console.log("There is a Biz ID already", doc.data().stripeBusinessID)
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No biz ID yet! Let's make it!");
+            var stripeState = firebase.functions().httpsCallable('stripeState');
+            stripeState({text: "1234"})
+            .then(function(result){
+              console.log("new state in database, URL returned successfully, redirecting now");
+              var returnedURL = result.data.text;
+              window.location.replace(returnedURL);
+            })
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+  
+  /*
+  // User is present but has no business ID. Generate a state and send them to stripe
   var stripeState = firebase.functions().httpsCallable('stripeState');
   stripeState({text: "1234"})
   .then(function(result){
     console.log("new state in database, URL returned successfully, redirecting now");
     var returnedURL = result.data.text;
     window.location.replace(returnedURL);
-  })
+  })*/
 }
 
 function randomEleven(){
