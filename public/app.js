@@ -4,12 +4,10 @@ document.addEventListener("DOMContentLoaded", event => {
   var functions = firebase.functions();
 
   if (window.location.hostname === "localhost") {
-    //enforces functions to run through functions emulator
-    firebase.functions().useFunctionsEmulator("http://localhost:5001");
+    firebase.functions().useFunctionsEmulator("http://localhost:5001"); //enforces functions to run through functions emulator
     console.log("localhost detected!");
-    //directs firestore to run through firestore emulator
-    db.settings({
-      host: "localhost:8080",
+    db.settings({ 
+      host: "localhost:8080",    //directs firestore to run through firestore emulator
       ssl: false
     });
     // stripe test keys could go here, while production keys could be kept in a different condition
@@ -17,36 +15,34 @@ document.addEventListener("DOMContentLoaded", event => {
 
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
-
-  firebase.auth().onAuthStateChanged(user => checkForUser(user));
-
+  firebase.checkComplete = false;
+  firebase.auth().onAuthStateChanged(user => checkForUserPersistence());
 });
 
-function checkForUser(user){
-  console.log("there is a user " + user.uid);
-  /*
-  if (user){
-    console.log("Okay, we found a user ID saved in the browser.");
+function checkForUserPersistence(){
+  if (firebase.checkComplete == false){
+      var user = firebase.auth().currentUser;
+    if (user){
+      console.log("Persistent user found in browser.");
+      const db = firebase.firestore(); //will this fuck up the locahost thing?
+      const docRef = db.collection('businesses').doc(user.uid);
+      docRef.get().then(function(doc) {
+        if (doc.data()) {
+          console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
+          loginFormat(user.uid)
+        } else {
+          console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
+          logOut();
+        }
+      }).catch(function(error) {
+          console.log("Error getting document:", error);
+      });
 
-    const db = firebase.firestore(); //will this fuck up the locahost thing?
-    const docRef = db.collection('businesses').doc(user.uid);
-    docRef.get().then(function(doc) {
-      if (doc.data()) {
-        console.log("And there seems to be data for for this account in the db. Okay! We'll let you stay logged in.");
-        loginFormat(user.uid)
-      } else {
-        console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
-        logOut();
-      }
-    }).catch(function(error) {
-        console.log("Error getting document:", error);
-    });
-
-  } else {
-    console.log("No uid in browser");
+    } else {
+      console.log("No persistent user in browser");
+    }
+    firebase.checkComplete = true;
   }
-  userCheckComplete = true;
-  */
 }
 
 function loginFormat(id){
@@ -103,7 +99,7 @@ function anonLogin(){
                 createdAt: new Date()
               };
               usersRef.set(data, {merge: true}) // create the document
-              console.log("new user created with the following data " + {user});
+              console.log("new anon user created in db for UID:  " + user.uid);
             }
           })
         .catch(console.log);
