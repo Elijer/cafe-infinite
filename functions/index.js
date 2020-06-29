@@ -1,4 +1,5 @@
 //Firebase/Firestore
+var randomstring = require("randomstring");
 const functions = require('firebase-functions'); // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const admin = require('firebase-admin'); //initialize an admin app instance from which Cloud Firestore changes can be made // The Firebase Admin SDK to access Cloud Firestore.
 admin.initializeApp();
@@ -16,6 +17,7 @@ app.use(cors({ origin: true }));
 // Route that Stripe uses when onboarding is complete
 app.get("/api", async (req, res) => {
     const { code, state } = req.query;
+    // 11 is an arbitrary number, but if the function used to construct state makes a state of a different size, it will break this endpoint
     var justState = state.substring(0, 11);
     var justUID = state.slice(11);
     let docRef = db.collection('businesses').doc(justUID);
@@ -84,7 +86,7 @@ exports.stripeState = functions.https.onCall((data, context) => {
     // (2) state is logged to the firestore document of the current business
     const uid = context.auth.uid;
     console.log ("uid is " + uid)
-    const state = Math.random().toString(36).slice(2); //eleven random alphanumeric digits
+    const state = randomstring.generate(11); // 11 is an arbitrary number, but it IS hard-coded into the endpoint above, so if you change it change it there too //uses randomstring node package
     console.log("state has been generated to be " + state);
     var output = state + uid;
     console.log("output variable is " + output);
