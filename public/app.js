@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", event => {
       ssl: false
     });
   }
-  
+
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 

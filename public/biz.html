@@ -32,29 +32,24 @@
      <link href = "animation.css" rel = "stylesheet" type = "text/css" />
    </head>
 
+   <body>
+    <!--Normal Login-->
+    <button id="banner-login" class = "top" onclick = "anonLogin()">
+      <span id = "fade-in"> loading... </span>
+    </button>
+
+    <button id = "business-logout" class = "top" onclick = "logOut()">
+      <span id = "fade-in"> Not you? Log Out </span>
+    </button>
+
+    <a id = "stripe-ID">
+        <span id = "fade-in"> Your Stripe ID is: loading... </span>
+      </a>
+
     <h1> Welcome back! Thanks for filling that stuff out. Welcome to your business page! </h1>
 
-    <h1> Business Info </h1>
-    <ul>
-
-    </ul>
-
-    <p1> Select your location on google maps </p1>
-    <ul>
-      <li>Add a product you're selling</li>
-      <li> title it "_______"</li>
-      <li> describe it "_______"</li>
-      <li> give it a price $_______</li>
-      <li> upload an image of it </li>
-      <li> (optional) When does this deal expire? </li>
-    </ul>
-
-    
-
-
     <a href = "index.html"> Go to back </a>
-    This won't work for a few reasons
-      <script src = "/app.js">
+    <script src = "/bizPage.js">
     </script>
   </body>
 </html>
