@@ -1,3 +1,8 @@
+/* >>>>Problem fixed 1.5: Okay I am running a firebase.checkComplete bool that checks to see if
+a check for user persistence has been run. If it has, this global variable is set to false, and
+the check isn't run again. Probably not the absolute way to do things, but it works.
+*/
+
 /* >>>>CURRENT PROBLEM 1.4: Hmm. Okay created nice validation for whether, IF there
 is a user already in the browser, to check whether there are any docs in the database.
 Unfortunately, it checks this WHENEVER there is an auth change, which includes signing in,

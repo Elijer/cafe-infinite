@@ -3,15 +3,16 @@ document.addEventListener("DOMContentLoaded", event => {
   const db = firebase.firestore();
   var functions = firebase.functions();
 
+  // enforce use of EMULATED firestore and functions if app is local
   if (window.location.hostname === "localhost") {
-    firebase.functions().useFunctionsEmulator("http://localhost:5001"); //enforces functions to run through functions emulator
+    firebase.functions().useFunctionsEmulator("http://localhost:5001");
     console.log("localhost detected!");
     db.settings({ 
-      host: "localhost:8080",    //directs firestore to run through firestore emulator
+      host: "localhost:8080",
       ssl: false
     });
-    // stripe test keys could go here, while production keys could be kept in a different condition
   }
+  
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 
@@ -20,12 +21,15 @@ document.addEventListener("DOMContentLoaded", event => {
   firebase.auth().onAuthStateChanged(user => checkForUserPersistence());
 });
 
+
+
+// ### Called once to see if a user already persists in browser
 function checkForUserPersistence(){
   if (firebase.checkComplete == false){
       var user = firebase.auth().currentUser;
     if (user){
       console.log("Persistent user found in browser.");
-      const db = firebase.firestore(); //will this fuck up the locahost thing?
+      const db = firebase.firestore();
       const docRef = db.collection('businesses').doc(user.uid);
       docRef.get().then(function(doc) {
         if (doc.data()) {
@@ -46,7 +50,9 @@ function checkForUserPersistence(){
   }
 }
 
-// Called when user logs in: formats login button to say their ID
+
+
+// ### Called when user logs in: formats login button to say their ID
 function loginFormat(id){
   document.getElementById("business-login").style.display = 'inline';
   document.getElementById("banner-login").style.fontSize = '30px';
@@ -55,7 +61,9 @@ function loginFormat(id){
   document.getElementById("business-logout").style.display = 'inline';
 }
 
-// Formats logout AND actually logs user out
+
+
+// ### Formats logout AND actually logs user out
 function logOut(){ // more on logging out: https://stackoverflow.com/questions/37343309/best-way-to-implement-logout-in-firebase-v3-0-1-firebase-unauth-is-removed-aft
   document.getElementById("business-logout").style.display = 'none';
   document.getElementById("banner-login").innerText = "login";
@@ -68,6 +76,8 @@ function logOut(){ // more on logging out: https://stackoverflow.com/questions/3
   });
 }
 
+
+// ### Creates an anonymous login that persists when tab is closed
 function anonLogin(){
   if (firebase.auth().currentUser){
     var user = firebase.auth().currentUser;
@@ -112,6 +122,9 @@ function anonLogin(){
   }
 }
 
+
+
+// ### Starts stripe business onboarding process
 function onboardBusiness(){
   var user = firebase.auth().currentUser;
   console.log(user);
@@ -123,9 +136,9 @@ function onboardBusiness(){
   } else {
     console.log("the user is " + user.displayName);
   }
-
+  
   //check to see if the account already has business ID
-      const db = firebase.firestore(); //will this fuck up the locahost thing?
+      const db = firebase.firestore();
       const docRef = db.collection('businesses').doc(user.uid);
       docRef.get().then(function(doc) {
         if (doc != null && doc != undefined){
@@ -146,20 +159,10 @@ function onboardBusiness(){
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
-  
-  /*
-  // User is present but has no business ID. Generate a state and send them to stripe
-  var stripeState = firebase.functions().httpsCallable('stripeState');
-  stripeState({text: "1234"})
-  .then(function(result){
-    console.log("new state in database, URL returned successfully, redirecting now");
-    var returnedURL = result.data.text;
-    window.location.replace(returnedURL);
-  })*/
 }
 
 
-  /*
+  /* Stripe Notes
   Customize banner: https://dashboard.stripe.com/settings/applications-->
   Page in Docs that helps create this link: https://stripe.com/docs/connect/enable-payment-acceptance-guide#step-21-add-an-authentication-buttonclient-side
   my test id // ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
