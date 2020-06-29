@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- update the version number as needed -->
-    <script src="http://js.stripe.com/v3/"></script>(<!--http address for testing, https for production-->)
+    <script src="http://js.stripe.com/v3/"></script><!--http address for testing, https for production-->
     <!--<script src="http://js.stripe.com/v3/"></script>-->
     
     <script defer src="/__/firebase/7.14.4/firebase-app.js"></script>
@@ -37,6 +37,10 @@
     <!--Normal Login-->
     <button id="banner-login" class = "top" onclick = "anonLogin()">
       <span id = "fade-in"> loading... </span>
+    </button>
+
+    <button id = "business-logout" class = "top" onclick = "logOut()">
+      <span id = "fade-in"> Not you? Log Out </span>
     </button>
 
     <!-- Business Login that appears after normal login -->

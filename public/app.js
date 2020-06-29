@@ -1,17 +1,13 @@
-/* CURRENT PROBLEM >> STATE is still being sent to the actual server and not
-The emulators, even though the routing IS being applied to localhost, and the database
-is running on localhost as well. Dunno what that's about */
-
-/* Instructions for changing to server-facing
-instead of emulator-facing:
-1. get rid of if (window.location.hostname === "localhost") codeblock
-2. change "anonlogin" to "googleLogin" in index.html
-3. Consider firestore rules
-4. Possibly disable anonymous auth on firebase console
-5. Change stripe tag in index.html to https if it is http only
-6. the localhost stuff should take care of itself.
-7. Consider this warning: Your GOOGLE_APPLICATION_CREDENTIALS environment variable points to /Users/jah/Desktop/Keys/cafe-infinite-277904-3e4b0682c518.json. Non-emulated services will access production using these credentials. Be careful!
-*/
+/* >>>>CURRENT PROBLEM: Somewhere in the last 3 commits, my "are you a business"
+stops finishing. Figure out why. Still works before the commit with the parens.
+This might somehow just be the same problem. It looks like a new Biz account ID
+is showing up in the database along with a totally new UID, and not in the
+supposedly current anonymous account like it was before and it like it should.
+However, it would only do this the first time before, and the second time around it
+would still fuck it up by adding a new one if the first one already
+did have a business ID. I think that what happens in the /"api" endpoint just
+needs looking at -- I wrote it and then never reassessed it.
+"*/
 
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
@@ -19,19 +15,41 @@ document.addEventListener("DOMContentLoaded", event => {
   var functions = firebase.functions();
 
   if (window.location.hostname === "localhost") {
-    firebase.functions().useFunctionsEmulator("http://localhost:5001"); //enforces functions to run through functions emulator
+    //enforces functions to run through functions emulator
+    firebase.functions().useFunctionsEmulator("http://localhost:5001");
     console.log("localhost detected!");
-    db.settings({ //directs firestore to run through firestore emulator
+    //directs firestore to run through firestore emulator
+    db.settings({
       host: "localhost:8080",
       ssl: false
     });
+    // stripe test keys could go here, while production keys could be kept in a different condition
   }
 
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
 });
 
+function logOut(){ // more on logging out: https://stackoverflow.com/questions/37343309/best-way-to-implement-logout-in-firebase-v3-0-1-firebase-unauth-is-removed-aft
+  document.getElementById("business-logout").style.display = 'none';
+  document.getElementById("banner-login").innerText = "login";
+  firebase.auth().signOut()
+  .then(function() {
+    console.log("sign-out successful");
+  })
+  .catch(function(error) {
+    console.log("There was an error signing out");
+  });
+}
+
 function anonLogin(){
+  if (firebase.auth().currentUser){
+    var user = firebase.auth().currentUser;
+    console.log("User already exists in browser. UID: " + user.uid);
+  } else {
+  }
+
+
   firebase.auth().signInAnonymously().catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -43,12 +61,14 @@ function anonLogin(){
         // User is signed in.
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
-        console.log("User is: " + uid + " .Is anonymous? " + isAnonymous);
+        //console.log("User is: " + uid + " .Is anonymous? " + isAnonymous);
   
         document.getElementById("business-login").style.display = 'inline';
         document.getElementById("banner-login").style.fontSize = '30px';
         document.getElementById("banner-login").style.width = '45%';
         document.getElementById("banner-login").innerText = `${uid}`;
+        document.getElementById("business-logout").style.display = 'inline';
+
   
         const db = firebase.firestore();
         const usersRef = db.collection('businesses').doc(uid);
@@ -61,7 +81,7 @@ function anonLogin(){
                 createdAt: new Date()
               };
               usersRef.set(data, {merge: true}) // create the document
-              console.log("new user created with the following data " + user);
+              console.log("new user created with the following data " + {user});
             }
           })
         .catch(console.log);

@@ -1,56 +1,61 @@
 * {
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-    text-align: center;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    height: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+}
 
-  .top {
-    /*this controls the height of the banner*/
-    height: 135px;
-    float: left;
-  }
+.top {
+  /*this controls the height of the banner*/
+  height: 135px;
+  float: left;
+}
 
-  #banner-title {
-    width: 65%;
-    font-size: 300%;
-    text-align: left;
-    padding-left: 70px;
-    border: 0px; /* Get's rid of an ugly white default outline*/
-    outline:0; /* gets rid of blue outline when clicked */
-  }
+#banner-title {
+  width: 65%;
+  font-size: 300%;
+  text-align: left;
+  padding-left: 70px;
+  border: 0px; /* Get's rid of an ugly white default outline*/
+  outline:0; /* gets rid of blue outline when clicked */
+}
 
-  #banner-login {
-    width: 35%;
-    font-size: 300%;
-    border: 0px; /* Get's rid of an ugly white default outline*/
-    outline:0; /* gets rid of blue outline when clicked */
-  }
+#banner-login {
+  width: 35%;
+  font-size: 300%;
+  border: 0px; /* Get's rid of an ugly white default outline*/
+  outline:0; /* gets rid of blue outline when clicked */
+}
 
-  /*
-  #map {
-    height: 100%;
-  }*/
+/*
+#map {
+  height: 100%;
+}*/
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  /*this hides the input that ends up getting used with JS */
-  #uploadInput {
-    display: none;
-  }
+/*this hides the input that ends up getting used with JS */
+#uploadInput {
+  display: none;
+}
 
-  #business-login {
-    display: inline;
-    /*production>> display: none; */
-  }
+#business-login {
+  display: inline;
+  /*production>> display: none; */
+}
+
+#business-logout {
+  display: none;
+  /*production>> display: none; */
+}
