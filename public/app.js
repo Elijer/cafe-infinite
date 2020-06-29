@@ -28,7 +28,22 @@ document.addEventListener("DOMContentLoaded", event => {
 
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("banner-login").innerText = "login";
+
+  firebase.auth().onAuthStateChanged(user => checkForUser(user));
 });
+
+function checkForUser(user){
+  if (user){
+        //console.log("User already exists in browser. UID: " + user.uid);
+    document.getElementById("business-login").style.display = 'inline';
+    document.getElementById("banner-login").style.fontSize = '30px';
+    document.getElementById("banner-login").style.width = '45%';
+    document.getElementById("banner-login").innerText = `${user.uid}`;
+    document.getElementById("business-logout").style.display = 'inline';
+  } else {
+    console.log("No uid in browser");
+  }
+}
 
 function logOut(){ // more on logging out: https://stackoverflow.com/questions/37343309/best-way-to-implement-logout-in-firebase-v3-0-1-firebase-unauth-is-removed-aft
   document.getElementById("business-logout").style.display = 'none';
@@ -43,6 +58,7 @@ function logOut(){ // more on logging out: https://stackoverflow.com/questions/3
 }
 
 function anonLogin(){
+  // should check to see if user data has been created in the database
   if (firebase.auth().currentUser){
     var user = firebase.auth().currentUser;
     console.log("User already exists in browser. UID: " + user.uid);
