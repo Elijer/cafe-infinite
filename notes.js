@@ -11,8 +11,67 @@ the
 4. 
 
 
+######### Temp
+function checkForUser(user){
+  console.log(user);
+  /*
+  if (user){
+    console.log("Okay, we found a user ID saved in the browser.");
 
-FIREBASE CALL EXAMPLES
+    const db = firebase.firestore(); //will this fuck up the locahost thing?
+    const docRef = db.collection('businesses').doc(user.uid);
+    docRef.get().then(function(doc) {
+      if (doc.data()) {
+        console.log("And there seems to be data for for this account in the db. Okay! We'll let you stay logged in.");
+        loginFormat(user.uid)
+      } else {
+        console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
+        logOut();
+      }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+
+  } else {
+    console.log("No uid in browser");
+  }
+  userCheckComplete = true;
+}
+
+############ FIREBASE AUTH
+
+function googleLogin(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+  .then(result => {
+      document.getElementById("business-login").style.display = 'inline';
+      const user = result.user;
+      document.getElementById("banner-login").innerText = `${user.displayName}`;
+
+      const db = firebase.firestore();
+      const usersRef = db.collection('businesses').doc(user.uid);
+
+      usersRef.get()
+        .then((docSnapshot) => {
+          if (!docSnapshot.exists) {
+            let data = {
+              name: user.displayName,
+              email: user.email,
+              profilePic: user.photoURL,
+              createdAt: new Date()
+            };
+            usersRef.set(data, {merge: true}) // create the document
+            console.log("new user created with the following data " + data);
+          }
+      })
+      .catch(console.log);
+  })
+  .catch(console.log);
+}
+
+
+
+########## FIREBASE CALL EXAMPLES
 
 ####### (1) Check to see if a document exists with .get() and then looking at the snapshot
         (2) Then if it does, create and set data within that document.
