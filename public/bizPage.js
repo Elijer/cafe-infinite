@@ -77,3 +77,11 @@ document.addEventListener("DOMContentLoaded", event => {
       console.log("There was an error signing out");
     });
   }
+
+  function updatePost(e){
+    var user = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    const myPost = db.collection('businesses').doc(user.uid);
+    myPost.update({productName: e.target.value })
+
+  }
