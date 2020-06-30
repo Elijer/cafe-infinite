@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+}
+
+/* Creates a banner at the top that takes up 100% of the screen */
+#banner {
+  float: left;
+  width: 100%;
+  background-color: wheat;
+}
+
+.top {
+  height: 135px;
+  float: left;
+  width: 20%;
+  font-size: 220%;
+  border: 0px;
+  outline: 0px;
+}
+
+#banner-middle {
+  width: 40%;
+  font-size: 220%;
+}
+
+#banner-right {
+  width: 20%;
+  font-size: 220%;
+}
+
+#spacer {
+  width: 10%;
+}
