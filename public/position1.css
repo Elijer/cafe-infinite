@@ -1,3 +1,4 @@
+/* ######## GENERAL ######## */
 * {
   box-sizing: border-box;
   margin: 0px;
@@ -12,6 +13,13 @@ body {
   height: 100%;
 }
 
+
+
+
+
+
+
+/* ######## "BANNER" ######## */
 /* Creates a banner at the top that takes up 100% of the screen */
 #banner {
   float: left;
@@ -19,6 +27,8 @@ body {
   background-color: wheat;
 }
 
+/* Formats all elements in #banner.
+Height of this class determines height of banner */
 .top {
   height: 135px;
   float: left;
@@ -26,18 +36,56 @@ body {
   font-size: 220%;
   border: 0px;
   outline: 0px;
+  font-size: 220%;
 }
 
+/* If width is not defined explicitly, it defaults to whatever it is in .top */
 #banner-middle {
   width: 40%;
-  font-size: 220%;
 }
 
-#banner-right {
+/* These can be used to create empty space */
+#spacer {
+  width: 10%;
+}
+
+
+
+
+
+
+
+/* ######## "CONTENT" ######## */
+/* Creates a banner at the top that takes up 100% of the screen */
+#content {
+  float: left;
+  width: 100%;
+  background-color: wheat;
+}
+
+/* Formats all elements in #banner.
+Height of this class determines height of banner */
+.belly {
+  height: 400px;
+  float: left;
   width: 20%;
   font-size: 220%;
+  border: 0px;
+  outline: 0px;
+  font-size: 220%;
 }
 
-#spacer {
+/* If width is not defined explicitly, it defaults to whatever it is in .top */
+
+#content-left {
+  width: 20%;
+}
+
+#content-right {
+  width: 60%;
+}
+
+/* These can be used to create empty space */
+#content-spacer {
   width: 10%;
 }
