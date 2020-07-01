@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", event => {
           if (doc.data()) {
             console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
             //loginFormat(user.uid)
-            //displayBizId(doc.data().stripeBusinessID);
+            displayBizId(doc.data().stripeBusinessID);
           } else {
             console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
             logOut();
@@ -69,7 +69,8 @@ document.addEventListener("DOMContentLoaded", event => {
   
   // ### Formats logout AND actually logs user out
   function logOut(){ // more on logging out: https://stackoverflow.com/questions/37343309/best-way-to-implement-logout-in-firebase-v3-0-1-firebase-unauth-is-removed-aft
-    document.getElementById("banner-login").innerText = "login";
+    //document.getElementById("banner-login").innerText = "login";
+    window.location.href = "/";
     firebase.auth().signOut()
     .then(function() {
       console.log("sign-out successful");
