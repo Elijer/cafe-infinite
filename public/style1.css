@@ -8,14 +8,16 @@
 
 /* ######## "BANNER" ######## */
 #banner {
-    background: grey;
+
 }
 
     .top {
-        border: 0px;
+        color: #bd9e62;
+        background: #f2e9d5;   /* this sets the backround, not the #banner background */
         outline: 0px; /* because these are buttons, this gets rid of the default outline */
         font-size: 150%;
-        background: rgb(233, 233, 233);    
+        border: 0px;
+        outline: 0px; /* because these are buttons, this gets rid of the default outline */
     }
 
 
@@ -25,9 +27,11 @@
 /* ######## "CONTENT" ######## */
 #content {
     background-color: white;
+    color: #4d3a16;
   }
 
     #market-title {
+        color: #8b5b00;
         font-size: 45px;
     }
 
