@@ -1,0 +1,71 @@
+#banner {
+    font-family: Tahoma;
+    background: white;
+    background-color: white;
+}
+
+#content {
+    font-family: Tahoma;
+    background: white;
+    background-color: white;
+}
+
+button {
+    background: white;
+    background-color: white;
+}
+/*#business-login {
+    font-family: Tahoma;
+    text-align: center;
+    padding: 40px;
+    font-size: 40px;
+    color: #398e8a;
+  }
+  
+  #business-login:hover {
+    background: #575757;
+    color: #b2daff;
+  }
+  
+  #banner-title, #banner-login {
+      background: black;
+      font-family: 'Caveat', Tahoma;
+    }
+  
+    #banner-title {
+      color: #398e8a;
+    }
+  
+    #banner-login {
+      color: #ff6655;
+    }
+  
+    #banner-title:hover {
+      background: #575757;
+      color: #fcd161;
+    }
+    
+    #banner-login:hover {
+      background: #575757;
+      color: #b2daff;
+    }
+    
+    #banner-title:active {
+      color: #575757;
+    }
+    
+    #banner-login:active {
+      font-size: 300%;
+    }
+  
+    
+    #data-item {
+      background: #ff90a5;
+      padding-top: 2%;
+    }
+  
+    #theList {
+      padding-bottom: 2%;
+      background: #ff90a5;
+    }
+    */

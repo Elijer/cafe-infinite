@@ -20,72 +20,84 @@ body {
 
 
 /* ######## "BANNER" ######## */
-/* Creates a banner at the top that takes up 100% of the screen */
 #banner {
   float: left;
   width: 100%;
-  background-color: wheat;
+  background-color: white;
 }
 
-/* Formats all elements in #banner.
-Height of this class determines height of banner */
 .top {
   height: 135px;
   float: left;
-  width: 20%;
+  width: 25%;
   font-size: 220%;
   border: 0px;
   outline: 0px;
   font-size: 220%;
 }
 
-/* If width is not defined explicitly, it defaults to whatever it is in .top */
 #banner-middle {
   width: 40%;
 }
 
-/* These can be used to create empty space */
-#spacer {
-  width: 10%;
+#banner-left {
+  text-align: left;
 }
 
+#banner-right {
+  text-align: right;
+}
 
-
+#spacer {
+  width: 5%;
+}
 
 
 
 
 /* ######## "CONTENT" ######## */
-/* Creates a banner at the top that takes up 100% of the screen */
 #content {
-  float: left;
-  width: 100%;
-  background-color: wheat;
+  background-color: white;
+  width: 100%
 }
 
-/* Formats all elements in #banner.
-Height of this class determines height of banner */
+/* Don't explicitly state height here -- it means the children can't express their own */
+/* If two elements are in the .belly container and both have 50% width, they will neatly fill up whole screen */
 .belly {
-  height: 400px;
   float: left;
-  width: 20%;
   font-size: 220%;
   border: 0px;
   outline: 0px;
   font-size: 220%;
+  padding: 50px;
+  display: block;
 }
 
-/* If width is not defined explicitly, it defaults to whatever it is in .top */
-
-#content-left {
-  width: 20%;
+#market-description {
+  display: block;
+  width: 30%;
+  padding-left: 15%;
+  height: 200px;
 }
 
-#content-right {
-  width: 60%;
+#market-title {
+  font-size: 50px;
+  vertical-align: sub;
 }
 
-/* These can be used to create empty space */
-#content-spacer {
-  width: 10%;
+#market-brief {
+  text-align: left;
+  font-size: 18px;
+}
+
+#market-list {
+  display: block;
+  padding-left: 12%;
+}
+
+.product-detail {
+  text-align: left;
+  display: inline;
+  font-size: 20px;
+  padding-right: 60px;
 }
