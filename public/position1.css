@@ -65,67 +65,39 @@ body {
   padding-right: 10%;
 }
 
-/* Don't explicitly state height here -- it means the children can't express their own */
-/* If two elements are in the .belly container and both have 50% width, they will neatly fill up whole screen */
+/* Two belly components with width: 50%; will take up the full horiz space neatly */
 .belly {
-  float: left;
-  font-size: 220%;
-  border: 0px;
-  outline: 0px;
-  font-size: 220%;
-  padding: 50px;
-  display: block;
+  float: left; /* :center => block behavior, :left => inline behavior with "Market" on left.*/
 }
 
 #market-description {
   display: block;
-  height: 200px;
   padding-left: 0%;
   padding-right: 16%;
-  padding-top: 0%;
+  padding-bottom: 40px;
 }
 
       #market-title {
         text-align: left;
         font-size: 45px;
         display: block;
-        width: 60%;
         padding-bottom: 20px;
       }
 
       #brief-container {
         text-align: left;
-        padding-top: 12px;
         font-size: 15px;
       }
 
 #market-list {
-  padding-top: 0%;
-  display: block;
   text-align: left;
   padding-left: 0%;
-  padding-right: 5%;
   font-size: 20px;
 }
 
-  .product {
-    text-align: left;
-  }
-
-  table {
-    width: 100%;
-    text-align: left;
-    padding-top: 20px;
-  }
-
-  tr {
-    text-align: left;
-    padding-right: 100px;
-  }
-
   td {
     text-align: left;
-    padding-right: 100px;
+    padding-right: 10px; /* >60 can push table to next line */
     padding-bottom: 30px;
   }
 
@@ -133,19 +105,9 @@ body {
     padding-right: 0px;
   }
 
-  /*
-      .product-detail, product-detail-last {
-        text-align: left;
-        display: inline;
-        font-size: 10px;
-      }
+  /* Notes
 
-      .product-detail {
-        padding-right: 100px;
-        width: 10px;
-      }
+  1) Explicitly stating height or width can be dangerous, because it doesn't let elements dictate
+  their own, appropriate height.
 
-      .product-detail-last {
-        font-size: 20px;
-      }
-      */
+  */
