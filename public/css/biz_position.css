@@ -64,7 +64,7 @@ body {
     float: left; /* float: right stacks them on top of each other neatly /* Give these two components width: 50% and they will take up the full horiz space neatly */
   }
 
-  #market-description {
+  #biz-bio {
     padding: 0px 16% 40px 0px;
   }
 
