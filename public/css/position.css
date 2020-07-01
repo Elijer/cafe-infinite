@@ -73,6 +73,7 @@ body {
   }
 
       #market-title {
+        font-style: 500;
         font-size: 40px;
         display: block; /* get rid of this and they end up side by side. Doesn't look bad. */
         padding-bottom: 20px;
