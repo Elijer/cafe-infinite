@@ -66,8 +66,8 @@ body {
 }
 
 /* Two belly components with width: 50%; will take up the full horiz space neatly */
-.belly {
-  float: left; /* :center => block behavior, :left => inline behavior with "Market" on left.*/
+#market-description, #market-list {
+  float: left;
 }
 
 #market-description {
