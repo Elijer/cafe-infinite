@@ -60,7 +60,7 @@ body {
   padding: 100px 10% 0px 10%; /*trbl*/
 }
 
-  #market-description, #market-list {
+  #biz-bio, #market-list {
     float: left; /* float: right stacks them on top of each other neatly /* Give these two components width: 50% and they will take up the full horiz space neatly */
   }
 
@@ -68,13 +68,14 @@ body {
     padding: 0px 16% 40px 0px;
   }
 
-      #market-title {
+      #biz-name {
+        font-size: 40px;
         display: block; /* get rid of this and they end up side by side. Doesn't look bad. */
         padding-bottom: 20px;
         text-align: left;
       }
 
-      #market-blurb {
+      #stripe-ID {
         float: left;
         text-align: left;
       }

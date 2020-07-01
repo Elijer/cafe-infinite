@@ -62,9 +62,8 @@ document.addEventListener("DOMContentLoaded", event => {
   }
 
   function displayBizId(id){
-    document.getElementById("stripe-ID").innerText = `Your Stripe ID is: ${id}`;
+    document.getElementById("stripe-ID").innerText = `${id}`;
   }
-  
   
   
   // ### Formats logout AND actually logs user out
