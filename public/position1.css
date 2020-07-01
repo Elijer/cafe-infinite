@@ -85,11 +85,16 @@ body {
 
   #market-list {
     font-size: 20px;
+    font-weight: 300;
   }
 
       td {
         text-align: left;
-        padding: 0px 50px 45px 0px; /* top right bottom left */
+        padding: 0px 20px 45px 0px; /* top right bottom left */
+      }
+
+      .td-money {
+        text-align: right;
       }
 
       .td-last {
