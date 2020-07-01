@@ -79,10 +79,43 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
-  function updatePost(e){
+  /*
+  function updatePost1(e){
     var user = firebase.auth().currentUser;
     const db = firebase.firestore();
     const myPost = db.collection('businesses').doc(user.uid);
-    myPost.update({productName: e.target.value })
+    myPost.update({promotion: e.target.value })
+  }
+  */
 
+  function updatePost2(e){
+    document.getElementById("product-save").innerText = "Loading";
+    var user = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    const myPost = db.collection('businesses').doc(user.uid);
+    myPost.update({product: e.target.value })
+    .then(function(doc) {
+      document.getElementById("product-save").innerText = "Saved";
+    }).catch(function(error) {
+      document.getElementById("product-save").innerText = "Unsuccessful";
+        console.log("Error getting document:", error);
+    });
+    //document.getElementById("product-save").innerText = "Saved";
+  }
+
+  function updatePost3(e){
+    var user = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    const myPost = db.collection('businesses').doc(user.uid);
+    myPost.update({price: e.target.value })
+    .then(function(doc) {
+      document.getElementById("product-save").innerText = "Saved";
+    }).catch(function(error) {
+      document.getElementById("product-save").innerText = "Unsuccessful";
+        console.log("Error getting document:", error);
+    });
+  }
+
+  function newProductPrompt(){
+    document.getElementById("product-save").innerText = "Press Enter to Save";
   }

@@ -82,22 +82,26 @@
       <div id = "market-list">
         <table>
           <tr>
-            <td class = "td-first">Moose Stuff Llc.</td>
-            <td>Magic</td>
-            <td class = "td-money">$200</td>
-            <td class = "product-detail-last">buy</td>
+
+            <td class = "td-first">
+              Promotion:
+            </td>
+
+            <td>
+              <input onchange = "updatePost2(event)" onfocus="newProductPrompt()" placeholder="Promotion">
+            </td>
+
+            <td class = "td-money">
+              <input onchange = "updatePost3(event)" onfocus="newProductPrompt()" placeholder="Price">
+            </td>
+
+            <td id = "product-save" class = "product-detail-last"> Save </td>
           </tr>
         </table>
       </div>
     </div>
 
     </div>
-
-    <!--
-
-    <input onchange = "updatePost(event)">
-        <a href = "index.html"> Go to back </a>
-  -->
     <script src = "/bizPage.js">
     </script>
   </body>

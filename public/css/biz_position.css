@@ -65,7 +65,7 @@ body {
   }
 
   #biz-bio {
-    padding: 0px 16% 40px 0px;
+    padding: 0px 8% 8% 0px;
   }
 
       #biz-name {
@@ -83,17 +83,19 @@ body {
   #market-list {
     font-size: 20px;
     font-weight: 300;
+    padding-top: 20px;
   }
 
       td {
         text-align: left;
-        padding: 0px 20px 45px 0px; /* top right bottom left */
+        padding: 0px 40px 45px 0px; /* top right bottom left */
       }
 
+      /*
       .td-first {
         font-weight: 500;
         padding-right: 60px;
-      }
+      }*/
 
       .td-money {
         text-align: right;
