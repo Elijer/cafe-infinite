@@ -1,19 +1,49 @@
+* {
+    font-family: Tahoma;
+}
+
+
+
+
+
+/* ######## "BANNER" ######## */
 #banner {
-    font-family: Tahoma;
-    background: white;
-    background-color: white;
+    background: grey;
 }
 
+    .top {
+        border: 0px;
+        outline: 0px; /* because these are buttons, this gets rid of the default outline */
+        font-size: 150%;
+        background: rgb(233, 233, 233);    
+    }
+
+
+
+
+
+/* ######## "CONTENT" ######## */
 #content {
-    font-family: Tahoma;
-    background: white;
     background-color: white;
-}
+  }
 
-button {
-    background: white;
-    background-color: white;
-}
+    #market-title {
+        font-size: 45px;
+    }
+
+    #market-blurb {
+        font-size: 16px;
+    }
+
+    #market-list {
+        font-size: 20px;
+        }
+
+
+
+
+
+/* Previous css file before refactor */
 /*#business-login {
     font-family: Tahoma;
     text-align: center;

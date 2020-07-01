@@ -1,6 +1,6 @@
 /* ######## GENERAL ######## */
 * {
-  box-sizing: border-box;
+box-sizing: border-box;
   margin: 0px;
   padding: 0px;
   text-align: center;
@@ -15,43 +15,32 @@ body {
 
 
 
-
-
-
-
 /* ######## "BANNER" ######## */
-#banner {
-  float: left;
-  width: 100%;
-  background: grey;
+#banner { 
 }
 
-.top {
-  height: 100px;
-  float: left;
-  width: 20%;
-  font-size: 220%;
-  border: 0px;
-  outline: 0px;
-  font-size: 150%;
-  background: rgb(233, 233, 233);
-}
+  .top {
+    height: 100px; /*controls height of banner */
+    float: left;
+  }
 
-#banner-middle {
-  width: 40%;
-}
+      #banner-left {
+        text-align: left;
+        width: 20%;
+      }
 
-#banner-left {
-  text-align: left;
-}
+      #banner-middle {
+        width: 40%;
+      }
 
-#banner-right {
-  text-align: right;
-}
+      #banner-right {
+        text-align: right;
+        width: 20%;
+      }
 
-#spacer {
-  width: 10%;
-}
+      #banner-spacer {
+        width: 10%;
+      }
 
 
 
@@ -71,14 +60,12 @@ body {
   }
 
       #market-title {
-        font-size: 45px;
         display: block; /* get rid of this and they end up side by side. Doesn't look bad. */
         padding-bottom: 20px;
         text-align: left;
       }
 
       #market-blurb {
-        font-size: 16px;
         float: left;
         text-align: left;
       }
