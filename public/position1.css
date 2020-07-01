@@ -42,6 +42,18 @@ body {
         width: 10%;
       }
 
+        #login {
+
+        }
+
+        #username {
+          visibility: hidden;
+        }
+
+        #are-you-biz {
+          visibility: hidden;
+        }
+
 
 
 

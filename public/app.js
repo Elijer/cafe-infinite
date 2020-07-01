@@ -26,7 +26,7 @@ function checkForUserPersistence(){
   if (firebase.checkComplete == false){
       var user = firebase.auth().currentUser;
     if (user){
-      console.log("Persistent user found in browser.");
+      console.log("Persistent user found in browser: " + user.uid);
       const db = firebase.firestore();
       const docRef = db.collection('businesses').doc(user.uid);
       docRef.get().then(function(doc) {
@@ -48,23 +48,26 @@ function checkForUserPersistence(){
   }
 }
 
-
+function testThing(){
+  console.log("test thing");
+}
 
 // ### Called when user logs in: formats login button to say their ID
 function loginFormat(id){
-  document.getElementById("business-login").style.display = 'inline';
-  document.getElementById("banner-login").style.fontSize = '30px';
-  document.getElementById("banner-login").style.width = '45%';
-  document.getElementById("banner-login").innerText = `${id}`;
-  document.getElementById("business-logout").style.display = 'inline';
+  document.getElementById("username").style.visibility = 'visible';
+  document.getElementById("are-you-biz").style.visibility = 'visible';
+  document.getElementById("username").style.fontSize = '20px';
+  document.getElementById("username").innerText = `user: ${id}`;
+  document.getElementById("login").innerText = 'logout';
 }
 
 
 
 // ### Formats logout AND actually logs user out
 function logOut(){ // more on logging out: https://stackoverflow.com/questions/37343309/best-way-to-implement-logout-in-firebase-v3-0-1-firebase-unauth-is-removed-aft
-  document.getElementById("business-logout").style.display = 'none';
-  document.getElementById("banner-login").innerText = "login";
+  document.getElementById("login").innerText = 'login';
+  document.getElementById("username").style.visibility = 'hidden';
+  document.getElementById("are-you-biz").style.visibility = 'hidden';
   firebase.auth().signOut()
   .then(function() {
     console.log("sign-out successful");
@@ -78,9 +81,9 @@ function logOut(){ // more on logging out: https://stackoverflow.com/questions/3
 // ### Creates an anonymous login that persists when tab is closed
 function anonLogin(){
   if (firebase.auth().currentUser){
-    var user = firebase.auth().currentUser;
-    console.log("User already exists in browser. UID: " + user.uid);
-    return;
+    logOut();
+    /*var user = firebase.auth().currentUser;
+    console.log("User already exists in browser. UID: " + user.uid);*/
   } else {
     firebase.auth().signInAnonymously().catch(function(error) {
       var errorCode = error.code;
