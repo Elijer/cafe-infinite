@@ -76,7 +76,7 @@ body {
 
       td {
         text-align: left;
-        padding: 0px 10px 30px /* >60 can push table to next line */ 0px;
+        padding: 0px 50px 45px 0px; /* top right bottom left */
       }
 
       .td-last {
