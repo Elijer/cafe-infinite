@@ -20,6 +20,11 @@
         outline: 0px; /* because these are buttons, this gets rid of the default outline */
     }
 
+    #back-button {
+      text-decoration: none; /* gets rid of link formatting */
+      color: #bd9e62;
+    }
+
 
 
 /* ######## "CONTENT" ######## */
