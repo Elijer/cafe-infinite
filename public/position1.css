@@ -61,8 +61,8 @@ body {
   background-color: white;
   width: 100%;
   padding-top: 100px;
-  padding-left: 13%;
-  padding-right: 13%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 /* Don't explicitly state height here -- it means the children can't express their own */
@@ -80,8 +80,9 @@ body {
 #market-description {
   display: block;
   height: 200px;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 0%;
+  padding-right: 16%;
+  padding-top: 0%;
 }
 
       #market-title {
@@ -89,7 +90,7 @@ body {
         font-size: 45px;
         display: block;
         width: 60%;
-        padding-bottom: 10px;
+        padding-bottom: 20px;
       }
 
       #brief-container {
@@ -99,15 +100,40 @@ body {
       }
 
 #market-list {
+  padding-top: 0%;
   display: block;
   text-align: left;
-  padding-left: 5%;
+  padding-left: 0%;
   padding-right: 5%;
+  font-size: 20px;
 }
 
   .product {
     text-align: left;
   }
+
+  table {
+    width: 100%;
+    text-align: left;
+    padding-top: 20px;
+  }
+
+  tr {
+    text-align: left;
+    padding-right: 100px;
+  }
+
+  td {
+    text-align: left;
+    padding-right: 100px;
+    padding-bottom: 30px;
+  }
+
+  .product-detail-last {
+    padding-right: 0px;
+  }
+
+  /*
       .product-detail, product-detail-last {
         text-align: left;
         display: inline;
@@ -122,3 +148,4 @@ body {
       .product-detail-last {
         font-size: 20px;
       }
+      */
