@@ -1,0 +1,117 @@
+/* ######## GENERAL ######## */
+* {
+box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+}
+
+
+
+/* ######## "BANNER" ######## */
+#banner { 
+}
+
+  .top {
+    height: 100px; /*controls height of banner */
+    float: left;
+  }
+
+      #banner-left {
+        text-align: left;
+        width: 20%;
+      }
+
+      #banner-middle {
+        width: 40%;
+        text-align: left;
+      }
+
+      #banner-right {
+        text-align: right;
+        width: 20%;
+      }
+
+      #banner-spacer {
+        width: 10%;
+      }
+
+        #login {
+
+        }
+
+        #are-you-biz {
+          visibility: hidden;
+        }
+
+
+
+
+/* ######## "CONTENT" ######## */
+#content {
+  background-color: white;
+  padding: 100px 10% 0px 10%; /*trbl*/
+}
+
+  #market-description, #market-list {
+    float: left; /* float: right stacks them on top of each other neatly /* Give these two components width: 50% and they will take up the full horiz space neatly */
+  }
+
+  #market-description {
+    padding: 0px 16% 40px 0px;
+  }
+
+      #market-title {
+        display: block; /* get rid of this and they end up side by side. Doesn't look bad. */
+        padding-bottom: 20px;
+        text-align: left;
+      }
+
+      #market-blurb {
+        float: left;
+        text-align: left;
+      }
+
+  #market-list {
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+      td {
+        text-align: left;
+        padding: 0px 20px 45px 0px; /* top right bottom left */
+      }
+
+      .td-first {
+        font-weight: 500;
+        padding-right: 60px;
+      }
+
+      .td-money {
+        text-align: right;
+      }
+
+      .td-last {
+        padding-right: 0px;
+      }
+
+
+
+
+  /* Notes
+
+  1) Explicitly stating height or width can be dangerous, because it doesn't let elements dictate
+  their own, appropriate height.
+
+  2) padding: top right bottom left
+
+  3) text-align and float don't act how I'd expect
+
+  */

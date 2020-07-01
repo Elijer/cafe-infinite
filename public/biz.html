@@ -27,13 +27,47 @@
      <link async defer href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
  
      <!--CSS LINKS-->
-     <link href = "position.css" rel = "stylesheet" type = "text/css" />
-     <link href = "style.css" rel = "stylesheet" type = "text/css" />
-     <link href = "animation.css" rel = "stylesheet" type = "text/css" />
+     <link href = "css/biz_position.css" rel = "stylesheet" type = "text/css" />
+     <link href = "css/biz_style.css" rel = "stylesheet" type = "text/css" />
+     <link href = "css/animation.css" rel = "stylesheet" type = "text/css" />
    </head>
 
    <body>
-    <!--Normal Login-->
+
+    <div id="banner">
+
+      <button id="banner-spacer" class = "top">
+      </button>
+
+      <button id="banner-left" class = "top">
+        <span id = "fade-in">
+          <a href = "/"> go back </a>
+        </span>
+      </button>
+  
+      <button id="banner-middle" class = "top">
+        <span id = "fade-in">
+          <span id = "username" >  <!--  #username  -->
+            $ Business Dashboard $
+          </span>
+        </span>
+      </button>
+
+      <button id="banner-right" class = "top">
+        <span id = "fade-in">
+          <span id = "are-you-biz" onClick = "onboardBusiness()"> <!--  #are-you-biz  -->
+            Are you a business? 
+          </span>
+        </span>
+      </button>
+
+      <button id="banner-spacer" class = "top">
+      </button>
+
+    </div>
+
+
+    <!--
     <button id="banner-login" class = "top" onclick = "anonLogin()">
       <span id = "fade-in"> loading... </span>
     </button>
@@ -47,10 +81,8 @@
       </a>
 
     <input onchange = "updatePost(event)">
-
-    
-
-    <a href = "index.html"> Go to back </a>
+        <a href = "index.html"> Go to back </a>
+  -->
     <script src = "/bizPage.js">
     </script>
   </body>

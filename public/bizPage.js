@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", event => {
     }
   
     var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
-    document.getElementById("banner-login").innerText = "login";
   
     // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
     firebase.checkComplete = false;
@@ -34,8 +33,8 @@ document.addEventListener("DOMContentLoaded", event => {
         docRef.get().then(function(doc) {
           if (doc.data()) {
             console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
-            loginFormat(user.uid)
-            displayBizId(doc.data().stripeBusinessID);
+            //loginFormat(user.uid)
+            //displayBizId(doc.data().stripeBusinessID);
           } else {
             console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
             logOut();
@@ -55,9 +54,11 @@ document.addEventListener("DOMContentLoaded", event => {
   
   // ### Called when user logs in: formats login button to say their ID
   function loginFormat(id){
-    document.getElementById("banner-login").style.fontSize = '30px';
-    document.getElementById("banner-login").style.width = '45%';
-    document.getElementById("banner-login").innerText = `${id}`;
+    document.getElementById("username").style.visibility = 'visible';
+    document.getElementById("are-you-biz").style.visibility = 'visible';
+    document.getElementById("username").style.fontSize = '20px';
+    document.getElementById("username").innerText = `user: ${id}`;
+    document.getElementById("login").innerText = 'logout';
   }
 
   function displayBizId(id){

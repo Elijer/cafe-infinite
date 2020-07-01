@@ -32,7 +32,8 @@ function checkForUserPersistence(){
       docRef.get().then(function(doc) {
         if (doc.data()) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
-          loginFormat(user.uid)
+          loginFormat(user.uid);
+          document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
           logOut();
@@ -144,7 +145,8 @@ function onboardBusiness(){
       docRef.get().then(function(doc) {
         if (doc != null && doc != undefined){
           if (doc.data().stripeBusinessID) {
-            console.log("There is a Biz ID already", doc.data().stripeBusinessID)
+            console.log("Nice, there's already a biz ID! Let's take you to the dashboard", doc.data().stripeBusinessID);
+            window.location.href = "/biz.html";
           } else {
               // doc.data() will be undefined in this case
               console.log("No biz ID yet! Let's make it!");
