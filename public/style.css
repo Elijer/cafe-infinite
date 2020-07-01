@@ -1,54 +1,103 @@
-#business-login {
-  font-family: Tahoma;
-  text-align: center;
-  padding: 40px;
-  font-size: 40px;
-  color: #398e8a;
+* {
+    font-family: 'Montserrat', sans-serif;
 }
 
-#business-login:hover {
-  background: #575757;
-  color: #b2daff;
+
+
+
+
+/* ######## "BANNER" ######## */
+#banner {
+
 }
 
-#banner-title, #banner-login {
-    background: black;
-    font-family: 'Caveat', Tahoma;
+    .top {
+        color: #bd9e62;
+        background: #f2e9d5;   /* this sets the backround, not the #banner background */
+        outline: 0px; /* because these are buttons, this gets rid of the default outline */
+        font-size: 150%;
+        border: 0px;
+        outline: 0px; /* because these are buttons, this gets rid of the default outline */
+    }
+
+
+
+/* ######## "CONTENT" ######## */
+#content {
+    background-color: white;
+    color: #4d3a16;
   }
 
-  #banner-title {
+    #market-title {
+        color: #8b5b00;
+        font-size: 45px;
+    }
+
+    #market-blurb {
+        font-size: 16px;
+    }
+
+    #market-list {
+        font-size: 20px;
+        }
+
+
+
+
+
+/* Previous css file before refactor */
+/*#business-login {
+    font-family: Tahoma;
+    text-align: center;
+    padding: 40px;
+    font-size: 40px;
     color: #398e8a;
   }
-
-  #banner-login {
-    color: #ff6655;
-  }
-
-  #banner-title:hover {
-    background: #575757;
-    color: #fcd161;
-  }
   
-  #banner-login:hover {
+  #business-login:hover {
     background: #575757;
     color: #b2daff;
   }
   
-  #banner-title:active {
-    color: #575757;
-  }
+  #banner-title, #banner-login {
+      background: black;
+      font-family: 'Caveat', Tahoma;
+    }
   
-  #banner-login:active {
-    font-size: 300%;
-  }
-
+    #banner-title {
+      color: #398e8a;
+    }
   
-  #data-item {
-    background: #ff90a5;
-    padding-top: 2%;
-  }
-
-  #theList {
-    padding-bottom: 2%;
-    background: #ff90a5;
-  }
+    #banner-login {
+      color: #ff6655;
+    }
+  
+    #banner-title:hover {
+      background: #575757;
+      color: #fcd161;
+    }
+    
+    #banner-login:hover {
+      background: #575757;
+      color: #b2daff;
+    }
+    
+    #banner-title:active {
+      color: #575757;
+    }
+    
+    #banner-login:active {
+      font-size: 300%;
+    }
+  
+    
+    #data-item {
+      background: #ff90a5;
+      padding-top: 2%;
+    }
+  
+    #theList {
+      padding-bottom: 2%;
+      background: #ff90a5;
+    }
+    */
