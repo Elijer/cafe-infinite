@@ -14,14 +14,12 @@ document.addEventListener("DOMContentLoaded", event => {
   }
 
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
-  document.getElementById("banner-login").innerText = "login";
+  document.getElementById("login").innerText = "login";
 
   // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
   firebase.checkComplete = false;
   firebase.auth().onAuthStateChanged(user => checkForUserPersistence());
 });
-
-
 
 // ### Called once to see if a user already persists in browser
 function checkForUserPersistence(){

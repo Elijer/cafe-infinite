@@ -7,19 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- update the version number as needed -->
     <!--<script src="http://js.stripe.com/v3/"></script>http address for testing, https for production-->
-        <!--
     <script src="https://js.stripe.com/v3/"></script>
     
+    <script defer src="/__/firebase/7.14.4/firebase-app.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-auth.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-firestore.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-messaging.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-storage.js"></script>
     <script defer src="/__/firebase/7.14.4/firebase-functions.js"></script>
-    -->
-
-    <script defer src="/__/firebase/7.14.4/firebase-app.js"></script>
-  
-
     
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
@@ -48,15 +43,19 @@
       </button>
 
       <button id="banner-left" class = "top">
-        <span id = "fade-in"> login/out </span>
+        <span id = "fade-in">
+          <span id = "login"> loading... </span>
+        </span>
       </button>
   
-      <button id="banner-middle" class = "top">
-        <span id = "fade-in"> Hey Elijah! </span>
+      <button id="banner-middle" class = "top" onclick = "testthing()">
+        <span id = "fade-in">
+          <span id = "username" > Hey Elijah! </span>
+        </span>
       </button>
 
       <button id="banner-right" class = "top">
-        <span id = "fade-in"> Biz? </span>
+        <span id = "fade-in"> Are you a business? </span>
       </button>
 
       <button id="banner-spacer" class = "top">
@@ -130,9 +129,9 @@
     <a id = "business-login" class = "top" onClick = "onboardBusiness()">
       <span id = "fade-in"> Put your Biz in the Market </span>
     </a>
+            -->
 
     <script src = "/app.js">
     </script>
-        -->
   </body>
 </html>
