@@ -119,3 +119,7 @@ document.addEventListener("DOMContentLoaded", event => {
   function newProductPrompt(){
     document.getElementById("product-save").innerText = "Press Enter to Save";
   }
+
+  function promptClear(){
+    document.getElementById("product-save").innerText = "Saved";
+  }

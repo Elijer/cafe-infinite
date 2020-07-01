@@ -88,11 +88,11 @@
             </td>
 
             <td>
-              <input onchange = "updatePost2(event)" onfocus="newProductPrompt()" placeholder="Promotion">
+              <input onchange = "updatePost2(event)" onfocus="newProductPrompt()" onfocusout="promptClear()" placeholder="Promotion">
             </td>
 
             <td class = "td-money">
-              <input onchange = "updatePost3(event)" onfocus="newProductPrompt()" placeholder="Price">
+              <input onchange = "updatePost3(event)" onfocus="newProductPrompt()" onfocusout="promptClear()" placeholder="Price">
             </td>
 
             <td id = "product-save" class = "product-detail-last"> Save </td>
