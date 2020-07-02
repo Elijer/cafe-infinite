@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", event => {
   }
   */
 
+  // ### Function could be replaced by simpler calls to a "products" collection
   function marketReady(ready){
     var _status;
     if (ready == true){
@@ -101,6 +102,32 @@ document.addEventListener("DOMContentLoaded", event => {
     const myPost = db.collection('businesses').doc(user.uid);
     myPost.update({status: _status })
   }
+
+  function handlePrompt(e){
+    var val = e.target.value;
+    console.log(val);
+
+    if (val == ""){
+      return;
+    } else {
+      var user = firebase.auth().currentUser;
+      if (!user){
+        console.log("you must be logged in to do that");
+      } else {
+        const db = firebase.firestore();
+        const post = db.collection('businesses').doc(user.uid);
+
+        post.update({product: e.target.value, status: "doingBusiness"})
+        .then(function(doc) {
+        }).catch(function(error) {
+          document.getElementById("product-save").innerText = "Unsuccessful";
+          console.log("Error getting document:", error);
+        });
+      }
+    }
+  }
+
+  /* Deprecated input event functions
 
   function updatePost2(e){
     if (e.target.value == ""){
@@ -149,3 +176,5 @@ document.addEventListener("DOMContentLoaded", event => {
     document.getElementById("td-product").blur();
     document.getElementById("td-money").blur();
   }
+
+  */

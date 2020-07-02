@@ -6,7 +6,7 @@
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <!-- update the version number as needed -->
-     <script src="https://js.stripe.com/v3/"></script>
+     <script src="http://js.stripe.com/v3/"></script>
      
      <script defer src="/__/firebase/7.14.4/firebase-app.js"></script>
      <!-- include only the Firebase features as you need -->
@@ -91,22 +91,17 @@
             <td>
               <input
               id = "td-product"
-              onchange = "updatePost2(event)"
-              onfocus="newProductPrompt()"
-              onfocusout="promptClear()"
-              placeholder="Promotion"
-              onsubmit = "promptClear()"
+              placeholder = "Promotion"
+              oninput = "handlePrompt(event)"
               >
             </td>
 
             <td class = "td-money">
               <input
               id = "td-money"
-              onchange = "updatePost3(event)"
-              onfocus="newProductPrompt()"
-              onfocusout="promptClear()"
-              onsubmit = "promptClear()"
-              placeholder="Price">
+              placeholder = "Price"
+              oninput = "handlePrompt(event)"
+              >
             </td>
 
             <td id = "product-save" class = "product-detail-last"> Save </td>
@@ -120,3 +115,19 @@
     </script>
   </body>
 </html>
+
+
+
+
+
+<!-- 
+
+Stack overflow question on handling onChange-themed stuff:
+https://stackoverflow.com/questions/574941/best-way-to-track-onchange-as-you-type-in-input-type-text
+
+onchange = "updatePost2(event)"
+onfocus="newProductPrompt()"
+onfocusout="promptClear()"
+onsubmit = "promptClear()"
+
+-->
