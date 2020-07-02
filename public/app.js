@@ -51,19 +51,20 @@ function checkForUserPersistence(){
 }
 
 function populateMarket(){
-  console.log("populateMarket called");
   const db = firebase.firestore();
   db.collection("businesses").where("status", "==", "doingBusiness")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          var bizId = doc.data().stripeBusinessID;
-          var productName = doc.data().product;
-          var productPrice = doc.data().price;
+          const d = doc.data();
+          const data = {
+            biz: d.stripeBusinessID,
+            prod: d.product,
+            price: d.price
+          }
 
-          addRow(bizId, productName, productPrice);
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          addRow(data); // console.log(doc.id, " => ", doc.data());
+          
         });
     })
     .catch(function(error) {
@@ -71,29 +72,21 @@ function populateMarket(){
     });
 }
 
-function addRow(biz, product, price) {
-  console.log("addRow called");
-  const tr = document.createElement('tr');
+// ### Populates table (#product-table) with data from db.collection("businesses").
+// ### Will eventual transition to use with db.collection("products")
+function addRow(d) {
+  const row = document.createElement('tr');
+  row.className = 'product-row';
 
-  tr.className = 'product-row';
-
-  tr.innerHTML = `
-      <td class = "td-first"> ${biz} </td>
-      <td> ${product} </td>
-      <td class = "td-money"> ${price} </td>
+  row.innerHTML = `
+      <td class = "td-first"> ${d.biz} </td>
+      <td> ${d.prod} </td>
+      <td class = "td-money"> ${d.price} </td>
       <td class = "product-detail-last"> buy </td>
   `;
 
-    /*
-    <tr>
-      <td class = "td-first">Moose Stuff Llc.</td>
-      <td> Magic </td>
-      <td class = "td-money"> $200 </td>
-      <td class = "product-detail-last"> buy </td>
-    </tr>
-    */
+  document.getElementById('product-table').appendChild(row);
 
-  document.getElementById('product-table').appendChild(tr);
 }
 
 // ### Called when user logs in: formats login button to say their ID
