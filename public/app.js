@@ -33,6 +33,7 @@ function checkForUserPersistence(){
         if (doc.data()) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
           loginFormat(user.uid);
+          populateMarket();
           document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
@@ -50,17 +51,38 @@ function checkForUserPersistence(){
 }
 
 function populateMarket(){
+  console.log("populateMarket called");
+  const db = firebase.firestore();
   db.collection("businesses").where("status", "==", "doingBusiness")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+          addRow();
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
         });
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
+}
+
+function addRow() {
+  console.log("addRow called");
+  const div = document.createElement('div');
+
+  div.className = 'product-row';
+
+  div.innerHTML = `
+    <tr>
+      <td class = "td-first">Moose Stuff Llc. </td>
+      <td> Magic </td>
+      <td class = "td-money"> $200 </td>
+      <td class = "product-detail-last"> buy </td>
+    </tr>
+  `;
+
+  document.getElementById('product-table').appendChild(div);
 }
 
 // ### Called when user logs in: formats login button to say their ID

@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
-  /*
+  /* This is how simple it was initially :( Now I made it all complicated and awful.
   function updatePost1(e){
     var user = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -88,32 +88,56 @@ document.addEventListener("DOMContentLoaded", event => {
   }
   */
 
-  function updatePost2(e){
-    document.getElementById("product-save").innerText = "Loading";
+  function marketReady(ready){
+    var _status;
+    if (ready == true){
+      _status = "doingBusiness";
+    } else {
+      _status = "standby"
+    };
+
     var user = firebase.auth().currentUser;
     const db = firebase.firestore();
     const myPost = db.collection('businesses').doc(user.uid);
-    myPost.update({product: e.target.value })
-    .then(function(doc) {
-      document.getElementById("product-save").innerText = "Saved";
-    }).catch(function(error) {
-      document.getElementById("product-save").innerText = "Unsuccessful";
-        console.log("Error getting document:", error);
-    });
+    myPost.update({status: _status })
+  }
+
+  function updatePost2(e){
+    if (e.target.value == ""){
+      document.getElementById("product-save").innerText = "Field can't be empty.";
+    } else {
+      document.getElementById("product-save").innerText = "Loading";
+      var user = firebase.auth().currentUser;
+      const db = firebase.firestore();
+      const myPost = db.collection('businesses').doc(user.uid);
+      myPost.update({product: e.target.value, status: "doingBusiness"})
+      .then(function(doc) {
+        //document.getElementById("product-save").innerText = "Saved";
+        promptClear();
+      }).catch(function(error) {
+        document.getElementById("product-save").innerText = "Unsuccessful";
+          console.log("Error getting document:", error);
+      });
+    }
     //document.getElementById("product-save").innerText = "Saved";
   }
 
   function updatePost3(e){
-    var user = firebase.auth().currentUser;
-    const db = firebase.firestore();
-    const myPost = db.collection('businesses').doc(user.uid);
-    myPost.update({price: e.target.value })
-    .then(function(doc) {
-      document.getElementById("product-save").innerText = "Saved";
-    }).catch(function(error) {
-      document.getElementById("product-save").innerText = "Unsuccessful";
-        console.log("Error getting document:", error);
-    });
+    if (e.target.value == ""){
+      document.getElementById("product-save").innerText = "Field can't be empty.";
+    } else {
+      var user = firebase.auth().currentUser;
+      const db = firebase.firestore();
+      const myPost = db.collection('businesses').doc(user.uid);
+      myPost.update({price: e.target.value, status: "doingBusiness"})
+      .then(function(doc) {
+        //document.getElementById("product-save").innerText = "Saved";
+        promptClear();
+      }).catch(function(error) {
+        document.getElementById("product-save").innerText = "Unsuccessful";
+          console.log("Error getting document:", error);
+      });
+    }
   }
 
   function newProductPrompt(){
@@ -122,4 +146,6 @@ document.addEventListener("DOMContentLoaded", event => {
 
   function promptClear(){
     document.getElementById("product-save").innerText = "Saved";
+    document.getElementById("td-product").blur();
+    document.getElementById("td-money").blur();
   }

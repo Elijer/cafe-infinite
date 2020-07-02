@@ -52,6 +52,7 @@ app.get("/api", async (req, res) => {
         var connected_account_id = response.stripe_user_id;
         let data = {
             stripeBusinessID: connected_account_id,
+            status: "standby"
           };
 
         let id = db.collection('businesses').doc(justUID).set(data, {merge: true});
