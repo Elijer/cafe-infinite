@@ -57,7 +57,11 @@ function populateMarket(){
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          addRow();
+          var bizId = doc.data().stripeBusinessID;
+          var productName = doc.data().product;
+          var productPrice = doc.data().price;
+
+          addRow(bizId, productName, productPrice);
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
         });
@@ -67,25 +71,25 @@ function populateMarket(){
     });
 }
 
-function addRow() {
+function addRow(biz, product, price) {
   console.log("addRow called");
   const tr = document.createElement('tr');
 
   tr.className = 'product-row';
 
   tr.innerHTML = `
-      <td class = "td-first"> Moose Stuff Llc. </td>
-      <td> Magic </td>
-      <td class = "td-money"> $200 </td>
+      <td class = "td-first"> ${biz} </td>
+      <td> ${product} </td>
+      <td class = "td-money"> ${price} </td>
       <td class = "product-detail-last"> buy </td>
   `;
 
     /*
     <tr>
       <td class = "td-first">Moose Stuff Llc.</td>
-      <td>Magic</td>
-      <td class = "td-money">$200</td>
-      <td class = "product-detail-last">buy</td>
+      <td> Magic </td>
+      <td class = "td-money"> $200 </td>
+      <td class = "product-detail-last"> buy </td>
     </tr>
     */
 
