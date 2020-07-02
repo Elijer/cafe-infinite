@@ -1,5 +1,8 @@
 /*
 
+
+
+
 0. Business stripe
 1. If the "are you a business" button is pressed multiple times before the page redirects
 the wrong state gets used. Avoid this, but if this error DOES happen, should return user back

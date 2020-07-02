@@ -1,3 +1,29 @@
+/*
+
+Okay! Yet again I'm way ahead of the curve on this thing. And yet again,
+I need to go back and refactor.
+
+1) The form interaction is absurd in its complexity
+
+2) Database modeling: first of all, make a new database called "products". What 
+   you're doing is a little absurd. Second, your database calls in general are
+   unresearched. You should figure out what the best practices for:
+      a) calling errors
+      b) using promises
+      c) DRY: My code is certainly heavier than it needs to be. Which leads me to:
+
+3) Eloquent javascript: You need to understand your craft better. You should know:
+      a) the difference between let, const, etc.
+      b) arrow functions
+
+3) Really try to implement state
+
+4) Question the efficacy of having separate .js files. It's working pretty well
+   so far. How well will it scale though?
+
+*/
+
+
 /* >>>>Problem fixed 1.5: Okay I am running a firebase.checkComplete bool that checks to see if
 a check for user persistence has been run. If it has, this global variable is set to false, and
 the check isn't run again. Probably not the absolute way to do things, but it works.
