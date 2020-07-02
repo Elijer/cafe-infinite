@@ -1,7 +1,11 @@
+
 /*
 
 Okay! Yet again I'm way ahead of the curve on this thing. And yet again,
-I need to go back and refactor.
+I need to go back and refactor. You can check biz.js, around line 100, to see where I'm at:
+
+CURRENT PROBLEM: Finish form input for products.
+NEXT PROBLEM: Create a way to pay for each product using stripe direct payments to Standard Connect Businesses.
 
 1) The form interaction is absurd in its complexity
 

@@ -89,13 +89,8 @@ body {
       td {
         text-align: left;
         padding: 0px 40px 45px 0px; /* top right bottom left */
+        visibility: hidden;
       }
-
-      /*
-      .td-first {
-        font-weight: 500;
-        padding-right: 60px;
-      }*/
 
       .td-money {
         text-align: right;
