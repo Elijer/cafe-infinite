@@ -69,20 +69,27 @@ function populateMarket(){
 
 function addRow() {
   console.log("addRow called");
-  const div = document.createElement('div');
+  const tr = document.createElement('tr');
 
-  div.className = 'product-row';
+  tr.className = 'product-row';
 
-  div.innerHTML = `
-    <tr>
-      <td class = "td-first">Moose Stuff Llc. </td>
+  tr.innerHTML = `
+      <td class = "td-first"> Moose Stuff Llc. </td>
       <td> Magic </td>
       <td class = "td-money"> $200 </td>
       <td class = "product-detail-last"> buy </td>
-    </tr>
   `;
 
-  document.getElementById('product-table').appendChild(div);
+    /*
+    <tr>
+      <td class = "td-first">Moose Stuff Llc.</td>
+      <td>Magic</td>
+      <td class = "td-money">$200</td>
+      <td class = "product-detail-last">buy</td>
+    </tr>
+    */
+
+  document.getElementById('product-table').appendChild(tr);
 }
 
 // ### Called when user logs in: formats login button to say their ID
