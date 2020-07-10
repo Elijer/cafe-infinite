@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
   function displayBizId(id){
     document.getElementById("stripe-ID").innerText = `${id}`;
+    document.getElementById("loading-stripe-ID").style.visibility = "hidden";
   }
 
   function startFormInput(){
@@ -166,7 +167,6 @@ document.addEventListener("DOMContentLoaded", event => {
 
   function handlePrice(e){
     var val = e.target.value;
-    //console.log(val);
     if (val == "" || val.length >= 7){
       return;
     } else {
@@ -176,16 +176,11 @@ document.addEventListener("DOMContentLoaded", event => {
         // window.location.href = "/";
       } else {
 
-        // do formatting here:
-        // trim white space
-        // get rid of all non-numerical characters
-        // add $ sign
-        // add commas, but not for the data
+        // do data and input-text formatting here //
 
         firebase.productPrice = val;
         document.getElementById("product-save").innerText = "Save";
         document.getElementById("product-save").style.visibility = 'visible';
-        // make underline green or some indication that entry is correct.
       }
     }
   }
@@ -208,6 +203,19 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
   /*
   function handleProduct(e){
     var val = e.target.value;
