@@ -1,3 +1,89 @@
+  /* Old Handler function: handleProduct()
+
+  function handleProduct(e){
+    var val = e.target.value;
+    console.log(val);
+
+    if (val == ""){
+      return;
+    } else {
+      var user = firebase.auth().currentUser;
+      if (!user){
+        alert("you must be logged in to do that.");
+        // window.location.href = "/";
+      } else {
+        const db = firebase.firestore();
+        const post = db.collection('businesses').doc(user.uid);
+
+        post.update({product: val, status: "doingBusiness"})
+        .then(function(doc) {
+          document.getElementById("td-money").style.visibility = 'visible';
+          //document.getElementById("td-money").focus();
+          document.getElementById("product-save").style.visibility = 'visible';
+          document.getElementById("product-save").innerText = "Product Saved";
+        }).catch(function(error) {
+          document.getElementById("product-save").innerText = "Unsuccessful";
+          console.log("Error getting document:", error);
+        });
+      }
+    }
+  }
+  */
+
+  /* Old Handler function: handlePrice()
+  function handlePrice(e){
+    var val = e.target.value;
+    console.log(val);
+
+    if (val == ""){
+      return;
+    } else {
+      var user = firebase.auth().currentUser;
+      if (!user){
+        alert("you must be logged in to do that.");
+      } else {
+        const db = firebase.firestore();
+        const post = db.collection('businesses').doc(user.uid);
+
+        post.update({price: val, status: "doingBusiness"})
+        .then(function(doc) {
+          //document.getElementById("td-money").focus();
+          document.getElementById("product-save").style.visibility = 'visible';
+          document.getElementById("product-save").innerText = "Done";
+        }).catch(function(error) {
+          document.getElementById("product-save").innerText = "Unsuccessful";
+          console.log("Error getting document:", error);
+        });
+      }
+    }
+  }
+  */
+
+
+
+/*### Okay here are my ideas for handling form input, although I think I'll just keep it
+where it is for now.
+
+[x] Make it so that the product and price inputs are visibility: hidden by default
+[x] When the user loads, set the product input to visible.
+[] When the product input has been filled out in a satisfactory way, make the price
+   visible. Satisfactory means:
+      [] Not too short, not too long
+      [] not empty
+[] Once the price variable get oninput, allow a "done" button to appear
+      [] Only decimal (float) numbers allowed
+      [] Has a size limit.
+[] The "done" button will finalize both values and send them to the database. This eliminates
+the inefficieny of sending every keystroke typed to the database, but maintains the elegance --
+ideally, the next button fades in casually.
+[] Then, a "saved" message must show up
+[] lastly, a "delete" message will show up after that.
+[] And that's the process! However, I suppose before doing it, you could just think about
+whether you should actually spend so much time on this. It's the last thing you have to do before
+doing stripe payments.
+*/
+
+
 
 /*
 

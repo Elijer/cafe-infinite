@@ -111,41 +111,6 @@ document.addEventListener("DOMContentLoaded", event => {
     myPost.update({status: _status })
   }
 
-
-  /*### Okay so this is actually working great even though it's not quite working.
-  Note that both oninput events are hooked to this function, which ONLY updates the
-  product field (line 126).
-
-  Before, I had two different functions, one that updated the product field, another
-  that updated the price field.
-
-  I want to instead write this function to do both.
-
-  You'll also have to re-assess the way the status variable is handled. Before status
-  can be doingBusiness, it needs to check that both the "product" and "price" field are
-  both filled.
-
-  But wait! There's an easier way.
-
-  [x] Make it so that the product and price inputs are visibility: hidden by default
-  [x] When the user loads, set the product input to visible.
-  [] When the product input has been filled out in a satisfactory way, make the price
-      visible. Satisfactory means:
-        [] Not too short, not too long
-        [] not empty
-  [] Once the price variable get oninput, allow a "done" button to appear
-        [] Only decimal (float) numbers allowed
-        [] Has a size limit.
-  [] The "done" button will finalize both values and send them to the database. This eliminates
-  the inefficieny of sending every keystroke typed to the database, but maintains the elegance --
-  ideally, the next button fades in casually.
-  [] Then, a "saved" message must show up
-  [] lastly, a "delete" message will show up after that.
-  [] And that's the process! However, I suppose before doing it, you could just think about
-  whether you should actually spend so much time on this. It's the last thing you have to do before
-  doing stripe payments.
-  */
-
   function handleProduct(e){
     var val = e.target.value;
     //console.log(val);
@@ -155,12 +120,10 @@ document.addEventListener("DOMContentLoaded", event => {
       var user = firebase.auth().currentUser;
       if (!user){
         alert("you must be logged in to do that.");
-        // window.location.href = "/";
       } else {
         firebase.productName = val;
         document.getElementById("product-save").innerText = "Save";
         document.getElementById("td-money").style.visibility = 'visible';
-        // make underline green or some indication that entry is correct.
       }
     }
   }
@@ -173,11 +136,8 @@ document.addEventListener("DOMContentLoaded", event => {
       var user = firebase.auth().currentUser;
       if (!user){
         alert("you must be logged in to do that.");
-        // window.location.href = "/";
       } else {
-
-        // do data and input-text formatting here //
-
+        // save input data to firebase object
         firebase.productPrice = val;
         document.getElementById("product-save").innerText = "Save";
         document.getElementById("product-save").style.visibility = 'visible';
@@ -186,13 +146,13 @@ document.addEventListener("DOMContentLoaded", event => {
   }
 
   function handleSave(e){
-    const prodName = firebase.productName;
-    const prodPrice = firebase.productPrice;
 
     const db = firebase.firestore();
     const user = firebase.auth().currentUser;
     const post = db.collection('businesses').doc(user.uid);
 
+    const prodName = firebase.productName;
+    const prodPrice = firebase.productPrice;
 
     post.update({product: prodName, price: prodPrice, status: "doingBusiness"})
     .then(function(doc) {
