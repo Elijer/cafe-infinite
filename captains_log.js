@@ -59,9 +59,7 @@
   }
   */
 
-
-
-/*### Okay here are my ideas for handling form input, although I think I'll just keep it
+/*### Other ideas for handling form input
 where it is for now.
 
 [x] Make it so that the product and price inputs are visibility: hidden by default
@@ -82,8 +80,6 @@ ideally, the next button fades in casually.
 whether you should actually spend so much time on this. It's the last thing you have to do before
 doing stripe payments.
 */
-
-
 
 /*
 

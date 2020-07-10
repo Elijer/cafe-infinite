@@ -83,11 +83,21 @@ function addRow(d) {
       <td class = "td-first"> ${d.biz} </td>
       <td> ${d.prod} </td>
       <td class = "td-money"> ${d.price} </td>
-      <td class = "product-detail-last"> buy </td>
+      <td class = "product-detail-last" onclick = "buyProduct("${d.biz}")" > buy </td>
   `;
 
   document.getElementById('product-table').appendChild(row);
 
+}
+
+
+function buyProduct(){
+  console.log("buyProduct() was called");
+  var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
+  stripeState({text: "1234"})
+  .then(function(result){
+    console.log(" the dot then got called! ")
+  })
 }
 
 // ### Called when user logs in: formats login button to say their ID

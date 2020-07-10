@@ -14,67 +14,41 @@ const cors = require('cors');
 const app = express();
 app.use(cors({ origin: true }));
 
-// Route that Stripe uses when onboarding is complete
-app.get("/api", async (req, res) => {
-    const { code, state } = req.query;
-    // 11 is an arbitrary number, but if the function used to construct state makes a state of a different size, it will break this endpoint
-    var justState = state.substring(0, 11);
-    var justUID = state.slice(11);
-    let docRef = db.collection('businesses').doc(justUID);
-    //get state field of doc with corredct uid to see if that state parameter matches
-    let getDoc = docRef.get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log("No such document for UID: " + justUID + "With state of: " + justState);
-        } else {
-          //console.log('Document data:', doc.data().state);
-          if (justState == doc.data().state){
-            console.log("the returned state matches!")
-          } else if (justState != doc.data().state){
-            return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
-          } else {
-            return res.status(403).json({ error: 'Incorrect and possibly missing state parameter: ' + state });
-            // this is where I want to break away, otherwise a Business ID is going to be returned to the database and just float around, unconnected to any UID
-            // Also -- if the UID already has a business ID, it shouldn't go through all this anyways.
-          }
-        }
-      })
-      .catch(err => {
-        console.log('Error getting document', err);
-      });
-  
-    // Send the authorization code to Stripe's API.
-    stripe.oauth.token({
-      grant_type: 'authorization_code',
-      code
-    }).then(
-      (response) => {
-        var connected_account_id = response.stripe_user_id;
-        let data = {
-            stripeBusinessID: connected_account_id,
-            status: "standby"
-          };
 
-        let id = db.collection('businesses').doc(justUID).set(data, {merge: true});
-  
-        /*>> [3] TO CODE: This is where I will redirect user to their business portal*/
-        // Render some HTML or redirect to a different page.
-        //return res.status(200).json({success: true});
-        return res.redirect('/biz.html');
-      },
-      (err) => {
-        if (err.type === 'StripeInvalidGrantError') {
-          return res.status(400).json({error: 'Invalid authorization code: ' + code});
-        } else {
-          return res.status(500).json({error: 'An unknown error occurred.'});
-        }
-      }
-    );
-  });
-  
 
-exports.app = functions.https.onRequest(app);
 
+
+
+// create payment intent
+exports.paymentIntent = functions.https.onCall((data, context) => {
+  console.log("Payment intent was called on the server");
+  /*
+    
+  if (!context.auth) {
+      throw new functions.https.HttpsError('failed-precondition', 'The function must be called ' +
+          'while authenticated.');
+  } else {
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      payment_method_types: ['card'],
+      amount: 1000,
+      currency: 'usd',
+      application_fee_amount: 123,
+    }, {
+      stripeAccount: '{{CONNECTED_STRIPE_ACCOUNT_ID}}', // this comma might be a typo
+    })
+
+  }
+  */
+})
+
+
+
+
+
+
+
+// ###### Callable function that creates the state ######
 exports.stripeState = functions.https.onCall((data, context) => {
     
     if (!context.auth) {
@@ -105,6 +79,72 @@ exports.stripeState = functions.https.onCall((data, context) => {
       return { text: onboardingURL };
     })
 });
+
+
+
+
+
+
+
+// ##### Route that Stripe uses when onboarding is complete ######
+app.get("/api", async (req, res) => {
+  const { code, state } = req.query;
+  // 11 is an arbitrary number, but if the function used to construct state makes a state of a different size, it will break this endpoint
+  var justState = state.substring(0, 11);
+  var justUID = state.slice(11);
+  let docRef = db.collection('businesses').doc(justUID);
+  //get state field of doc with corredct uid to see if that state parameter matches
+  let getDoc = docRef.get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log("No such document for UID: " + justUID + "With state of: " + justState);
+      } else {
+        //console.log('Document data:', doc.data().state);
+        if (justState == doc.data().state){
+          console.log("the returned state matches!")
+        } else if (justState != doc.data().state){
+          return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
+        } else {
+          return res.status(403).json({ error: 'Incorrect and possibly missing state parameter: ' + state });
+          // this is where I want to break away, otherwise a Business ID is going to be returned to the database and just float around, unconnected to any UID
+          // Also -- if the UID already has a business ID, it shouldn't go through all this anyways.
+        }
+      }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+
+  // Send the authorization code to Stripe's API.
+  stripe.oauth.token({
+    grant_type: 'authorization_code',
+    code
+  }).then(
+    (response) => {
+      var connected_account_id = response.stripe_user_id;
+      let data = {
+          stripeBusinessID: connected_account_id,
+          status: "standby"
+        };
+
+      let id = db.collection('businesses').doc(justUID).set(data, {merge: true});
+
+      /*>> [3] TO CODE: This is where I will redirect user to their business portal*/
+      // Render some HTML or redirect to a different page.
+      //return res.status(200).json({success: true});
+      return res.redirect('/biz.html');
+    },
+    (err) => {
+      if (err.type === 'StripeInvalidGrantError') {
+        return res.status(400).json({error: 'Invalid authorization code: ' + code});
+      } else {
+        return res.status(500).json({error: 'An unknown error occurred.'});
+      }
+    }
+  );
+});
+
+exports.app = functions.https.onRequest(app);
 
 
 
