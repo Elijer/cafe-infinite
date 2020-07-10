@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", event => {
   
   // ### Formats logout AND actually logs user out
   function logOut(){ // more on logging out: https://stackoverflow.com/questions/37343309/best-way-to-implement-logout-in-firebase-v3-0-1-firebase-unauth-is-removed-aft
-    //document.getElementById("banner-login").innerText = "login";
     window.location.href = "/";
     firebase.auth().signOut()
     .then(function() {
@@ -87,6 +86,8 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
+
+  // ### Three functions of handle form input and saving
   function handleProduct(e){
     var val = e.target.value;
     if (val == "" || val.length <= 2 || val.length >= 12){
