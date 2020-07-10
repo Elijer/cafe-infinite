@@ -87,33 +87,8 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
-  /* This is how simple it was initially :( Now I made it all complicated and awful.
-  function updatePost1(e){
-    var user = firebase.auth().currentUser;
-    const db = firebase.firestore();
-    const myPost = db.collection('businesses').doc(user.uid);
-    myPost.update({promotion: e.target.value })
-  }
-  */
-
-  // ### Function could be replaced by simpler calls to a "products" collection
-  function marketReady(ready){
-    var _status;
-    if (ready == true){
-      _status = "doingBusiness";
-    } else {
-      _status = "standby"
-    };
-
-    var user = firebase.auth().currentUser;
-    const db = firebase.firestore();
-    const myPost = db.collection('businesses').doc(user.uid);
-    myPost.update({status: _status })
-  }
-
   function handleProduct(e){
     var val = e.target.value;
-    //console.log(val);
     if (val == "" || val.length <= 2 || val.length >= 12){
       return;
     } else {
@@ -137,7 +112,6 @@ document.addEventListener("DOMContentLoaded", event => {
       if (!user){
         alert("you must be logged in to do that.");
       } else {
-        // save input data to firebase object
         firebase.productPrice = val;
         document.getElementById("product-save").innerText = "Save";
         document.getElementById("product-save").style.visibility = 'visible';
@@ -162,128 +136,3 @@ document.addEventListener("DOMContentLoaded", event => {
       console.log("Error getting document:", error);
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  /*
-  function handleProduct(e){
-    var val = e.target.value;
-    console.log(val);
-
-    if (val == ""){
-      return;
-    } else {
-      var user = firebase.auth().currentUser;
-      if (!user){
-        alert("you must be logged in to do that.");
-        // window.location.href = "/";
-      } else {
-        const db = firebase.firestore();
-        const post = db.collection('businesses').doc(user.uid);
-
-        post.update({product: val, status: "doingBusiness"})
-        .then(function(doc) {
-          document.getElementById("td-money").style.visibility = 'visible';
-          //document.getElementById("td-money").focus();
-          document.getElementById("product-save").style.visibility = 'visible';
-          document.getElementById("product-save").innerText = "Product Saved";
-        }).catch(function(error) {
-          document.getElementById("product-save").innerText = "Unsuccessful";
-          console.log("Error getting document:", error);
-        });
-      }
-    }
-  }
-  */
-
-  /*
-  function handlePrice(e){
-    var val = e.target.value;
-    console.log(val);
-
-    if (val == ""){
-      return;
-    } else {
-      var user = firebase.auth().currentUser;
-      if (!user){
-        alert("you must be logged in to do that.");
-      } else {
-        const db = firebase.firestore();
-        const post = db.collection('businesses').doc(user.uid);
-
-        post.update({price: val, status: "doingBusiness"})
-        .then(function(doc) {
-          //document.getElementById("td-money").focus();
-          document.getElementById("product-save").style.visibility = 'visible';
-          document.getElementById("product-save").innerText = "Done";
-        }).catch(function(error) {
-          document.getElementById("product-save").innerText = "Unsuccessful";
-          console.log("Error getting document:", error);
-        });
-      }
-    }
-  }
-  */
-
-  /* Deprecated input event functions
-
-  function updatePost2(e){
-    if (e.target.value == ""){
-      document.getElementById("product-save").innerText = "Field can't be empty.";
-    } else {
-      document.getElementById("product-save").innerText = "Loading";
-      var user = firebase.auth().currentUser;
-      const db = firebase.firestore();
-      const myPost = db.collection('businesses').doc(user.uid);
-      myPost.update({product: e.target.value, status: "doingBusiness"})
-      .then(function(doc) {
-        //document.getElementById("product-save").innerText = "Saved";
-        promptClear();
-      }).catch(function(error) {
-        document.getElementById("product-save").innerText = "Unsuccessful";
-          console.log("Error getting document:", error);
-      });
-    }
-    //document.getElementById("product-save").innerText = "Saved";
-  }
-
-  function updatePost3(e){
-    if (e.target.value == ""){
-      document.getElementById("product-save").innerText = "Field can't be empty.";
-    } else {
-      var user = firebase.auth().currentUser;
-      const db = firebase.firestore();
-      const myPost = db.collection('businesses').doc(user.uid);
-      myPost.update({price: e.target.value, status: "doingBusiness"})
-      .then(function(doc) {
-        //document.getElementById("product-save").innerText = "Saved";
-        promptClear();
-      }).catch(function(error) {
-        document.getElementById("product-save").innerText = "Unsuccessful";
-          console.log("Error getting document:", error);
-      });
-    }
-  }
-
-  function newProductPrompt(){
-    document.getElementById("product-save").innerText = "Press Enter to Save";
-  }
-
-  function promptClear(){
-    document.getElementById("product-save").innerText = "Saved";
-    document.getElementById("td-product").blur();
-    document.getElementById("td-money").blur();
-  }
-
-  */
