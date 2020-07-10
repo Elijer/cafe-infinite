@@ -41,6 +41,7 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
       stripeAccount: data.bizID // this comma might be a typo
     })
 
+    return paymentIntent;
   
 
   }

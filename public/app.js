@@ -98,7 +98,7 @@ function buyProduct(_bizID){
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({bizID: _bizID})
   .then(function(result){
-    console.log(" the dot then got called! ")
+    console.log(result)
   })
 }
 
