@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
   var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("login").innerText = "login";
+  document.getElementById("loading-stripe-ID").style.visibility = "hidden";
 
   // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
   firebase.checkComplete = false;
@@ -60,10 +61,10 @@ function populateMarket(){
           const data = {
             biz: d.stripeBusinessID,
             prod: d.product,
-            price: d.price
+            price: "$" + d.price
           }
 
-          addRow(data); // console.log(doc.id, " => ", doc.data());
+          addRow(data);
           
         });
     })
