@@ -78,21 +78,22 @@ function populateMarket(){
 function addRow(d) {
   const row = document.createElement('tr');
   row.className = 'product-row';
+  console.log(d);
 
   row.innerHTML = `
       <td class = "td-first"> ${d.biz} </td>
       <td> ${d.prod} </td>
       <td class = "td-money"> ${d.price} </td>
-      <td class = "product-detail-last" onclick = "buyProduct()" > buy </td>
+      <td class = "product-detail-last" onclick = "buyProduct('${d.biz}')" > buy </td>
   `;
 
   document.getElementById('product-table').appendChild(row);
 
 }
 
-
-function buyProduct(){
-  console.log("buyProduct() was called with bizID of");
+// #### Calls http callable function: paymentIntent()
+function buyProduct(d){
+  console.log("buyProduct() was called with bizID of " + d);
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({text: "1234"})
   .then(function(result){
