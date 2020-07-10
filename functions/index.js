@@ -40,7 +40,7 @@ exports.paymentIntent = functions.https.onCall((data, context) => {
 
   }
   */
-})
+});
 
 
 

@@ -83,7 +83,7 @@ function addRow(d) {
       <td class = "td-first"> ${d.biz} </td>
       <td> ${d.prod} </td>
       <td class = "td-money"> ${d.price} </td>
-      <td class = "product-detail-last" onclick = "buyProduct("${d.biz}")" > buy </td>
+      <td class = "product-detail-last" onclick = "buyProduct()" > buy </td>
   `;
 
   document.getElementById('product-table').appendChild(row);
@@ -92,9 +92,9 @@ function addRow(d) {
 
 
 function buyProduct(){
-  console.log("buyProduct() was called");
+  console.log("buyProduct() was called with bizID of");
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
-  stripeState({text: "1234"})
+  paymentIntent({text: "1234"})
   .then(function(result){
     console.log(" the dot then got called! ")
   })
