@@ -22,12 +22,15 @@ app.use(cors({ origin: true }));
 // create payment intent
 exports.paymentIntent = functions.https.onCall((data, context) => {
   console.log("Payment intent was called on the server");
-  /*
     
   if (!context.auth) {
       throw new functions.https.HttpsError('failed-precondition', 'The function must be called ' +
           'while authenticated.');
   } else {
+
+    console.log("going to make a payment to bizID of " + data.bizID);
+
+    /*
 
     const paymentIntent = await stripe.paymentIntents.create({
       payment_method_types: ['card'],
@@ -35,11 +38,12 @@ exports.paymentIntent = functions.https.onCall((data, context) => {
       currency: 'usd',
       application_fee_amount: 123,
     }, {
-      stripeAccount: '{{CONNECTED_STRIPE_ACCOUNT_ID}}', // this comma might be a typo
+      stripeAccount: data.bizID // this comma might be a typo
     })
 
-  }
   */
+
+  }
 });
 
 

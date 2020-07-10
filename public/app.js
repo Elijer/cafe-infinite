@@ -80,7 +80,8 @@ function addRow(d) {
   row.className = 'product-row';
   console.log(d);
 
-  row.innerHTML = `
+  row.innerHTML =
+  `
       <td class = "td-first"> ${d.biz} </td>
       <td> ${d.prod} </td>
       <td class = "td-money"> ${d.price} </td>
@@ -92,10 +93,10 @@ function addRow(d) {
 }
 
 // #### Calls http callable function: paymentIntent()
-function buyProduct(d){
-  console.log("buyProduct() was called with bizID of " + d);
+function buyProduct(_bizID){
+  console.log("buyProduct() was called with bizID of " + _bizID);
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
-  paymentIntent({text: "1234"})
+  paymentIntent({bizID: _bizID})
   .then(function(result){
     console.log(" the dot then got called! ")
   })
