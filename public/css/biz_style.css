@@ -46,6 +46,12 @@
         font-size: 20px;
         }
 
+    #td-product, #td-money, #product-save {
+      padding: 5px;
+      background-color: #f2e9d5;
+      border: 0px;
+    }
+
 
 
 
