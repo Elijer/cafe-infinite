@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
   [x] Make it so that the product and price inputs are visibility: hidden by default
   [x] When the user loads, set the product input to visible.
-  [] When the product input has been filled out in a satisfactory way, make the price variable
+  [] When the product input has been filled out in a satisfactory way, make the price
       visible. Satisfactory means:
         [] Not too short, not too long
         [] not empty
@@ -145,7 +145,69 @@ document.addEventListener("DOMContentLoaded", event => {
   doing stripe payments.
   */
 
-  function handlePrompt(e){
+  function handleProduct(e){
+    var val = e.target.value;
+    //console.log(val);
+    if (val == "" || val.length <= 2 || val.length >= 12){
+      return;
+    } else {
+      var user = firebase.auth().currentUser;
+      if (!user){
+        alert("you must be logged in to do that.");
+        // window.location.href = "/";
+      } else {
+        firebase.productName = val;
+        document.getElementById("td-money").style.visibility = 'visible';
+        // make underline green or some indication that entry is correct.
+      }
+    }
+  }
+
+  function handlePrice(e){
+    var val = e.target.value;
+    //console.log(val);
+    if (val == "" || val.length >= 7){
+      return;
+    } else {
+      var user = firebase.auth().currentUser;
+      if (!user){
+        alert("you must be logged in to do that.");
+        // window.location.href = "/";
+      } else {
+
+        // do formatting here:
+        // trim white space
+        // get rid of all non-numerical characters
+        // add $ sign
+        // add commas, but not for the data
+
+        firebase.productPrice = val;
+        document.getElementById("product-save").style.visibility = 'visible';
+        // make underline green or some indication that entry is correct.
+      }
+    }
+  }
+
+  function handleSave(e){
+    const prodName = firebase.productName;
+    const prodPrice = firebase.productPrice;
+
+    const db = firebase.firestore();
+    const user = firebase.auth().currentUser;
+    const post = db.collection('businesses').doc(user.uid);
+
+
+    post.update({product: prodName, price: prodPrice, status: "doingBusiness"})
+    .then(function(doc) {
+      document.getElementById("product-save").innerText = "Product Saved";
+    }).catch(function(error) {
+      document.getElementById("product-save").innerText = "Save unsuccessful";
+      console.log("Error getting document:", error);
+    });
+  }
+
+  /*
+  function handleProduct(e){
     var val = e.target.value;
     console.log(val);
 
@@ -162,6 +224,10 @@ document.addEventListener("DOMContentLoaded", event => {
 
         post.update({product: val, status: "doingBusiness"})
         .then(function(doc) {
+          document.getElementById("td-money").style.visibility = 'visible';
+          //document.getElementById("td-money").focus();
+          document.getElementById("product-save").style.visibility = 'visible';
+          document.getElementById("product-save").innerText = "Product Saved";
         }).catch(function(error) {
           document.getElementById("product-save").innerText = "Unsuccessful";
           console.log("Error getting document:", error);
@@ -169,6 +235,36 @@ document.addEventListener("DOMContentLoaded", event => {
       }
     }
   }
+  */
+
+  /*
+  function handlePrice(e){
+    var val = e.target.value;
+    console.log(val);
+
+    if (val == ""){
+      return;
+    } else {
+      var user = firebase.auth().currentUser;
+      if (!user){
+        alert("you must be logged in to do that.");
+      } else {
+        const db = firebase.firestore();
+        const post = db.collection('businesses').doc(user.uid);
+
+        post.update({price: val, status: "doingBusiness"})
+        .then(function(doc) {
+          //document.getElementById("td-money").focus();
+          document.getElementById("product-save").style.visibility = 'visible';
+          document.getElementById("product-save").innerText = "Done";
+        }).catch(function(error) {
+          document.getElementById("product-save").innerText = "Unsuccessful";
+          console.log("Error getting document:", error);
+        });
+      }
+    }
+  }
+  */
 
   /* Deprecated input event functions
 

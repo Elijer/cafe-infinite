@@ -91,8 +91,8 @@
             <td id = "fade-in">
               <input
               id = "td-product"
-              placeholder = "Promotion"
-              oninput = "handlePrompt(event)"
+              placeholder = "Product"
+              oninput = "handleProduct(event)"
               >
             </td>
 
@@ -100,11 +100,17 @@
               <input
               id = "td-money"
               placeholder = "Price"
-              oninput = "handlePrompt(event)"
+              oninput = "handlePrice(event)"
               >
             </td>
 
-            <td id = "product-save" class = "product-detail-last"> Save </td>
+            <td class = "product-detail-last">
+              <button
+              id = "product-save"
+              onclick = "handleSave(event)">
+                Save
+              </button>
+            </td>
           </tr>
         </table>
       </div>
