@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", event => {
         // window.location.href = "/";
       } else {
         firebase.productName = val;
+        document.getElementById("product-save").innerText = "Save";
         document.getElementById("td-money").style.visibility = 'visible';
         // make underline green or some indication that entry is correct.
       }
@@ -182,6 +183,7 @@ document.addEventListener("DOMContentLoaded", event => {
         // add commas, but not for the data
 
         firebase.productPrice = val;
+        document.getElementById("product-save").innerText = "Save";
         document.getElementById("product-save").style.visibility = 'visible';
         // make underline green or some indication that entry is correct.
       }
