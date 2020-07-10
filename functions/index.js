@@ -20,7 +20,7 @@ app.use(cors({ origin: true }));
 
 
 // create payment intent
-exports.paymentIntent = functions.https.onCall((data, context) => {
+exports.paymentIntent = functions.https.onCall (async(data, context) => {
   console.log("Payment intent was called on the server");
     
   if (!context.auth) {
@@ -30,9 +30,9 @@ exports.paymentIntent = functions.https.onCall((data, context) => {
 
     console.log("going to make a payment to bizID of " + data.bizID);
 
-    /*
+    
 
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await stripe.paymentIntents.create({ //https://www.youtube.com/watch?v=vn3tm0quoqE
       payment_method_types: ['card'],
       amount: 1000,
       currency: 'usd',
@@ -41,7 +41,7 @@ exports.paymentIntent = functions.https.onCall((data, context) => {
       stripeAccount: data.bizID // this comma might be a typo
     })
 
-  */
+  
 
   }
 });
