@@ -108,8 +108,8 @@ function buyProduct(_bizID){
   paymentIntent({bizID: _bizID})
   .then(function(result){
     //console.log("Okay so the client secret returned is this: " + result.data.client_secret);
-    console.log(result);
-    const theBigSecret = result.data;
+    const theBigSecret = 'pi_1H3h6XGyLtyoABdRBqMr6Pht_secret_umTNVCFvTxHZfN60yYDyjum4G';
+    console.log(theBigSecret);
     // ####### START OF STRIPE STUFF
     // ########################
     // ########################
@@ -121,7 +121,7 @@ function buyProduct(_bizID){
     // ########################
     // ########################
     // ########################
-    var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');
+    var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S', { stripeAccount: _bizID});
     
     // Create an instance of Elements.
     var elements = stripe.elements();
@@ -168,7 +168,6 @@ function buyProduct(_bizID){
       // ##### 
       // ##### 
       // ##### This is where the client secret goes
-      console.log(theBigSecret);
       stripe.confirmCardPayment(theBigSecret, {
         payment_method: {
           card: card,

@@ -1,3 +1,13 @@
+/* Current problem: "No such payment_intent". WTF? I have been making the payent intent
+Not totally clear if the client_secret is being cut off, possibly some problem
+with how I'm parsing the return JSON. Or there might be an issue with the stripeAccount
+field. I still haven't tried putting my OWN stripeAccount field in there because I don't
+know how that would make sense. Then when would the connected account info get put in?
+Possibly worth a shot. In over my head anyways though. Things are breaking because
+I didn't really take the time to understand everything. Get some goddamn sleep you sorry
+soul.
+*/
+
 //Firebase/Firestore
 var randomstring = require("randomstring");
 const functions = require('firebase-functions'); // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
@@ -37,7 +47,7 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
       currency: 'usd',
       application_fee_amount: 123,
     }, {
-      stripeAccount: 'acct_1H3NUYGs1goQpAIr', // this comma might be a typo
+      stripeAccount: 'acct_1Gn5TjGyLtyoABdR', // this comma might be a typo
     })
 
     //console.log("Okay the client secret generated is this: " + paymentIntent.data.client_secret);
