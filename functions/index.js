@@ -30,7 +30,6 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
 
     console.log("going to make a payment to bizID of " + data.bizID);
 
-    
 
     const paymentIntent = await stripe.paymentIntents.create({ //https://www.youtube.com/watch?v=vn3tm0quoqE
       payment_method_types: ['card'],
@@ -38,10 +37,11 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
       currency: 'usd',
       application_fee_amount: 123,
     }, {
-      stripeAccount: data.bizID // this comma might be a typo
+      stripeAccount: 'acct_1H3NUYGs1goQpAIr', // this comma might be a typo
     })
 
-    return paymentIntent;
+    //console.log("Okay the client secret generated is this: " + paymentIntent.data.client_secret);
+    return paymentIntent.client_secret;
   
 
   }

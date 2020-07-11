@@ -22,6 +22,15 @@ document.addEventListener("DOMContentLoaded", event => {
   firebase.auth().onAuthStateChanged(user => checkForUserPersistence());
 });
 
+
+
+
+
+
+
+
+
+
 // ### Called once to see if a user already persists in browser
 function checkForUserPersistence(){
   if (firebase.checkComplete == false){
@@ -98,13 +107,26 @@ function buyProduct(_bizID){
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({bizID: _bizID})
   .then(function(result){
-    // stripe returns the paymentIntent in 'result', including a 'client secret'
-    console.log(result)
-
-    // create stripe elements?? but make sure to define stripe first
-    var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
+    //console.log("Okay so the client secret returned is this: " + result.data.client_secret);
+    console.log(result);
+    const theBigSecret = result.data;
+    // ####### START OF STRIPE STUFF
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');
+    
+    // Create an instance of Elements.
     var elements = stripe.elements();
 
+    // style the form
     var style = {
       base: {
         color: '#32325d',
@@ -121,14 +143,91 @@ function buyProduct(_bizID){
       }
     };
 
+    // Create an instance of the card Element.
     var card = elements.create('card', {style: style});
 
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element');
 
+    // Handle real-time validation errors from the card Element.
+    card.on('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
 
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', function(ev) {
+      ev.preventDefault();
+      // ##### 
+      // ##### 
+      // ##### 
+      // ##### This is where the client secret goes
+      console.log(theBigSecret);
+      stripe.confirmCardPayment(theBigSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            // ##### 
+            // ##### 
+            // ##### 
+            // ##### 
+            // This is where I get the billing details from whatever fields are in the form
+            name: 'Jenny Rosen'
+          }
+        }
+      }).then(function(result) {
+        if (result.error) {
+          // Show error to your customer (e.g., insufficient funds)
+          console.log(result.error.message);
+        } else {
+          // The payment has been processed!
+          if (result.paymentIntent.status === 'succeeded') {
+            // Show a success message to your customer
+            // There's a risk of the customer closing the window before callback
+            // execution. Set up a webhook or plugin to listen for the
+            // payment_intent.succeeded event that handles any business critical
+            // post-payment actions.
+          }
+        }
+      });
+    });
+
+    // Submit the form with the token ID.
+    function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      form.submit();
+    }
+    // ##### END OF STRIPE STUFF
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
+    // ########################
   })
 }
+
+
+
+
 
 // ### Called when user logs in: formats login button to say their ID
 function loginFormat(id){

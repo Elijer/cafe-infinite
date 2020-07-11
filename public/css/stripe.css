@@ -1,0 +1,8 @@
+#payment-form, #card-element, #card-errors, #submit {
+    background: #f2e9d5;
+}
+
+#card-element {
+    width: 20px;
+}
+
