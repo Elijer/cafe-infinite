@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
-  var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S');  
   document.getElementById("login").innerText = "login";
   document.getElementById("loading-stripe-ID").style.visibility = "hidden";
 
@@ -108,21 +107,14 @@ function buyProduct(_bizID){
   paymentIntent({bizID: _bizID})
   .then(function(result){
     //console.log("Okay so the client secret returned is this: " + result.data.client_secret);
-    const theBigSecret = 'pi_1H3h6XGyLtyoABdRBqMr6Pht_secret_umTNVCFvTxHZfN60yYDyjum4G';
+    //const theBigSecret = 'pi_1H3h6XGyLtyoABdRBqMr6Pht_secret_umTNVCFvTxHZfN60yYDyjum4G';
+    const theBigSecret = result.data;
     console.log(theBigSecret);
-    // ####### START OF STRIPE STUFF
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S', { stripeAccount: _bizID});
-    
+
+    var stripe = Stripe('pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S', {
+      stripeAccount: _bizID
+    });
+
     // Create an instance of Elements.
     var elements = stripe.elements();
 

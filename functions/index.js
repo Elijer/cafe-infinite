@@ -47,7 +47,7 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
       currency: 'usd',
       application_fee_amount: 123,
     }, {
-      stripeAccount: 'acct_1Gn5TjGyLtyoABdR', // this comma might be a typo
+      stripeAccount: data.bizID // this comma might be a typo
     })
 
     //console.log("Okay the client secret generated is this: " + paymentIntent.data.client_secret);
