@@ -56,6 +56,24 @@ This is how, once you have connected businesses, you can collect the card inform
 
 ##### Pain Points:
 * The boilerplate code I used from stripe to do all of this logged errors perfectly and even has a [great guide for reading those errors here](https://stripe.com/docs/error-codes). However, the boilerplate code doesn't display any 'success' messages by default.
+* While in the server, you initialize stripe using your **Secret Key** (your **Test Secret Key** while you are testing) through a require only **once**, you will probably want to initialize your stripe object at the top of **every function** in your client code, and NOT at the top of the page. For your **Accept a Payment** function, whatever you write, you must initialize Stripe **with** the **Connected Account ID** you are using, like this:
+`
+    var stripe = Stripe('pk_test_**********************************', {
+      stripeAccount: '{{The Stripe Connected Account ID for whatever business your are sending money to goes here}}'
+    });
+`
+
+* Additionally, make sure you are passing that **Stripe Connected Account ID** your server function that generates the PaymentIntent, as you *also* need that ID in order to construct the PaymentIntent object through stripe:
+`
+  const paymentIntent = await stripe.paymentIntents.create({ //https://www.youtube.com/watch?v=vn3tm0quoqE
+      payment_method_types: ['card'],
+      amount: 1000,
+      currency: 'usd',
+      application_fee_amount: 123,
+    }, {
+      stripeAccount: '{{The Stripe Connected Account ID for whatever business your are sending money to goes here}}'
+    })
+`
 
 ### Dev Tips
 * If you are logged in, the code snippets in the docs include your various api keys automatically in them, so you can just copy and paste them
