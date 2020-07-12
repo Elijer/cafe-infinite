@@ -119,21 +119,7 @@ function buyProduct(_bizID){
     var elements = stripe.elements();
 
     // style the form
-    var style = {
-      base: {
-        color: '#32325d',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: 'antialiased',
-        fontSize: '16px',
-        '::placeholder': {
-          color: '#aab7c4'
-        }
-      },
-      invalid: {
-        color: '#fa755a',
-        iconColor: '#fa755a'
-      }
-    };
+    var style = styleStripeForm();
 
     // Create an instance of the card Element.
     var card = elements.create('card', {style: style});
@@ -158,14 +144,11 @@ function buyProduct(_bizID){
       ev.preventDefault();
       // ##### 
       // ##### 
-      // ##### 
       // ##### This is where the client secret goes
       stripe.confirmCardPayment(theBigSecret, {
         payment_method: {
           card: card,
           billing_details: {
-            // ##### 
-            // ##### 
             // ##### 
             // ##### 
             // This is where I get the billing details from whatever fields are in the form
@@ -216,6 +199,26 @@ function buyProduct(_bizID){
     // ########################
     // ########################
   })
+}
+
+function styleStripeForm(){
+  var style = {
+    base: {
+      color: '#32325d',
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: 'antialiased',
+      fontSize: '16px',
+      '::placeholder': {
+        color: '#aab7c4'
+      }
+    },
+    invalid: {
+      color: '#fa755a',
+      iconColor: '#fa755a'
+    }
+  };
+  
+  return style;
 }
 
 
