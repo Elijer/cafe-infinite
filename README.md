@@ -55,7 +55,7 @@ This is how, once you have connected businesses, you can collect the card inform
 * meanwhile, set up webhook endpoints on your server to listen for successful payments so that you can do stuff with them.
 
 ##### Pain Points:
-The boilerplate code I used from stripe to do all of this logged errors perfectly and even has a [great guide for reading those errors here](https://stripe.com/docs/error-codes). However, the boilerplate code doesn't display any 'success' messages by default, even though the success area is heavily commented out by stripe with instructions! So for a while I was sending in a payment successfully but, not seeing anything happeneing, thought something was wrong and tinkered with the code until it broke and I started seeing error messages again. I then had to find my way back to what I was doing and realize that I just needed to add in some place-holder console.logs that told me everything worked until I went back and actually built the UI saying the same thing.
+* The boilerplate code I used from stripe to do all of this logged errors perfectly and even has a [great guide for reading those errors here](https://stripe.com/docs/error-codes). However, the boilerplate code doesn't display any 'success' messages by default.
 
 ### Dev Tips
 * If you are logged in, the code snippets in the docs include your various api keys automatically in them, so you can just copy and paste them
