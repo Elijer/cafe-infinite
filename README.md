@@ -34,17 +34,17 @@ Securely onboard new businesses through a link and upon return to a stripe-facin
 This is a continuation of accepting direct payments, [also outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide).
 This is how, once you have connected businesses, you can collect the card information of customers and send their money to the connected businesses.
 
-* **Generate a PaymentIntent object on the server** (using the stripe API), which includes the price and the Connected Account ID that is being paid. You can also specify a 'processing fee' here, which goes to you.
+1. **Generate a PaymentIntent object on the server** (using the stripe API), which includes the price and the Connected Account ID that is being paid. You can also specify a 'processing fee' here, which goes to you.
 
-* **A 'client secret' from the PaymentIntent is returned to the client** (to show proof that a valid PaymentIntent object exists to be used)
+1. **A 'client secret' from the PaymentIntent is returned to the client** (to show proof that a valid PaymentIntent object exists to be used)
 
-* **Collect Card details** using 'Stripe Elements', a library of UI elements that you can use to easily collect the user info you need to make accept a stripe payment (card number, zip code, security code, etc.)
+1. **Collect Card details** using 'Stripe Elements', a library of UI elements that you can use to easily collect the user info you need to make accept a stripe payment (card number, zip code, security code, etc.)
 
-* **Set up an error handler** that tells you if something goes wrong with user info input
+1. **Set up an error handler** that tells you if something goes wrong with user info input
 
-* **Submit the payment to Stripe** (still on the client). Take all the user info you collected AND the 'client secret' from before to send in the payment! <br/>
+1. **Submit the payment to Stripe** (still on the client). Take all the user info you collected AND the 'client secret' from before to send in the payment! <br/>
 
-* **Set up a webhook to 'catch' successful payments** so that you can process them yourself. Log them to the database, maybe show them in the billing info on your Business Interface, etc. <br/>
+1. **Set up a webhook to 'catch' successful payments** so that you can process them yourself. Log them to the database, maybe show them in the billing info on your Business Interface, etc. <br/>
 
 #### Explain it like I'm 12:
 * Generate a PaymentIntent object with a client_secret field
