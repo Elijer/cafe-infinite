@@ -23,24 +23,18 @@ document.addEventListener("DOMContentLoaded", event => {
 
 
 
-
-
-
-
-
-
-
 // ### Called once to see if a user already persists in browser
 function checkForUserPersistence(_db){
+  // monkey
   if (firebase.checkComplete == false){
-      var user = firebase.auth().currentUser;
-    if (user){
-      console.log("Persistent user found in browser: " + user.uid);
-      const docRef = _db.collection('businesses').doc(user.uid);
+      var uid = firebase.auth().currentUser.uid;
+    if (uid){
+      console.log("Persistent user found in browser: " + uid);
+      const docRef = _db.collection('businesses').doc(uid);
       docRef.get().then(function(doc) {
         if (doc.data()) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
-          loginFormat(user.uid);
+          loginFormat(uid);
           populateMarket();
           document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
         } else {
