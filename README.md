@@ -74,6 +74,7 @@ This is how, once you have connected businesses, you can collect the card inform
       stripeAccount: '{{The Stripe Connected Account ID for whatever business your are sending money to goes here}}'
     })
 ````
+* I had trouble installing the [stripe CLI](https://stripe.com/docs/stripe-cli#install) for endpoint webhook testing. Stripe allows you to donwload the stripe CLI with homebrew or directly. I also found ways to supposedly do so with npm or yarn. None of those worked though (I had an issue with installing homebrew -- hopefully you already have it.) What I ended up doing was download the stripe CLI file for MacOS directly, unzipping it, and then pasting it into my usr/local/bin by going to finder and using the hotkeys shift+command+g and pasting it there. After that, the `stripe` keyword worked from my path and I used `stripe login` to get started.
 
 ### Dev Tips
 * If you are logged in, the code snippets in the docs include your various api keys automatically in them, so you can just copy and paste them
