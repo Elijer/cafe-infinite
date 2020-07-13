@@ -18,9 +18,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
   // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
   firebase.checkComplete = false;
-  firebase.auth().onAuthStateChanged(user => checkForUserPersistence());
-
-  testIfThisFileIsLoaded();
+  firebase.auth().onAuthStateChanged(user => checkForUserPersistence(db));
 });
 
 
@@ -33,13 +31,12 @@ document.addEventListener("DOMContentLoaded", event => {
 
 
 // ### Called once to see if a user already persists in browser
-function checkForUserPersistence(){
+function checkForUserPersistence(_db){
   if (firebase.checkComplete == false){
       var user = firebase.auth().currentUser;
     if (user){
       console.log("Persistent user found in browser: " + user.uid);
-      const db = firebase.firestore();
-      const docRef = db.collection('businesses').doc(user.uid);
+      const docRef = _db.collection('businesses').doc(user.uid);
       docRef.get().then(function(doc) {
         if (doc.data()) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
