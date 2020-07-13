@@ -327,7 +327,7 @@ function onboardBusiness(){
     });
 }
 
-// lines of code before moving db stuff out of db_util
+// 330 lines of code before moving db stuff out of db_util
 
   /* Stripe Notes
   Customize banner: https://dashboard.stripe.com/settings/applications-->
