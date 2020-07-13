@@ -20,6 +20,7 @@ const stripe = require('stripe')('sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ', {
 
 //express
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 app.use(cors({ origin: true }));
@@ -159,7 +160,74 @@ app.get("/api", async (req, res) => {
   );
 });
 
+app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
+  let event = request.body;
+  let responseType = request.body.type;
+
+  /*
+  try {
+    let event = request.body;
+    let responseType = request.body.type;
+  } catch (err) {
+    response.status(400).send(`Webhook Error: ${err.message}`);
+  }
+  */
+
+  // Handle the event
+  //console.log(event);
+  switch (event.type) {
+    case 'payment_intent.succeeded':
+      const paymentIntent = event.data.object;
+      console.log('PaymentIntent was successful!');
+      break;
+    case 'payment_method.attached':
+      const paymentMethod = event.data.object;
+      console.log('PaymentMethod was attached to a Customer!');
+      break;
+    // ... handle other event types
+    default:
+      // Unexpected event type
+      return response.status(400).end();
+  }
+
+  // Return a 200 response to acknowledge receipt of the event
+  //response.json({received: true});
+  return response.status(200).end();
+});
+
+/*
+app.get("/paymentsuccess",
+  bodyParser.raw({type: 'application/json'}), (request, response) => {
+
+  console.log("this is happening on the server");
+    
+  const sig = request.headers['stripe-signature'];
+
+  let event;
+
+  // Verify webhook signature and extract the event.
+  // See https://stripe.com/docs/webhooks/signatures for more information.
+  try {
+    event = stripe.webhooks.constructEvent(request.body, sig, webhook_secret);
+  } catch (err) {
+    return response.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  if (event.type === 'payment_intent.succeeded') {
+    const paymentIntent = event.data.object;
+    const connectedAccountId = event.account;
+    handleSuccessfulPaymentIntent(connectedAccountId, paymentIntent);
+  }
+
+  response.json({received: true});
+
+});
+*/
+//unfinished
+
 exports.app = functions.https.onRequest(app);
+
+
 
 
 
