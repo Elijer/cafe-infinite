@@ -38,6 +38,9 @@ function checkForUserPersistence(){
       var user = firebase.auth().currentUser;
     if (user){
       console.log("Persistent user found in browser: " + user.uid);
+
+      // In this process of moving this functionality to db.util.js
+      /*
       const db = firebase.firestore();
       const docRef = db.collection('businesses').doc(user.uid);
       docRef.get().then(function(doc) {
@@ -53,6 +56,7 @@ function checkForUserPersistence(){
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
+      */
 
     } else {
       console.log("No persistent user in browser");
