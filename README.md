@@ -26,12 +26,54 @@ This repo is a boiler-plate for integrating Stripe Connect features with Firebas
 * Begin exploring the Stripe website, which is pretty elaborate
 * In particular, begin exploring the stripe docs at [stripe.com/docs](https://stripe.com/docs), which are also intimidating, but are pretty impressively organized once you get used to them.
 
-### Business Onboarding
+### Business Onboarding (with Stripe Connect: Standard Accounts)
 This is a part of the process of accepting direct payments [as outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide)
 Securely onboard new businesses through a link and upon return to a stripe-facing URI, save the business's ID to firestore. Stripe refers to this as "Stripe Connect" for "Standard Accounts". This project only focuses on onboarding "Standard Accounts" because Stipe requires a lot of information from the business and consequently volunteers to cover financial disputes. However, "Express Accounts" represent another option that can be used with Stripe Connect and are attractive because they require less information and have a more visually simple (and pretty) onboarding interface that would essentially make for a much faster (hence "express) and less intimidating onboarding process for potential business partners. However, Stripe does NOT assume liability for these businesses, which is why they are probably not a good choice for a budding online marketplace with limited (read "no") legal and financial staff.
 
 ### Accept a Payment
-This is a continuation of accepting direct payments, [also outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide). I haven't gotten here yet.
+This is a continuation of accepting direct payments, [also outlined here on the stripe docs](https://stripe.com/docs/connect/enable-payment-acceptance-guide).
+This is how, once you have connected businesses, you can collect the card information of customers and send their money to the connected businesses.
+
+1. **Generate a PaymentIntent object on the server** (using the stripe API), which includes the price and the Connected Account ID that is being paid. You can also specify a 'processing fee' here, which goes to you.
+
+1. **A 'client secret' from the PaymentIntent is returned to the client** (to show proof that a valid PaymentIntent object exists to be used)
+
+1. **Collect Card details** using 'Stripe Elements', a library of UI elements that you can use to easily collect the user info you need to make accept a stripe payment (card number, zip code, security code, etc.)
+
+1. **Set up an error handler** that tells you if something goes wrong with user info input
+
+1. **Submit the payment to Stripe** (still on the client). Take all the user info you collected AND the 'client secret' from before to send in the payment! <br/>
+
+1. **Set up a webhook to 'catch' successful payments** so that you can process them yourself. Log them to the database, maybe show them in the billing info on your Business Interface, etc. <br/>
+
+#### Explain it like I'm 12:
+* Generate a PaymentIntent object with a client_secret field
+* pass client_secret to client
+* collect card # and stuff
+* send card number to stripe along with client secret
+* recieve a success or error response
+* meanwhile, set up webhook endpoints on your server to listen for successful payments so that you can do stuff with them.
+
+##### Pain Points:
+* The boilerplate code I used from stripe to do all of this logged errors perfectly and even has a [great guide for reading those errors here](https://stripe.com/docs/error-codes). However, the boilerplate code doesn't display any 'success' messages by default.
+* While in the server, you initialize stripe using your **Secret Key** (your **Test Secret Key** while you are testing) through a require only **once**, you will probably want to initialize your stripe object at the top of **every function** in your client code, and NOT at the top of the page. For your **Accept a Payment** function, whatever you write, you must initialize Stripe **with** the **Connected Account ID** you are using, like this:
+````
+    var stripe = Stripe('pk_test_**********************************', {
+      stripeAccount: '{{The Stripe Connected Account ID for whatever business your are sending money to goes here}}'
+    });
+````
+
+* Additionally, make sure you are passing that **Stripe Connected Account ID** your server function that generates the PaymentIntent, as you *also* need that ID in order to construct the PaymentIntent object through stripe:
+````
+  const paymentIntent = await stripe.paymentIntents.create({ //https://www.youtube.com/watch?v=vn3tm0quoqE
+      payment_method_types: ['card'],
+      amount: 1000,
+      currency: 'usd',
+      application_fee_amount: 123,
+    }, {
+      stripeAccount: '{{The Stripe Connected Account ID for whatever business your are sending money to goes here}}'
+    })
+````
 
 ### Dev Tips
 * If you are logged in, the code snippets in the docs include your various api keys automatically in them, so you can just copy and paste them
