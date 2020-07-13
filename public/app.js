@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", event => {
   // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
   firebase.checkComplete = false;
   firebase.auth().onAuthStateChanged(user => checkForUserPersistence());
+
+  testIfThisFileIsLoaded();
 });
 
 
@@ -100,7 +102,7 @@ function addRow(d) {
 
 }
 
-// #### Calls http callable function: paymentIntent()
+// ######### Calls http callable function: paymentIntent()
 function buyProduct(_bizID){
   console.log("buyProduct() was called with bizID of " + _bizID);
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
@@ -187,17 +189,6 @@ function buyProduct(_bizID){
       // Submit the form
       form.submit();
     }
-    // ##### END OF STRIPE STUFF
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
-    // ########################
   })
 }
 
@@ -217,7 +208,7 @@ function styleStripeForm(){
       iconColor: '#fa755a'
     }
   };
-  
+
   return style;
 }
 
