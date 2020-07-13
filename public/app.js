@@ -37,7 +37,7 @@ function checkForUserPersistence(_db){
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
           loginFormat(uid);
           document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
-          populateMarket();
+          populateMarket(_db);
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
           logOut();
@@ -52,9 +52,10 @@ function checkForUserPersistence(_db){
   }
 }
 
-function populateMarket(){
-  const db = firebase.firestore();
-  db.collection("businesses").where("status", "==", "doingBusiness")
+
+
+function populateMarket(_db){
+  _db.collection("businesses").where("status", "==", "doingBusiness")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
@@ -64,9 +65,7 @@ function populateMarket(){
             prod: d.product,
             price: "$" + d.price
           }
-
-          addRow(data);
-          
+          addRow(data); // Create a row for each document returned from db
         });
     })
     .catch(function(error) {
@@ -74,12 +73,13 @@ function populateMarket(){
     });
 }
 
+
+
 // ### Populates table (#product-table) with data from db.collection("businesses").
 // ### Will eventual transition to use with db.collection("products")
 function addRow(d) {
   const row = document.createElement('tr');
   row.className = 'product-row';
-  console.log(d);
 
   row.innerHTML =
   `
@@ -93,14 +93,14 @@ function addRow(d) {
 
 }
 
+
+
 // ######### Calls http callable function: paymentIntent()
 function buyProduct(_bizID){
-  console.log("buyProduct() was called with bizID of " + _bizID);
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({bizID: _bizID})
   .then(function(result){
-    //console.log("Okay so the client secret returned is this: " + result.data.client_secret);
-    //const theBigSecret = 'pi_1H3h6XGyLtyoABdRBqMr6Pht_secret_umTNVCFvTxHZfN60yYDyjum4G';
+
     const theBigSecret = result.data;
     console.log(theBigSecret);
 
@@ -108,16 +108,10 @@ function buyProduct(_bizID){
       stripeAccount: _bizID
     });
 
-    // Create an instance of Elements.
+    // create, style and mount card elements to the Dom
     var elements = stripe.elements();
-
-    // style the form
     var style = styleStripeForm();
-
-    // Create an instance of the card Element.
     var card = elements.create('card', {style: style});
-
-    // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element');
 
     // Handle real-time validation errors from the card Element.
@@ -134,29 +128,22 @@ function buyProduct(_bizID){
     var form = document.getElementById('payment-form');
 
     form.addEventListener('submit', function(ev) {
-      ev.preventDefault();
-      // ##### 
-      // ##### 
-      // ##### This is where the client secret goes
+      ev.preventDefault(); // prevents page from refreshing on form submit
+      // use the client secret from before
       stripe.confirmCardPayment(theBigSecret, {
         payment_method: {
           card: card,
           billing_details: {
-            // ##### 
-            // ##### 
-            // This is where I get the billing details from whatever fields are in the form
-            name: 'Jenny Rosen'
+            name: 'Jenny Rosen' // This is where I get the billing details from whatever fields are in the form
           }
         }
       }).then(function(result) {
         console.log(result);
         if (result.error) {
-          // Show error to your customer (e.g., insufficient funds)
-          console.log(result.error.message);
+          console.log(result.error.message); // Show error to your customer (e.g., insufficient funds)
         } else {
-          // The payment has been processed!
           if (result.paymentIntent.status === 'succeeded') {
-            console.log("The payment succeeded!");
+            console.log("### The payment SUCCEEDED! ###");
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback
             // execution. Set up a webhook or plugin to listen for the
@@ -237,8 +224,6 @@ function logOut(){ // more on logging out: https://stackoverflow.com/questions/3
 function anonLogin(){
   if (firebase.auth().currentUser){
     logOut();
-    /*var user = firebase.auth().currentUser;
-    console.log("User already exists in browser. UID: " + user.uid);*/
   } else {
     firebase.auth().signInAnonymously().catch(function(error) {
       var errorCode = error.code;
@@ -317,8 +302,6 @@ function onboardBusiness(){
         console.log("Error getting document:", error);
     });
 }
-
-// 330 lines of code before moving db stuff out of db_util
 
   /* Stripe Notes
   Customize banner: https://dashboard.stripe.com/settings/applications-->
