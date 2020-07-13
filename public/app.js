@@ -25,18 +25,19 @@ document.addEventListener("DOMContentLoaded", event => {
 
 // ### Called once to see if a user already persists in browser
 function checkForUserPersistence(_db){
-  // monkey
   if (firebase.checkComplete == false){
-      var uid = firebase.auth().currentUser.uid;
+      const uid = firebase.auth().currentUser.uid;
     if (uid){
       console.log("Persistent user found in browser: " + uid);
       const docRef = _db.collection('businesses').doc(uid);
-      docRef.get().then(function(doc) {
-        if (doc.data()) {
+      docRef.get()
+      .then(function(doc) {
+        const d = doc.data();
+        if (d) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
           loginFormat(uid);
-          populateMarket();
           document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
+          populateMarket();
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
           logOut();
@@ -44,7 +45,6 @@ function checkForUserPersistence(_db){
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
-
     } else {
       console.log("No persistent user in browser");
     }
