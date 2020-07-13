@@ -10,7 +10,8 @@
     "firebase-tools": "^8.4.1",
     "g": "^2.0.1",
     "hash-generator": "^0.1.0",
-    "stripe": "^8.63.0"
+    "stripe": "^8.63.0",
+    "stripe-cli": "^0.1.0"
   },
   "devDependencies": {},
   "scripts": {
