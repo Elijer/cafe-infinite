@@ -164,17 +164,16 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
   let event = request.body;
   let responseType = request.body.type;
 
-  /*
   try {
     let event = request.body;
     let responseType = request.body.type;
   } catch (err) {
     response.status(400).send(`Webhook Error: ${err.message}`);
   }
-  */
 
   // Handle the event
   //console.log(event);
+  /*
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent = event.data.object;
@@ -189,6 +188,7 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
       // Unexpected event type
       return response.status(400).end();
   }
+  */
 
   // Return a 200 response to acknowledge receipt of the event
   //response.json({received: true});
