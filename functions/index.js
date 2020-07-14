@@ -15,8 +15,10 @@ const admin = require('firebase-admin'); //initialize an admin app instance from
 admin.initializeApp();
 let db = admin.firestore();
 
-//stripe
+//stripe keys
 const stripe = require('stripe')('sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ', {apiVersion: ''});
+
+//generated here: https://dashboard.stripe.com/test/webhooks/we_1H4bvvBvEVpcoMaugy2BywKM
 
 //express
 const express = require('express');
@@ -160,55 +162,22 @@ app.get("/api", async (req, res) => {
   );
 });
 
+
 app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
-  let event = request.body;
-  let responseType = request.body.type;
-
-  try {
-    let event = request.body;
-    let responseType = request.body.type;
-  } catch (err) {
-    response.status(400).send(`Webhook Error: ${err.message}`);
-  }
-
-  // Handle the event
-  //console.log(event);
-  /*
-  switch (event.type) {
-    case 'payment_intent.succeeded':
-      const paymentIntent = event.data.object;
-      console.log('PaymentIntent was successful!');
-      break;
-    case 'payment_method.attached':
-      const paymentMethod = event.data.object;
-      console.log('PaymentMethod was attached to a Customer!');
-      break;
-    // ... handle other event types
-    default:
-      // Unexpected event type
-      return response.status(400).end();
-  }
-  */
-
-  // Return a 200 response to acknowledge receipt of the event
-  //response.json({received: true});
-  return response.status(200).end();
-});
-
-/*
-app.get("/paymentsuccess",
-  bodyParser.raw({type: 'application/json'}), (request, response) => {
-
-  console.log("this is happening on the server");
-    
+  // info on config and security: https://stripe.com/docs/webhooks/signatures
+  // continued: https://stripe.com/docs/webhooks/signatures#verify-official-libraries
   const sig = request.headers['stripe-signature'];
+  const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB"; //signing secret, AKA endpoint secret
+  const signingSecret_PRODUCTION = "";
+
 
   let event;
 
   // Verify webhook signature and extract the event.
   // See https://stripe.com/docs/webhooks/signatures for more information.
   try {
-    event = stripe.webhooks.constructEvent(request.body, sig, webhook_secret);
+    //make sure to include the signing secret
+    event = stripe.webhooks.constructEvent(request.body, sig, signingSecret_TESTING);
   } catch (err) {
     return response.status(400).send(`Webhook Error: ${err.message}`);
   }
@@ -220,179 +189,12 @@ app.get("/paymentsuccess",
   }
 
   response.json({received: true});
-
 });
-*/
-//unfinished
+
+const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
+  // Fulfill the purchase.
+  console.log('Connected account ID: ' + connectedAccountId);
+  console.log(JSON.stringify(paymentIntent));
+}
 
 exports.app = functions.https.onRequest(app);
-
-
-
-
-
-/*>> [2] TO CODE:
-    (1) separate the state variable here into state and uid.
-    (2) Use the UID to query firestore for a current business. (or use cookies/user sessions to do this)
-    (3) Get the state from that business.
-    (4) Compare that state with the one from (1)
-    (5) Throw an error if they are not the same
-    (6) If they are the same, DELETE the state from the database and then continue*/
-
-    //separate state from UID (they are passed back together as a single string, state first, then UID)
-    //And alternative to this is getting the UID from a session variable/a cookie, but I haven't looked into it yet.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-// build multiple CRUD interfaces:              CRUD stands for CREATE, READ, UPDATE, and DELETE. This is routing for direct database alterations!! Exciting!
-app.get('/:id', (req, res) => res.send(Widgets.getById(req.params.id)));
-app.post('/', (req, res) => res.send(Widgets.create()));
-app.put('/:id', (req, res) => res.send(Widgets.update(req.params.id, req.body)));
-app.delete('/:id', (req, res) => res.send(Widgets.delete(req.params.id)));
-app.get('/', (req, res) => res.send(Widgets.list()));
-
-// Expose Express API as a single Cloud Function:
-exports.widgets = functions.https.onRequest(app);
-*/
-
-
-/*
-//I've put in my specified URI and commented out state validation for now
-//However, this is stripes syntax, not compatable with Firebase. I don't think.
-app.get("/stripe_return.html", async (req, res) => {
-    const { code, state } = req.query;
-  
-    // Assert the state matches the state you provided in the OAuth link (optional).
-    if(!stateMatches(state)) {
-      return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
-    }
-
-      // Send the authorization code to Stripe's API.
-  stripe.oauth.token({
-    grant_type: 'authorization_code',
-    code
-  }).then(
-    (response) => {
-      var connected_account_id = response.stripe_user_id;
-      saveAccountId(connected_account_id);
-
-      // Render some HTML or redirect to a different page.
-      return res.status(200).json({success: true});
-    },
-    (err) => {
-      if (err.type === 'StripeInvalidGrantError') {
-        return res.status(400).json({error: 'Invalid authorization code: ' + code});
-      } else {
-        return res.status(500).json({error: 'An unknown error occurred.'});
-      }
-    }
-  );
-});
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-//This kind of cloud function creates an HTTP endpoint event. Can't make it work yet.
-//Got this function from here: https://firebase.google.com/docs/functions/get-started
-// Take the text parameter passed to this HTTP endpoint and insert it into 
-// Cloud Firestore under the path /messages/:documentId/original
-exports.addMessage = functions.https.onRequest(async (req, res) => {
-    // Grab the text parameter.
-    const original = req.query.text;
-    // Push the new message into Cloud Firestore using the Firebase Admin SDK.
-    const writeResult = await admin.firestore().collection('messages').add({original: original});
-    // Send back a message that we've succesfully written the message
-    res.json({result: `Message with ID: ${writeResult.id} added.`});
-  });
-  
-// This function returns a json object with the message "it worked" if you go to the following URL endpoint:
-//http://localhost:5001/firestripe-boilerplate/us-central1/uploadFile
-exports.uploadFile = functions.https.onRequest((req, res) => {
-    res.status(200).json({
-        message: 'it worked'
-    })
-})
-
-//This kind of function runs whenever the app is deployed I think, because it has no listeners/events/etc. to qualify it
-exports.addState = db.collection('states').add({
-        state: 'moose'
-    }).then(ref => {
-        console.log("added a document with ", ref.id);
-});
-*/
-
-
-        /* check to see if any businesses already have this stripe biz id,
-        cause that would be a problem. And also check to see
-        if the current logged in google Uath already has a stripe biz id
-        cause that ALSO would be a problem. That's a 'contact administrator' type of
-        problem. I should be able to fix that.
-        The question is, how do I access the UAth session from this index.js file?
-
-        Here are all the options I can think of:
-        1. pass the user id through the stripe link (I think I can do that. Dunno how to use it though)
-        2. Pass the user email through the link. Same challenges I think, plus it's more prone to error, in theory.
-        3. Trigger something in the client somehow? The client should have the data in their window.
-
-
-        Okay yeah definitely 1 or 2, whatever works. Think how easy it would be. I want to do this:
-        let id = db.collection('businesses').doc('userID').set(data);
-
-        AND THEN. Once you're done with that, I think I know how to do the state stuff the right way.
-        You're going to have to call a google cloud function FROM the client from the same
-        onClick function you have for the stripe link.
-        That onClick function will fire a google cloud functon, passing
-        it the google Auth account, which will run a hash generator
-        and save the temporary 'state'. Then in THIS routing event,
-        farther up where its validating the 'state' (where I currently have a fake one)
-        it will first get the UAth ID from #1 or #2 in the list above and use
-        that to make a database query about the state. Then I'll have the UAuth already
-        saved to save the Stripe Account ID! That's it. It'll look sort of like
-
-        var googleCloudFunctionCalledFromClient = function(GoogleUID){
-            var state = new Hash("14 digits");
-            var data = {
-                state: state
-            }
-            db.collection('businesses').doc(GoogleUID).set(data);
-        }
-
-        My biggest concern with this method is promises and if they work alongside HTTP
-        requests. Cause I have no idea if they do. However, I haven't
-        had a problem with them so far, as I have been
-        setting data to the database here already. I can do that
-        at least.
-        */
