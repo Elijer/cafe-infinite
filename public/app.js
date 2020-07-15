@@ -4,12 +4,12 @@
 I'm just going through the acme thing, which has no actual infrmation so I don't
 know how I could expect it to work */
 
+var stripeKey = "pk_live_iAmLf84b4gdmw8uYObbVKayL00nN5Dtb3p";
+
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
   var functions = firebase.functions();
-
-  var stripeKey = "pk_live_iAmLf84b4gdmw8uYObbVKayL00nN5Dtb3p";
 
 
   // enforce use of EMULATED firestore and functions if app is local
@@ -305,6 +305,8 @@ function onboardBusiness(){
                 console.log("new state in database, URL returned successfully, redirecting now");
                 var returnedURL = result.data.text;
                 window.location.replace(returnedURL);
+              }).catch(function(error){
+                console.log("Error calling https-callable stripeState in firebase with error: ", error);
               })
           }
         }

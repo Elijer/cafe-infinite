@@ -1,6 +1,9 @@
 # Elijah
-.runtimeconfig.json
-.runtimelocal.json
+
+# I think it's actually okay if people see these cause they are just my test keys, while my
+# live keys are saved in the firebase cloud
+#.runtimeconfig.json
+#.runtimelocal.json
 
 # Logs
 logs

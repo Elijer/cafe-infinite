@@ -12,7 +12,7 @@ soul.
 // Getting them: firebase functions:config:get
 // removing them: firebase functions:config:unset
 // Using them in this file: functions.config().someservice.id
-// Run this to create a config file for your local environment: firebase functions:config:get > .runtimeconfig.json
+// Create local config file: firebase functions:config:get > .runtimeconfig.json
 // use this for extra guidance? : https://medium.com/@GaryHarrower/working-with-stripe-webhooks-firebase-cloud-functions-5366c206c6c
 
 
