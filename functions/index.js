@@ -25,8 +25,9 @@ const admin = require('firebase-admin'); //initialize an admin app instance from
 admin.initializeApp();
 let db = admin.firestore();
 
-const stripe = require(‘stripe’)(functions.config().keys.webhooks);
+const stripe = require('stripe')(functions.config().keys.webhooks);
 const endpointSecret = functions.config().keys.signing;
+//var endpointSecret = "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X";
 
 //let stripeKeys = functions.config().stripe;
 
@@ -193,7 +194,6 @@ app.get("/api", async (req, res) => {
 // (1) stripe listen --forward-connect-to localhost:5000/paymentsuccess
 // (2) stripe trigger --stripe-account=acct_1Gn5TjGyLtyoABdR payment_intent.succeeded
 //const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB";
-var endpointSecret = "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X";
 
 app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
   const sig = request.headers['stripe-signature'];

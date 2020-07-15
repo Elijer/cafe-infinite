@@ -1,8 +1,6 @@
 {
-  "stripe": {
-    "live_public": "pk_live_iAmLf84b4gdmw8uYObbVKayL00nN5Dtb3p",
-    "test_public": "pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S",
-    "live_secret": "sk_live_vEl7mpb4tIpkIkrXDRS5IDzb00vi9VLTfL",
-    "test_secret": "sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ"
+  "keys": {
+    "webhooks": "sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ",
+    "signing": "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X"
   }
 }
