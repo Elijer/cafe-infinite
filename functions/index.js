@@ -7,16 +7,37 @@ Possibly worth a shot. In over my head anyways though. Things are breaking becau
 I didn't really take the time to understand everything. Get some goddamn sleep you sorry
 soul.
 */
+// Firebase Environmental Variables
+// Settng them: firebase functions:config:set someservice.key="asdfhasjdhfasdf"
+// Getting them: firebase functions:config:get
+// removing them: firebase functions:config:unset
+// Using them in this file: functions.config().someservice.id
+// Run this to create a config file for your local environment: firebase functions:config:get > .runtimeconfig.json
+// use this for extra guidance? : https://medium.com/@GaryHarrower/working-with-stripe-webhooks-firebase-cloud-functions-5366c206c6c
 
 //Firebase/Firestore
 var randomstring = require("randomstring");
 const functions = require('firebase-functions'); // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
+//const IncomingWebhook = require('stripe').IncomingWebhook;
+//const webhook = new IncomingWebhook(functions.config().keys.webhook);
+
 const admin = require('firebase-admin'); //initialize an admin app instance from which Cloud Firestore changes can be made // The Firebase Admin SDK to access Cloud Firestore.
 admin.initializeApp();
 let db = admin.firestore();
 
+const stripe = require(‘stripe’)(functions.config().keys.webhooks);
+const endpointSecret = functions.config().keys.signing;
+
+//let stripeKeys = functions.config().stripe;
+
 //stripe keys
-const stripe = require('stripe')('sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ', {apiVersion: ''});
+//const stripe = require('stripe')(functions.config().stripe.test_secret, {apiVersion: ''});
+
+
+//const IncomingWebhook = require('stripe').IncomingWebhook;
+//const stripe = new IncomingWebhook(functions.config().stripe.test_secret, {apiVersion: ''});
+
+//sk_live_vEl7mpb4tIpkIkrXDRS5IDzb00vi9VLTfL
 
 //generated here: https://dashboard.stripe.com/test/webhooks/we_1H4bvvBvEVpcoMaugy2BywKM
 
@@ -27,16 +48,14 @@ const cors = require('cors');
 const app = express();
 app.use(cors({ origin: true }));
 
+// this is for the webhook. Dunno what it does though.
 app.use((req, res, next) => {
-  if (req.originalUrl === "/webhook") {
+  if (req.originalUrl === "/paymentsuccess") {
     next();
   } else {
     bodyParser.json()(req, res, next);
   }
 });
-
-
-
 
 
 
@@ -170,10 +189,11 @@ app.get("/api", async (req, res) => {
   );
 });
 
- // test commands:
-  // (1) stripe listen --forward-connect-to localhost:5000/webhook
-  // (2) stripe trigger --stripe-account=acct_1Gn5TjGyLtyoABdR payment_intent.succeeded
-    //const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB";
+// test commands:
+// (1) stripe listen --forward-connect-to localhost:5000/paymentsuccess
+// (2) stripe trigger --stripe-account=acct_1Gn5TjGyLtyoABdR payment_intent.succeeded
+//const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB";
+var endpointSecret = "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X";
 
 app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
   const sig = request.headers['stripe-signature'];
@@ -183,7 +203,8 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
   // Verify webhook signature and extract the event.
   // See https://stripe.com/docs/webhooks/signatures for more information.
   try {
-    event = stripe.webhooks.constructEvent(request.rawBody, sig, "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X");
+    event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret);
+    //event = stripe.webhooks.constructEvent(request.rawBody, sig, "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB");
   } catch (err) {
     return response.status(400).send(`Webhook Error: ${err.message}`);
   }
@@ -195,7 +216,6 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
   }
 
   response.json({received: true});
-  //return response.status(200).end();
 });
 
 const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
