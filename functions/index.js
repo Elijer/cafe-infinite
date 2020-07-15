@@ -176,7 +176,6 @@ app.get("/api", async (req, res) => {
     //const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB";
 
 app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
-  /*
   const sig = request.headers['stripe-signature'];
 
   let event;
@@ -184,7 +183,7 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
   // Verify webhook signature and extract the event.
   // See https://stripe.com/docs/webhooks/signatures for more information.
   try {
-    event = stripe.webhooks.constructEvent(request.body, sig, "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB");
+    event = stripe.webhooks.constructEvent(request.rawBody, sig, "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X");
   } catch (err) {
     return response.status(400).send(`Webhook Error: ${err.message}`);
   }
@@ -196,8 +195,7 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
   }
 
   response.json({received: true});
-  */
- return response.status(200).end();
+  //return response.status(200).end();
 });
 
 const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
