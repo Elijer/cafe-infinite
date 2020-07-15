@@ -15,6 +15,9 @@ soul.
 // Run this to create a config file for your local environment: firebase functions:config:get > .runtimeconfig.json
 // use this for extra guidance? : https://medium.com/@GaryHarrower/working-with-stripe-webhooks-firebase-cloud-functions-5366c206c6c
 
+
+
+
 //Firebase/Firestore
 var randomstring = require("randomstring");
 const functions = require('firebase-functions'); // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
@@ -113,7 +116,9 @@ exports.stripeState = functions.https.onCall((data, context) => {
     console.log("output variable is " + output);
 
     //constructing redirect URL
-    var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state=";
+    // live mode client id: ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH
+    // test mode client id: ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
+    var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state=";
     var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
     var stateChunk = output;
     var onboardingURL = firstChunk + stateChunk + secondChunk;

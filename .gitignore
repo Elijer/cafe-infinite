@@ -1,3 +1,7 @@
+# Elijah
+.runtimeconfig.json
+.runtimelocal.json
+
 # Logs
 logs
 *.log
