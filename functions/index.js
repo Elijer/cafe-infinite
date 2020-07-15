@@ -27,6 +27,14 @@ const cors = require('cors');
 const app = express();
 app.use(cors({ origin: true }));
 
+app.use((req, res, next) => {
+  if (req.originalUrl === "/webhook") {
+    next();
+  } else {
+    bodyParser.json()(req, res, next);
+  }
+});
+
 
 
 
@@ -162,46 +170,37 @@ app.get("/api", async (req, res) => {
   );
 });
 
-
-app.post('/webhook', bodyParser.raw({type: 'application/json'}), (request, response) => {
-
-  // test commands:
+ // test commands:
   // (1) stripe listen --forward-connect-to localhost:5000/webhook
   // (2) stripe trigger --stripe-account=acct_1Gn5TjGyLtyoABdR payment_intent.succeeded
+    //const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB";
 
-
+app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
   const sig = request.headers['stripe-signature'];
-  const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB"; //signing secret, AKA endpoint secret
-  const signingSecret_PRODUCTION = "";
 
   let event;
 
+  // Verify webhook signature and extract the event.
+  // See https://stripe.com/docs/webhooks/signatures for more information.
   try {
-    //event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    event = stripe.webhooks.constructEvent(request.Rawbody, sig, endpointSecret);
-  }
-  catch (err) {
-    response.status(400).send(`Webhook Error: ${err.message}`);
+    event = stripe.webhooks.constructEvent(request.body, sig, "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB");
+  } catch (err) {
+    return response.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // Handle the event
-  switch (event.type) {
-    case 'payment_intent.succeeded':
-      const paymentIntent = event.data.object;
-      console.log('PaymentIntent was successful!');
-      break;
-    case 'payment_method.attached':
-      const paymentMethod = event.data.object;
-      console.log('PaymentMethod was attached to a Customer!');
-      break;
-    // ... handle other event types
-    default:
-      // Unexpected event type
-      return response.status(400).end();
+  if (event.type === 'payment_intent.succeeded') {
+    const paymentIntent = event.data.object;
+    const connectedAccountId = event.account;
+    handleSuccessfulPaymentIntent(connectedAccountId, paymentIntent);
   }
 
-  // Return a response to acknowledge receipt of the event
   response.json({received: true});
 });
+
+const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
+  // Fulfill the purchase.
+  console.log('Connected account ID: ' + connectedAccountId);
+  console.log(JSON.stringify(paymentIntent));
+}
 
 exports.app = functions.https.onRequest(app);
