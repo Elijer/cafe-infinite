@@ -1,3 +1,9 @@
+// refactor so that biz html scripts and biz.js files aren't redundant
+
+/* Current "problem": I'm not creating a real business, I think? It uses a test key because
+I'm just going through the acme thing, which has no actual infrmation so I don't
+know how I could expect it to work */
+
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
