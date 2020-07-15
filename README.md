@@ -10,6 +10,7 @@ This repo is a boiler-plate for integrating Stripe Connect features with Firebas
     + [Signing Up](#signing-up)
     + [Business Onboarding](#business-onboarding)
     + [Accept a Payment](#accept-a-payment)
+    + [Using Webhooks](#using-webhooks)
     + [Dev Tips](#dev-tips)
 - [FireBase](#firebase)
     + [Getting Started](#getting-started)
