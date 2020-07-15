@@ -176,6 +176,7 @@ app.get("/api", async (req, res) => {
     //const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB";
 
 app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
+  /*
   const sig = request.headers['stripe-signature'];
 
   let event;
@@ -195,6 +196,8 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
   }
 
   response.json({received: true});
+  */
+ return response.status(200).end();
 });
 
 const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
