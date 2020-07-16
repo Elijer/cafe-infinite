@@ -248,6 +248,7 @@ const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
   // Fulfill the purchase.
   console.log('Connected account ID: ' + connectedAccountId);
   console.log(JSON.stringify(paymentIntent));
+  console.log("webhook has caught a successful payment returned by stripe!");
 
   // This database call is running an error
   /*let db = admin.firestore();
