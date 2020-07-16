@@ -30,6 +30,8 @@ let db = admin.firestore();
 
 const stripe = require('stripe')(functions.config().keys.webhooks);
 const endpointSecret = functions.config().keys.signing;
+const public = functions.config().keys.public;
+const clientid = functions.config().keys.clientid;
 //var endpointSecret = "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X";
 
 //let stripeKeys = functions.config().stripe;
@@ -85,7 +87,8 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
     })
 
     //console.log("Okay the client secret generated is this: " + paymentIntent.data.client_secret);
-    return paymentIntent.client_secret;
+    //return paymentIntent.client_secret;
+    return {secret: paymentIntent.client_secret, publicKey: public};
   
 
   }
@@ -114,14 +117,26 @@ exports.stripeState = functions.https.onCall((data, context) => {
     console.log("state has been generated to be " + state);
     var output = state + uid;
     console.log("output variable is " + output);
-
-    //constructing redirect URL
-    // live mode client id: ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH
-    // test mode client id: ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
+    
+    // how it was before
+    
+    /*
     var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state=";
     var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
     var stateChunk = output;
     var onboardingURL = firstChunk + stateChunk + secondChunk;
+    */
+
+    //constructing redirect URL
+    // live mode client id: ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH
+    // test mode client id: ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
+    var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=";
+    var client_id = clientid;
+    var secondChunk = "&state=";
+    var stateChunk = output;
+    var thirdChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
+    var onboardingURL = firstChunk + client_id + secondChunk + stateChunk + thirdChunk;
+
     console.log("the onboardingURL that's going to be returned is " + onboardingURL);
 
     return db.collection('businesses').doc(uid).set({state: state}, {merge: true}) //or use .update({state: state}), not sure
@@ -227,6 +242,12 @@ const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
   // Fulfill the purchase.
   console.log('Connected account ID: ' + connectedAccountId);
   console.log(JSON.stringify(paymentIntent));
+  let db = admin.firestore();
+  return db.collection('businesses').doc(uid).set({succcessfulPay: true}, {merge: true}) //or use .update({state: state}), not sure
+  .then(() => {
+    console.log("Cool! A webhook has confirmed that a payment went through.");
+  })
+
 }
 
 exports.app = functions.https.onRequest(app);

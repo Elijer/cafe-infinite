@@ -111,10 +111,10 @@ function buyProduct(_bizID){
   paymentIntent({bizID: _bizID})
   .then(function(result){
 
-    const theBigSecret = result.data;
+    const theBigSecret = result.data.secret;
     console.log(theBigSecret);
 
-    var stripe = Stripe(stripeKey, {
+    var stripe = Stripe(result.data.public, {
       stripeAccount: _bizID
     });
 
