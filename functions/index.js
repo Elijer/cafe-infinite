@@ -127,9 +127,12 @@ exports.stripeState = functions.https.onCall((data, context) => {
     var onboardingURL = firstChunk + stateChunk + secondChunk;
     */
 
+   //https://connect.stripe.com/oauth/authorize?client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
+
     //constructing redirect URL
     // live mode client id: ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH
     // test mode client id: ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
+
     var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=";
     var client_id = clientid;
     var secondChunk = "&state=";
@@ -155,9 +158,12 @@ exports.stripeState = functions.https.onCall((data, context) => {
 // ##### Route that Stripe uses when onboarding is complete ######
 app.get("/api", async (req, res) => {
   const { code, state } = req.query;
+  console.log("THe code is " + code);
   // 11 is an arbitrary number, but if the function used to construct state makes a state of a different size, it will break this endpoint
   var justState = state.substring(0, 11);
+  console.log("just state is: " + justState);
   var justUID = state.slice(11);
+  console.log("just UID is " + justUID);
   let docRef = db.collection('businesses').doc(justUID);
   //get state field of doc with corredct uid to see if that state parameter matches
   let getDoc = docRef.get()

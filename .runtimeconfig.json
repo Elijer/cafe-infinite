@@ -2,7 +2,7 @@
   "keys": {
     "clientid": "ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG",
     "signing": "whsec_5ZJz8f2CSbHZSbihtmEPMAtgqoonQICr",
-    "webhooks": "sk_live_vEl7mpb4tIpkIkrXDRS5IDzb00vi9VLTfL",
+    "webhooks": "sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ",
     "public": "pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S"
   }
 }
