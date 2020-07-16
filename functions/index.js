@@ -216,12 +216,14 @@ app.get("/api", async (req, res) => {
   );
 });
 
-// test commands:
-// (1) stripe listen --forward-connect-to localhost:5000/paymentsuccess
-// (2) stripe trigger --stripe-account=acct_1Gn5TjGyLtyoABdR payment_intent.succeeded
-//const signingSecret_TESTING = "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB";
+
 
 app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
+
+  // webhook testing commands for stripe CLI:
+  // (1) stripe listen --forward-connect-to localhost:5000/paymentsuccess
+  // (2) stripe trigger --stripe-account=acct_1Gn5TjGyLtyoABdR payment_intent.succeeded
+
   const sig = request.headers['stripe-signature'];
 
   let event;
@@ -246,12 +248,19 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
 
 const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
   // Fulfill the purchase.
-  console.log('Connected account ID: ' + connectedAccountId);
-  console.log(JSON.stringify(paymentIntent));
+
   console.log("webhook has caught a successful payment returned by stripe!");
 
-  // This database call is running an error
-  /*let db = admin.firestore();
+  //console.log('Connected account ID: ' + connectedAccountId);
+  //console.log(JSON.stringify(paymentIntent));
+
+  /* Database should probably get called right around here.
+  The code below was getting a 500 returned though. Somethings wrong with it.
+  Most likely it's just using variables, like uid, that haven't been declared here.
+  */
+
+  /*
+  let db = admin.firestore();
   return db.collection('businesses').doc(uid).set({succcessfulPay: true}, {merge: true}) //or use .update({state: state}), not sure
   .then(() => {
     console.log("Cool! A webhook has confirmed that a payment went through.");
