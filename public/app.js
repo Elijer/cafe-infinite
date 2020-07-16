@@ -114,7 +114,7 @@ function buyProduct(_bizID){
     const theBigSecret = result.data.secret;
     console.log(theBigSecret);
 
-    var stripe = Stripe(result.data.public, {
+    var stripe = Stripe(result.data.publicKey, {
       stripeAccount: _bizID
     });
 
