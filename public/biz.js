@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", event => {
   // ### Called once to see if a user already persists in browser
   function checkForUserPersistence(){
     if (firebase.checkComplete == false){
-        var user = firebase.auth().currentUser;
-      if (user){
+      if (firebase.auth().currentUser != null){
+        const user = firebase.auth().currentUser;
         console.log("Persistent user found in browser.");
         const db = firebase.firestore();
         const docRef = db.collection('businesses').doc(user.uid);
@@ -49,8 +49,9 @@ document.addEventListener("DOMContentLoaded", event => {
         });
   
       } else {
-        console.log("No persistent user in browser");
+        console.log("No persistent user found in database");
       }
+
       firebase.checkComplete = true;
     }
   }
