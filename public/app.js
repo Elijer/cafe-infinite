@@ -314,12 +314,3 @@ function onboardBusiness(){
         console.log("Error getting document:", error);
     });
 }
-
-  /* Stripe Notes
-  Customize banner: https://dashboard.stripe.com/settings/applications-->
-  Page in Docs that helps create this link: https://stripe.com/docs/connect/enable-payment-acceptance-guide#step-21-add-an-authentication-buttonclient-side
-  my test id // ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
-  my real id // ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH
-  test URL // https://connect.stripe.com/oauth/authorize?client_id=ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
-  real URL // https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
-  */

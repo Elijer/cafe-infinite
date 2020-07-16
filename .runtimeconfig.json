@@ -3,6 +3,7 @@
     "clientid": "ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG",
     "signing": "whsec_5ZJz8f2CSbHZSbihtmEPMAtgqoonQICr",
     "webhooks": "sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ",
-    "public": "pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S"
+    "public": "pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S",
+    "signing": "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X"
   }
 }

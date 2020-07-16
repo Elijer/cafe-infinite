@@ -29,9 +29,9 @@ admin.initializeApp();
 let db = admin.firestore();
 
 const stripe = require('stripe')(functions.config().keys.webhooks);
-const endpointSecret = functions.config().keys.signing;
 const public = functions.config().keys.public;
 const clientid = functions.config().keys.clientid;
+const signing = functions.config().keys.signing;
 //var endpointSecret = "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X";
 
 //let stripeKeys = functions.config().stripe;
@@ -229,7 +229,7 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
   // Verify webhook signature and extract the event.
   // See https://stripe.com/docs/webhooks/signatures for more information.
   try {
-    event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(request.rawBody, sig, signing);
     //event = stripe.webhooks.constructEvent(request.rawBody, sig, "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB");
   } catch (err) {
     return response.status(400).send(`Webhook Error: ${err.message}`);
@@ -248,11 +248,14 @@ const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
   // Fulfill the purchase.
   console.log('Connected account ID: ' + connectedAccountId);
   console.log(JSON.stringify(paymentIntent));
-  let db = admin.firestore();
+
+  // This database call is running an error
+  /*let db = admin.firestore();
   return db.collection('businesses').doc(uid).set({succcessfulPay: true}, {merge: true}) //or use .update({state: state}), not sure
   .then(() => {
     console.log("Cool! A webhook has confirmed that a payment went through.");
   })
+  */
 
 }
 
