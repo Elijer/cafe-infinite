@@ -1,9 +1,5 @@
 // refactor so that biz html scripts and biz.js files aren't redundant
 
-/* Current "problem": I'm not creating a real business, I think? It uses a test key because
-I'm just going through the acme thing, which has no actual infrmation so I don't
-know how I could expect it to work */
-
 var stripeKey = "pk_live_iAmLf84b4gdmw8uYObbVKayL00nN5Dtb3p";
 
 document.addEventListener("DOMContentLoaded", event => {
@@ -298,6 +294,7 @@ function onboardBusiness(){
       docRef.get().then(function(doc) {
         if (doc != null && doc != undefined){
           if (doc.data().stripeBusinessID) {
+            // If there's already a business ID, user is navigated to biz.html
             console.log("Nice, there's already a biz ID! Let's take you to the dashboard", doc.data().stripeBusinessID);
             window.location.href = "/biz.html";
           } else {
