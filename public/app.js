@@ -303,8 +303,9 @@ function onboardBusiness(){
           } else {
               // doc.data() will be undefined in this case
               console.log("No biz ID yet! Let's make it!");
+              const theURI = chooseURI();
               var stripeState = firebase.functions().httpsCallable('stripeState');
-              stripeState({text: "1234"})
+              stripeState({uri: theURI})
               .then(function(result){
                 console.log("new state in database, URL returned successfully, redirecting now");
                 var returnedURL = result.data.text;
@@ -317,4 +318,12 @@ function onboardBusiness(){
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
+}
+
+function chooseURI(){
+  if(window.location.hostname === "localhost") {
+    return "http://localhost:5000/api";
+  } else {
+    return "https://firestripe-boilerplate.web.app/api";
+  }
 }

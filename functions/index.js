@@ -83,6 +83,7 @@ exports.stripeState = functions.https.onCall((data, context) => {
     //constructing state;
     // (1) output is nestled inside of the STRIPE url
     // (2) state is logged to the firestore document of the current business
+    const _uri = data.uri;
     const uid = context.auth.uid;
     console.log ("uid is " + uid)
     const state = randomstring.generate(11); // 11 is an arbitrary number, but it IS hard-coded into the endpoint above, so if you change it change it there too //uses randomstring node package
@@ -90,22 +91,14 @@ exports.stripeState = functions.https.onCall((data, context) => {
     var output = state + uid;
     console.log("output variable is " + output);
 
-    // construct the URL
-    
-    /*
-    var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=";
-    var client_id = clientid;
-    var secondChunk = "&state=";
-    var stateChunk = output;
-    var thirdChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
-    var onboardingURL = firstChunk + client_id + secondChunk + stateChunk + thirdChunk;
-    */
-
    var client_id = clientid;
    var stateChunk = output;
-  var onboardingURL = `https://connect.stripe.com/oauth/authorize?` +
+  var onboardingURL =
+  `https://connect.stripe.com/oauth/authorize?` +
   `client_id=${client_id}` + 
-  `&state=${stateChunk}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com`
+  `&state=${stateChunk}&scope=read_write&` +
+  `redirect_uri=${_uri}` +
+  `&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com`
 
 
     console.log("the onboardingURL that's going to be returned is " + onboardingURL);
