@@ -91,14 +91,12 @@ exports.stripeState = functions.https.onCall((data, context) => {
     var output = state + uid;
     console.log("output variable is " + output);
 
-   var client_id = clientid;
-   var stateChunk = output;
-  var onboardingURL =
-  `https://connect.stripe.com/oauth/authorize?` +
-  `client_id=${client_id}` + 
-  `&state=${stateChunk}&scope=read_write&` +
-  `redirect_uri=${_uri}` +
-  `&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com`
+    var onboardingURL =
+    `https://connect.stripe.com/oauth/authorize?` +
+    `client_id=${clientid}` + 
+    `&state=${output}&scope=read_write&` +
+    `redirect_uri=${_uri}` +
+    `&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com`
 
 
     console.log("the onboardingURL that's going to be returned is " + onboardingURL);
