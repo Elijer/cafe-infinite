@@ -15,13 +15,18 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
+  /* Stripe doesn't need declared globally. Used only here:
+        >buyProduct()
+
+  */
+
   document.getElementById("login").innerText = "login";
   document.getElementById("loading-stripe-ID").style.visibility = "hidden";
 
   // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
   firebase.checkComplete = false;
   firebase.auth().onAuthStateChanged(user => checkForUserPersistence(db));
-  
+
 });
 
 

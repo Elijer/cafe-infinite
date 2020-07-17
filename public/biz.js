@@ -12,8 +12,10 @@ document.addEventListener("DOMContentLoaded", event => {
         ssl: false
       });
     }
-  
-    var stripe = Stripe(stripeKey);  
+
+    /* Stripe doesn't need declared globally. It's actually not used by biz.js at all.
+        It retrieves the stripe biz ID through firebase.
+    */
   
     // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
     firebase.checkComplete = false;
@@ -27,10 +29,12 @@ document.addEventListener("DOMContentLoaded", event => {
     if (firebase.checkComplete == false){
       if (firebase.auth().currentUser != null){
         const user = firebase.auth().currentUser;
+
         console.log("Persistent user found in browser.");
         const db = firebase.firestore();
         const docRef = db.collection('businesses').doc(user.uid);
-        docRef.get().then(function(doc) {
+        docRef.get()
+        .then(function(doc) {
           if (doc.data()) {
             console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
             //loginFormat(user.uid)
@@ -52,7 +56,6 @@ document.addEventListener("DOMContentLoaded", event => {
       firebase.checkComplete = true;
     }
   }
-  
   
   
   // ### Called when user logs in: formats login button to say their ID
