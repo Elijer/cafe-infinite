@@ -16,7 +16,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "firebase emulators:start"
+    "test": "firebase emulators:start",
+    "check": "firebase functions:config:get",
+    "evl": "firebase functions:config:get > .runtimeconfig.json",
+    "ga": "git add --all",
+    "gs": "git status",
+    "gp": "git push"
+
   },
   "repository": {
     "type": "git",

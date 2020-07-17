@@ -6,10 +6,21 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 let db = admin.firestore();
 
-const stripe = require('stripe')(functions.config().keys.webhooks);
-const public = functions.config().keys.public;
-const clientid = functions.config().keys.clientid;
-const signing = functions.config().keys.signing;
+// If firebase functions:config:set state.test = "true", stripe will use test keys instead
+// of productuons keys.
+if (functions.config().state.testing == "true"){
+  console.log("testing mode", "true");
+  var stripe = require('stripe')(functions.config().testkeys.webhooks);
+  var public = functions.config().testkeys.public;
+  var clientid = functions.config().testkeys.clientid;
+  var signing = functions.config().testkeys.signing;
+} else if (functions.config().state.testing == "false"){
+  console.log("testing mode", "false");
+  var stripe = require('stripe')(functions.config().keys.webhooks);
+  var public = functions.config().keys.public;
+  var clientid = functions.config().keys.clientid;
+  var signing = functions.config().keys.signing;
+}
 
 //express
 const express = require('express');
@@ -170,8 +181,6 @@ app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request
 
   let event;
 
-  // Verify webhook signature and extract the event.
-  // See https://stripe.com/docs/webhooks/signatures for more information.
   try {
     event = stripe.webhooks.constructEvent(request.rawBody, sig, signing);
     //event = stripe.webhooks.constructEvent(request.rawBody, sig, "whsec_D2OLcog9zt7Ud9Xa2QRXrcpok244BbJB");
