@@ -1,12 +1,9 @@
 // refactor so that biz html scripts and biz.js files aren't redundant
 
-var stripeKey = "pk_live_iAmLf84b4gdmw8uYObbVKayL00nN5Dtb3p";
-
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
   var functions = firebase.functions();
-
 
   // enforce use of EMULATED firestore and functions if app is local
   if (window.location.hostname === "localhost") {
@@ -16,7 +13,6 @@ document.addEventListener("DOMContentLoaded", event => {
       host: "localhost:8080",
       ssl: false
     });
-    stripeKey = "pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S";
   }
 
   document.getElementById("login").innerText = "login";
@@ -25,6 +21,7 @@ document.addEventListener("DOMContentLoaded", event => {
   // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
   firebase.checkComplete = false;
   firebase.auth().onAuthStateChanged(user => checkForUserPersistence(db));
+  
 });
 
 
@@ -114,6 +111,7 @@ function buyProduct(_bizID){
     const theBigSecret = result.data.secret;
     console.log(theBigSecret);
 
+    // paymentIntent returns stripe's public key through the result
     var stripe = Stripe(result.data.publicKey, {
       stripeAccount: _bizID
     });

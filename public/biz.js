@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", event => {
     const app = firebase.app();
     const db = firebase.firestore();
     var functions = firebase.functions();
-
-    var stripeKey = "pk_live_iAmLf84b4gdmw8uYObbVKayL00nN5Dtb3p";
   
     // enforce use of EMULATED firestore and functions if app is local
     if (window.location.hostname === "localhost") {
@@ -13,7 +11,6 @@ document.addEventListener("DOMContentLoaded", event => {
         host: "localhost:8080",
         ssl: false
       });
-      stripeKey = "pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S";
     }
   
     var stripe = Stripe(stripeKey);  
