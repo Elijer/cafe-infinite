@@ -1,30 +1,8 @@
-/* Current problem: "No such payment_intent". WTF? I have been making the payent intent
-Not totally clear if the client_secret is being cut off, possibly some problem
-with how I'm parsing the return JSON. Or there might be an issue with the stripeAccount
-field. I still haven't tried putting my OWN stripeAccount field in there because I don't
-know how that would make sense. Then when would the connected account info get put in?
-Possibly worth a shot. In over my head anyways though. Things are breaking because
-I didn't really take the time to understand everything. Get some goddamn sleep you sorry
-soul.
-*/
-// Firebase Environmental Variables
-// Settng them: firebase functions:config:set someservice.key="asdfhasjdhfasdf"
-// Getting them: firebase functions:config:get
-// removing them: firebase functions:config:unset
-// Using them in this file: functions.config().someservice.id
-// Create local config file: firebase functions:config:get > .runtimeconfig.json
-// use this for extra guidance? : https://medium.com/@GaryHarrower/working-with-stripe-webhooks-firebase-cloud-functions-5366c206c6c
-
-
-
-
 //Firebase/Firestore
 var randomstring = require("randomstring");
-const functions = require('firebase-functions'); // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
-//const IncomingWebhook = require('stripe').IncomingWebhook;
-//const webhook = new IncomingWebhook(functions.config().keys.webhook);
-
-const admin = require('firebase-admin'); //initialize an admin app instance from which Cloud Firestore changes can be made // The Firebase Admin SDK to access Cloud Firestore.
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+// admin SDK allows server to access db with unlimited priveledges, regardless of db rules
 admin.initializeApp();
 let db = admin.firestore();
 
@@ -32,20 +10,6 @@ const stripe = require('stripe')(functions.config().keys.webhooks);
 const public = functions.config().keys.public;
 const clientid = functions.config().keys.clientid;
 const signing = functions.config().keys.signing;
-//var endpointSecret = "whsec_Ej3mb1zr3vDcJ0WOemzXVH9MnVoBvE9X";
-
-//let stripeKeys = functions.config().stripe;
-
-//stripe keys
-//const stripe = require('stripe')(functions.config().stripe.test_secret, {apiVersion: ''});
-
-
-//const IncomingWebhook = require('stripe').IncomingWebhook;
-//const stripe = new IncomingWebhook(functions.config().stripe.test_secret, {apiVersion: ''});
-
-//sk_live_vEl7mpb4tIpkIkrXDRS5IDzb00vi9VLTfL
-
-//generated here: https://dashboard.stripe.com/test/webhooks/we_1H4bvvBvEVpcoMaugy2BywKM
 
 //express
 const express = require('express');
@@ -54,7 +18,8 @@ const cors = require('cors');
 const app = express();
 app.use(cors({ origin: true }));
 
-// this is for the webhook. Dunno what it does though.
+
+/* this is for the webhook. Dunno what it does though. Info here: https://expressjs.com/en/guide/using-middleware.html
 app.use((req, res, next) => {
   if (req.originalUrl === "/paymentsuccess") {
     next();
@@ -62,10 +27,10 @@ app.use((req, res, next) => {
     bodyParser.json()(req, res, next);
   }
 });
+*/
 
 
-
-// create payment intent
+// STRIPE: Creates Payment Intent Object
 exports.paymentIntent = functions.https.onCall (async(data, context) => {
   console.log("Payment intent was called on the server");
     
@@ -96,11 +61,7 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
 
 
 
-
-
-
-
-// ###### Callable function that creates the state ######
+// ###### Callable function that creates the State ######
 exports.stripeState = functions.https.onCall((data, context) => {
     
     if (!context.auth) {
@@ -117,22 +78,8 @@ exports.stripeState = functions.https.onCall((data, context) => {
     console.log("state has been generated to be " + state);
     var output = state + uid;
     console.log("output variable is " + output);
-    
-    // how it was before
-    
-    /*
-    var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH&state=";
-    var secondChunk = "&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com";
-    var stateChunk = output;
-    var onboardingURL = firstChunk + stateChunk + secondChunk;
-    */
 
-   //https://connect.stripe.com/oauth/authorize?client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&state={STATE_VALUE}&scope=read_write&response_type=code&stripe_user[email]=user@example.com&stripe_user[url]=example.com
-
-    //constructing redirect URL
-    // live mode client id: ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH
-    // test mode client id: ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG
-
+    // construct the URL
     var firstChunk = "https://connect.stripe.com/oauth/authorize?client_id=";
     var client_id = clientid;
     var secondChunk = "&state=";
@@ -151,11 +98,7 @@ exports.stripeState = functions.https.onCall((data, context) => {
 
 
 
-
-
-
-
-// ##### Route that Stripe uses when onboarding is complete ######
+// ##### Route that Stripe uses when biz onboarding is complete ######
 app.get("/api", async (req, res) => {
   const { code, state } = req.query;
   console.log("THe code is " + code);
@@ -178,8 +121,6 @@ app.get("/api", async (req, res) => {
           return res.status(403).json({ error: 'Incorrect state parameter: ' + state });
         } else {
           return res.status(403).json({ error: 'Incorrect and possibly missing state parameter: ' + state });
-          // this is where I want to break away, otherwise a Business ID is going to be returned to the database and just float around, unconnected to any UID
-          // Also -- if the UID already has a business ID, it shouldn't go through all this anyways.
         }
       }
     })
@@ -219,7 +160,8 @@ app.get("/api", async (req, res) => {
 
 
 app.post('/paymentsuccess', bodyParser.raw({type: 'application/json'}), (request, response) => {
-
+  
+  // Webhook Dashboard: https://dashboard.stripe.com/test/webhooks/we_1H4bvvBvEVpcoMaugy2BywKM
   // webhook testing commands for stripe CLI:
   // (1) stripe listen --forward-connect-to localhost:5000/paymentsuccess
   // (2) stripe trigger --stripe-account=acct_1Gn5TjGyLtyoABdR payment_intent.succeeded
