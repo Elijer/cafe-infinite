@@ -19,9 +19,7 @@
     "test": "firebase emulators:start",
     "check": "firebase functions:config:get",
     "evl": "firebase functions:config:get > .runtimeconfig.json",
-    "ga": "git add --all",
-    "gs": "git status",
-    "gp": "git push"
+    "ga": "git add --all"
 
   },
   "repository": {
