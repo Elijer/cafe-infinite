@@ -9,9 +9,9 @@
     "webhooks": "sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ"
   },
   "keys": {
-    "clientid": "ca_HLoT1oMFzVR7S0myFwkGwgDml51AcRxH",
-    "webhooks": "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",
-    "public": "pk_live_iAmLf84b4gdmw8uYObbVKayL00nN5Dtb3p",
-    "signing": "whsec_5ZJz8f2CSbHZSbihtmEPMAtgqoonQICr"
+    "public": "pk_test_FjTxRNal2FWcwhlqw0WtIETQ00ZDxO3D9S",
+    "clientid": "ca_HLoTC6BH4yV6X5EFdsC9mrYkZTZLdZtG",
+    "signing": "whsec_5ZJz8f2CSbHZSbihtmEPMAtgqoonQICr",
+    "webhooks": "sk_test_ilxfLf0PNi61WCkO3n9gmoYM00eKzyC0FQ"
   }
 }

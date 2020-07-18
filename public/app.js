@@ -340,7 +340,7 @@ function setMockData(_db){
     product: "Sandals",
     state: "HFH5XKnpQaJ",
     status: "doingBusiness",
-    stripeBusinessID: "Chacos"
+    stripeBusinessID: "acct_1Gn5TjGyLtyoABdR"
   };
 
   var data2 = {
@@ -349,7 +349,7 @@ function setMockData(_db){
     product: "Bananas",
     state: "eqo13tinhep",
     status: "doingBusiness",
-    stripeBusinessID: "Trader Joes"
+    stripeBusinessID: "acct_1Gn5TjGyLtyoABdR"
   }
 
   var data3 = {
@@ -358,7 +358,7 @@ function setMockData(_db){
     product: "Carabiner",
     state: "ezvUkoL86Z8",
     status: "doingBusiness",
-    stripeBusinessID: "REI"
+    stripeBusinessID: "acct_1Gn5TjGyLtyoABdR"
   }
 
   const db = firebase.firestore();
