@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", event => {
       host: "localhost:8080",
       ssl: false
     });
+
+    setMockData(db);
   }
 
   /* Stripe doesn't need declared globally. Used only here:
@@ -326,4 +328,46 @@ function chooseURI(){
   } else {
     return "https://firestripe-boilerplate.web.app/api";
   }
+}
+
+
+
+function setMockData(_db){
+
+  var data1 = {
+    isAnonymous: true,
+    price: "1.00",
+    product: "Sandals",
+    state: "HFH5XKnpQaJ",
+    status: "doingBusiness",
+    stripeBusinessID: "Chacos"
+  };
+
+  var data2 = {
+    isAnonymous: true,
+    price: "300.50",
+    product: "Bananas",
+    state: "eqo13tinhep",
+    status: "doingBusiness",
+    stripeBusinessID: "Trader Joes"
+  }
+
+  var data3 = {
+    isAnonymous: true,
+    price: "4.00",
+    product: "Carabiner",
+    state: "ezvUkoL86Z8",
+    status: "doingBusiness",
+    stripeBusinessID: "REI"
+  }
+
+  const db = firebase.firestore();
+  const usersRef1 = _db.collection('businesses').doc("92ugtu63MYdWRB4EtxQubvcMcaD3");
+  const usersRef2 = _db.collection('businesses').doc("qqfb2HozN0fn2aTyRUTLIpE14Nz1");
+  const usersRef3 = _db.collection('businesses').doc("heCh1pDwT5QYV61wwXtuoSUkkp42");
+
+  usersRef1.set(data1);
+  usersRef2.set(data2);
+  usersRef3.set(data3);
+
 }
