@@ -1,5 +1,6 @@
+var dbu = {};
 
-const makeQuery = (_db) => new Promise((resolve) => {
+dbu.where = (_db) => new Promise((resolve) => {
     _db.collection("businesses").where("status", "==", "doingBusiness")
     .get()
     .then(function(querySnapshot) {
