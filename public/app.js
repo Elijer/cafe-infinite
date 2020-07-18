@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", event => {
     });
 
     setMockData(db);
-    thisIsATest();
+    makeQuery(db).then(() => console.log('Did it! Now do something else'));
   }
 
   /* Stripe doesn't need declared globally. Used only here:
