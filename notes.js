@@ -1,5 +1,9 @@
 /*
 
+Big To-DO
+1. Learn how to do database migration stuff with firestore so I have the tools to back my shit up
+2. Address firestore db rules
+3. Do Unit testing and epxlore possibly using 'Jest' (there's a fireship video on it)
 
 
 
