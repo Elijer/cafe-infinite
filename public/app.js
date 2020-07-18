@@ -1,7 +1,5 @@
 // refactor so that biz html scripts and biz.js files aren't redundant
 
-const { DatabaseBuilder } = require("firebase-functions/lib/providers/firestore");
-
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
@@ -17,6 +15,7 @@ document.addEventListener("DOMContentLoaded", event => {
     });
 
     setMockData(db);
+    thisIsATest();
   }
 
   /* Stripe doesn't need declared globally. Used only here:
