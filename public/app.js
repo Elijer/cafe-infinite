@@ -1,5 +1,7 @@
 // refactor so that biz html scripts and biz.js files aren't redundant
 
+const { DatabaseBuilder } = require("firebase-functions/lib/providers/firestore");
+
 document.addEventListener("DOMContentLoaded", event => {
   const app = firebase.app();
   const db = firebase.firestore();
@@ -69,6 +71,7 @@ function checkForUserPersistence(_db){
 
 
 function populateMarket(_db){
+
   _db.collection("businesses").where("status", "==", "doingBusiness")
     .get()
     .then(function(querySnapshot) {
@@ -128,6 +131,12 @@ function buyProduct(_bizID){
     var style = styleStripeForm();
     var card = elements.create('card', {style: style});
     card.mount('#card-element');
+
+    //let thePrice = "$" + result.data.price;
+    console.log("The price is $" + result.data.price + " Because it's currently hardcoded in index.js");
+    //document.getElementById('submit').innerHTML = `Pay ${thePrice}`;
+    document.getElementById('submit').innerHTML = "Pay duh munny";
+
 
     // Handle real-time validation errors from the card Element.
     card.on('change', function(event) {

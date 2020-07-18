@@ -64,7 +64,7 @@ exports.paymentIntent = functions.https.onCall (async(data, context) => {
 
     //console.log("Okay the client secret generated is this: " + paymentIntent.data.client_secret);
     //return paymentIntent.client_secret;
-    return {secret: paymentIntent.client_secret, publicKey: public};
+    return {secret: paymentIntent.client_secret, publicKey: public, price: paymentIntent.amount};
   
 
   }
