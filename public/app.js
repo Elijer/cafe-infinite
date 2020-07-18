@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", event => {
     });
 
     setMockData(db);
-    dbu.where(db);
   }
 
   /* Stripe doesn't need declared globally. Used only here:
@@ -49,7 +48,7 @@ function checkForUserPersistence(_db){
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
           loginFormat(uid);
           document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
-          populateMarket(_db);
+          populateMarket(_db, addRow);
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
           logOut();
@@ -69,24 +68,8 @@ function checkForUserPersistence(_db){
 
 
 
-function populateMarket(_db){
-
-  _db.collection("businesses").where("status", "==", "doingBusiness")
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          const d = doc.data();
-          const data = {
-            biz: d.stripeBusinessID,
-            prod: d.product,
-            price: "$" + d.price
-          }
-          addRow(data); // Create a row for each document returned from db
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+function populateMarket(_db, callback){
+  dbu.where(_db, "businesses", "status", "==", "doingBusiness", callback);
 }
 
 
