@@ -244,10 +244,11 @@ function anonLogin(){
           let data = {
             isAnonymous: isAnonymous,
             createdAt: new Date()
-          };
+            };
 
           const _db = firebase.firestore();
-          dbu.addDoc(_db, "businesses", uid, data);
+          dbu.addDoc(_db, "businesses", uid, data); // creates a new object in specified collection with data object
+
         } else {
           console.log("user is not signed in");
         }

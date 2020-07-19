@@ -44,26 +44,3 @@ dbu.addDoc = (_db, collection, id, data) => new Promise((resolve) => {
       })
     .catch(console.log);
 });
-
-
-
-//_db, collection, id, data
-
-/*
-          const db = firebase.firestore();
-          const usersRef = db.collection('businesses').doc(uid);
-    
-          usersRef.get()
-            .then((docSnapshot) => {
-              if (!docSnapshot.exists) {
-                let data = {
-                  isAnonymous: isAnonymous,
-                  createdAt: new Date()
-                };
-                usersRef.set(data, {merge: true}) // create the document
-                console.log("new anon user created in db for UID:  " + user.uid);
-              }
-            })
-          .catch(console.log);
-
-          */
