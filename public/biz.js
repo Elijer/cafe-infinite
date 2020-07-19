@@ -12,49 +12,40 @@ document.addEventListener("DOMContentLoaded", event => {
         ssl: false
       });
     }
-
-    /* Stripe doesn't need declared globally. It's actually not used by biz.js at all.
-        It retrieves the stripe biz ID through firebase.
-    */
   
     // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
     firebase.checkComplete = false;
-    firebase.auth().onAuthStateChanged(user => checkForUserPersistence());
+    firebase.auth().onAuthStateChanged(user => checkForUserPersistence(_db));
   });
   
-  
-  
+
+
   // ### Called once to see if a user already persists in browser
-  function checkForUserPersistence(){
+  function checkForUserPersistence(_db){
     if (firebase.checkComplete == false){
       if (firebase.auth().currentUser != null){
-        const user = firebase.auth().currentUser;
-
-        console.log("Persistent user found in browser.");
-        const db = firebase.firestore();
-        const docRef = db.collection('businesses').doc(user.uid);
-        docRef.get()
-        .then(function(doc) {
-          if (doc.data()) {
+        const uid = firebase.auth().currentUser.uid;
+        console.log("Persistent user found in browser: " + uid);
+  
+        dbu.isThere(_db, "businesses", uid) // checks if user is in db, if so returns that user
+        .then(function(result){
+          if (result) {
             console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
             //loginFormat(user.uid)
             displayBizId(doc.data().stripeBusinessID);
             startFormInput();
-
           } else {
             console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
             logOut();
           }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
-  
+        })
       } else {
-        console.log("No persistent user found in database");
+        console.log("No persistent user found in browser.")
       }
-
-      firebase.checkComplete = true;
     }
+  
+    firebase.checkComplete = true;
+    
   }
   
   

@@ -1,9 +1,7 @@
-// refactor so that biz html scripts and biz.js files aren't redundant
-
 document.addEventListener("DOMContentLoaded", event => {
-  const app = firebase.app();
+  //const app = firebase.app();
+  //var functions = firebase.functions();
   const db = firebase.firestore();
-  var functions = firebase.functions();
 
   // enforce use of EMULATED firestore and functions if app is local
   if (window.location.hostname === "localhost") {
@@ -16,11 +14,6 @@ document.addEventListener("DOMContentLoaded", event => {
 
     setMockData(db);
   }
-
-  /* Stripe doesn't need declared globally. Used only here:
-        >buyProduct()
-
-  */
 
   document.getElementById("login").innerText = "login";
   document.getElementById("loading-stripe-ID").style.visibility = "hidden";
@@ -247,7 +240,7 @@ function anonLogin(){
             };
 
           const _db = firebase.firestore();
-          // #### DBU ####
+          
           dbu.addDoc(_db, "businesses", uid, data); // creates a new object in specified collection with data object
 
         } else {
@@ -286,14 +279,18 @@ function onboardBusiness(){
       const theURI = chooseURI();
       var stripeState = firebase.functions().httpsCallable('stripeState');
       stripeState({uri: theURI})
+
       .then(function(result){
         console.log("new state in database, URL returned successfully, redirecting now");
         var returnedURL = result.data.text;
         window.location.replace(returnedURL);
       })
+
     }
   })
 }
+
+
 
 function chooseURI(){
   if(window.location.hostname === "localhost") {
@@ -334,7 +331,6 @@ function setMockData(_db){
     stripeBusinessID: "acct_1Gn5TjGyLtyoABdR"
   }
 
-  const db = firebase.firestore();
   const usersRef1 = _db.collection('businesses').doc("92ugtu63MYdWRB4EtxQubvcMcaD3");
   const usersRef2 = _db.collection('businesses').doc("qqfb2HozN0fn2aTyRUTLIpE14Nz1");
   const usersRef3 = _db.collection('businesses').doc("heCh1pDwT5QYV61wwXtuoSUkkp42");

@@ -20,7 +20,6 @@
     "check": "firebase functions:config:get",
     "evl": "firebase functions:config:get > .runtimeconfig.json",
     "ga": "git add --all"
-
   },
   "repository": {
     "type": "git",
