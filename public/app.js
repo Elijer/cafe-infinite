@@ -117,16 +117,17 @@ function buyProduct(_bizID){
     //let thePrice = "$" + result.data.price;
     console.log("The price is $" + result.data.price + " Because it's currently hardcoded in index.js");
     //document.getElementById('submit').innerHTML = `Pay ${thePrice}`;
-    document.getElementById('submit').innerHTML = "Pay duh munny";
 
     // Handle real-time validation errors from the card Element.
     card.on('change', function(event) {
       document.getElementById('submit').style.visibility = "visible";
       var displayError = document.getElementById('card-errors');
       if (event.error) {
+        document.getElementById('submit').innerHTML = "";
         displayError.textContent = event.error.message;
       } else {
         displayError.textContent = '';
+        document.getElementById('submit').innerHTML = "Pay Now";
       }
     });
 
@@ -135,6 +136,8 @@ function buyProduct(_bizID){
     form.addEventListener('submit', function(ev) {
       ev.preventDefault(); // prevents page from refreshing on form submit
       document.getElementById('submit').style.visibility = "hidden";
+      document.getElementById('payment-form').style.visibility = "hidden";
+      document.getElementById("loading-market").style.visibility = "visible";
       // use the client secret from before
       stripe.confirmCardPayment(theBigSecret, {
         payment_method: {
@@ -146,10 +149,15 @@ function buyProduct(_bizID){
       }).then(function(result) {
         console.log(result);
         if (result.error) {
+          //document.getElementById('submit').style.visibility = "visible";
+          document.getElementById("loading-market").style.visibility = "hidden";
+          document.getElementById('payment-form').style.visibility = "visible";
           console.log(result.error.message); // Show error to your customer (e.g., insufficient funds)
         } else {
           if (result.paymentIntent.status === 'succeeded') {
+            document.getElementById("loading-market").style.visibility = "hidden";
             console.log("### The payment SUCCEEDED! ###");
+            document.getElementById('payment-success').style.visibility = "visible";
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback
             // execution. Set up a webhook or plugin to listen for the
