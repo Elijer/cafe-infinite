@@ -40,7 +40,7 @@ function checkForUserPersistence(_db){
       const uid = firebase.auth().currentUser.uid;
       console.log("Persistent user found in browser: " + uid);
 
-      dbu.isThere(_db, "businesses", uid)
+      dbu.isThere(_db, "businesses", uid) // checks if user is in db, if so returns that user
       .then(function(result){
         if (result) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
@@ -240,22 +240,14 @@ function anonLogin(){
           //console.log("User is: " + uid + " .Is anonymous? " + isAnonymous);
     
           loginFormat(user.uid);
-    
-          const db = firebase.firestore();
-          const usersRef = db.collection('businesses').doc(uid);
-    
-          usersRef.get()
-            .then((docSnapshot) => {
-              if (!docSnapshot.exists) {
-                let data = {
-                  isAnonymous: isAnonymous,
-                  createdAt: new Date()
-                };
-                usersRef.set(data, {merge: true}) // create the document
-                console.log("new anon user created in db for UID:  " + user.uid);
-              }
-            })
-          .catch(console.log);
+
+          let data = {
+            isAnonymous: isAnonymous,
+            createdAt: new Date()
+          };
+
+          const _db = firebase.firestore();
+          dbu.addDoc(_db, "businesses", uid, data);
         } else {
           console.log("user is not signed in");
         }
