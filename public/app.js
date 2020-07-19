@@ -83,6 +83,7 @@ function populateMarket(_db){
         <td class = "td-money"> ${d.price} </td>
         <td class = "product-detail-last" onclick = "buyProduct('${d.bizID}')" > buy </td>
     `;
+
     // Actually adds the row
     document.getElementById('product-table').appendChild(row);
   }
@@ -90,10 +91,36 @@ function populateMarket(_db){
 
 
 
+function appendPaymentForm(){
+  const payform = document.createElement('div');
+  payform.className = 'payform-container';
+  payform.innerHTML = 
+  `
+    <form id="payment-form">
+    <div id="card-element">
+      <!-- Elements will create input elements here -->
+    </div>
+  
+    <!-- We'll put the error messages in this element -->
+    <i id = "paying-now" class="fa fa-circle-o-notch fa-spin"></i>
+    <div id="card-errors" role="alert"></div>
+  
+    <button id="submit"></button>
+    <p id = "payment-success"> Payment Success!!! </p>
+    <p id = "reset-payform" onclick = "resetPaymentForm()"> Cancel</p>
+    </form>
+  `;
+
+  document.getElementById('content').appendChild(payform);
+};
+
+
+
 
 
 // ######### Calls http callable function: paymentIntent()
 function buyProduct(_bizID){
+  appendPaymentForm();
   document.getElementById("loading-market").style.visibility = "visible";
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({bizID: _bizID})
@@ -111,8 +138,10 @@ function buyProduct(_bizID){
     var elements = stripe.elements();
     var style = styleStripeForm();
     var card = elements.create('card', {style: style});
+
     card.mount('#card-element');
-      document.getElementById("loading-market").style.visibility = "hidden";
+    document.getElementById("loading-market").style.visibility = "hidden";
+    document.getElementById("reset-payform").style.visibility = "visible";
 
     //let thePrice = "$" + result.data.price;
     console.log("The price is $" + result.data.price + " Because it's currently hardcoded in index.js");
@@ -156,7 +185,7 @@ function buyProduct(_bizID){
         } else {
           if (result.paymentIntent.status === 'succeeded') {
             document.getElementById("loading-market").style.visibility = "hidden";
-            console.log("### The payment SUCCEEDED! ###");
+            console.log("Payment Success!");
             document.getElementById('payment-success').style.visibility = "visible";
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback
@@ -207,7 +236,20 @@ function styleStripeForm(){
 }
 
 
+function resetPaymentForm(){
+  var el = document.getElementById("payment-form");
+  el.remove();
 
+  if (document.getElementById('payment-success')){
+    document.getElementById('payment-success').style.visibility = "hidden";
+  }
+
+  if (document.getElementById("reset-payform")){
+    document.getElementById("reset-payform").style.visibility = "hidden";
+  }
+  
+  document.getElementById("loading-market").style.visibility = "hidden";
+}
 
 
 // ### Called when user logs in: formats login button to say their ID

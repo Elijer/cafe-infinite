@@ -64,7 +64,7 @@ body {
   padding: 100px 10% 0px 10%; /*trbl*/
 }
 
-  #paying-now, #payment-success {
+  #paying-now, #payment-success, #reset-payform {
     visibility: hidden;
   }
 
