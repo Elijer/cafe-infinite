@@ -112,7 +112,7 @@ body {
 
       td {
         text-align: left;
-        padding: 0px 60px 45px 0px; /* top right bottom left */
+        padding: 8px 60px 45px 0px; /* top right bottom left */
       }
 
       .td-first {
@@ -126,6 +126,13 @@ body {
 
       .td-last {
         padding-right: 0px;
+      }
+
+      .product-detail-last {
+        padding: 8px;
+        background-color: #f2e9d5;
+        border: 0px;
+        font-size: 80%;
       }
 
 

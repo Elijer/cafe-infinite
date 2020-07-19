@@ -82,20 +82,17 @@ function populateMarket(_db){
           <td class = "td-first"> ${displayName} </td>
           <td> ${d.prod} </td>
           <td class = "td-money"> ${d.price} </td>
-          <td class = "product-detail-last" onclick = "buyProduct('${d.bizID}')" > buy </td>
+          <button class = "product-detail-last" onclick = "buyProduct('${d.bizID}')" > buy </button>
       `;
   
       // Actually adds the row
       document.getElementById('product-table').appendChild(row);
+    } else {
+      row.innerHTML =
+      ` <p> Well Gosh. There doesn't appear to be any data in the database. </p> `;
+      
+      document.getElementById('product-table').appendChild(row);
     }
-  } else {
-    row.innerHTML =
-    `
-    <p> Well Gosh. There doesn't appear to be any data in the database. </p>
-
-    `;
-    
-    document.getElementById('product-table').appendChild(row);
   }
 }
 
