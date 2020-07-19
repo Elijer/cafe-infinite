@@ -94,6 +94,7 @@ function populateMarket(_db){
 
 // ######### Calls http callable function: paymentIntent()
 function buyProduct(_bizID){
+  document.getElementById("loading-market").style.visibility = "visible";
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({bizID: _bizID})
   .then(function(result){
@@ -111,6 +112,7 @@ function buyProduct(_bizID){
     var style = styleStripeForm();
     var card = elements.create('card', {style: style});
     card.mount('#card-element');
+      document.getElementById("loading-market").style.visibility = "hidden";
 
     //let thePrice = "$" + result.data.price;
     console.log("The price is $" + result.data.price + " Because it's currently hardcoded in index.js");
@@ -119,6 +121,7 @@ function buyProduct(_bizID){
 
     // Handle real-time validation errors from the card Element.
     card.on('change', function(event) {
+      document.getElementById('submit').style.visibility = "visible";
       var displayError = document.getElementById('card-errors');
       if (event.error) {
         displayError.textContent = event.error.message;
