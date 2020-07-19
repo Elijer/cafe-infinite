@@ -252,6 +252,7 @@ function resetPaymentForm(){
   }
   
   document.getElementById("loading-market").style.visibility = "hidden";
+  document.getElementById("entry-note").style.visibility = "hidden";
 }
 
 
@@ -371,9 +372,9 @@ function onboardBusiness(){
 
 
 function setMockData(_db){
-  var data1 = { price: "1.00", product: "Sandals", isAnonymous: true, state: "HFH5XKnpQaJ", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" };
-  var data2 = { price: "300.50", product: "Bananas", isAnonymous: true, state: "eqo13tinhep", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" }
-  var data3 = { price: "4.00", product: "Carabiner", isAnonymous: true, state: "ezvUkoL86Z8", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" }
+  var data1 = { price: "1.00", product: "Sandals", businessName: "Chacos", isAnonymous: true, state: "HFH5XKnpQaJ", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" };
+  var data2 = { price: "300.50", product: "Bananas", businessName: "Chiquita", isAnonymous: true, state: "eqo13tinhep", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" }
+  var data3 = { price: "4.00", product: "Carabiner", businessName: "Black Diamond", isAnonymous: true, state: "ezvUkoL86Z8", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" }
   const usersRef1 = _db.collection('businesses').doc("92ugtu63MYdWRB4EtxQubvcMcaD3");
   const usersRef2 = _db.collection('businesses').doc("qqfb2HozN0fn2aTyRUTLIpE14Nz1");
   const usersRef3 = _db.collection('businesses').doc("heCh1pDwT5QYV61wwXtuoSUkkp42");
