@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", event => {
       host: "localhost:8080",
       ssl: false
     });
-
+    // If we're on localhost, add some mock data so we don't need to add it ourselves
     setMockData(db);
   }
 
@@ -39,7 +39,7 @@ function checkForUserPersistence(_db){
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
           loginFormat(uid);
           document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
-          populateMarket(_db, addRow);
+          populateMarket(_db);
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
           logOut();
@@ -49,36 +49,33 @@ function checkForUserPersistence(_db){
       console.log("No persistent user found in browser.")
     }
   }
-
+  // Mark checkComplete as true so that it only gets run once.
   firebase.checkComplete = true;
-  
 }
 
 
 
-function populateMarket(_db, callback){
-  dbu.where(_db, "businesses", "status", "==", "doingBusiness", callback);
+// ### Queries DB to find products and prices using addRow()
+function populateMarket(_db){
+  dbu.where(_db, "businesses", "status", "==", "doingBusiness", addRow);
+
+  function addRow(d) {
+    const row = document.createElement('tr');
+    row.className = 'product-row';
+
+    row.innerHTML =
+    `
+        <td class = "td-first"> ${d.biz} </td>
+        <td> ${d.prod} </td>
+        <td class = "td-money"> ${d.price} </td>
+        <td class = "product-detail-last" onclick = "buyProduct('${d.biz}')" > buy </td>
+    `;
+    // Actually adds the row
+    document.getElementById('product-table').appendChild(row);
+  }
 }
 
 
-
-// ### Populates table (#product-table) with data from db.collection("businesses").
-// ### Will eventual transition to use with db.collection("products")
-function addRow(d) {
-  const row = document.createElement('tr');
-  row.className = 'product-row';
-
-  row.innerHTML =
-  `
-      <td class = "td-first"> ${d.biz} </td>
-      <td> ${d.prod} </td>
-      <td class = "td-money"> ${d.price} </td>
-      <td class = "product-detail-last" onclick = "buyProduct('${d.biz}')" > buy </td>
-  `;
-
-  document.getElementById('product-table').appendChild(row);
-
-}
 
 
 
@@ -107,7 +104,6 @@ function buyProduct(_bizID){
     //document.getElementById('submit').innerHTML = `Pay ${thePrice}`;
     document.getElementById('submit').innerHTML = "Pay duh munny";
 
-
     // Handle real-time validation errors from the card Element.
     card.on('change', function(event) {
       var displayError = document.getElementById('card-errors');
@@ -120,7 +116,6 @@ function buyProduct(_bizID){
 
     // Handle form submission.
     var form = document.getElementById('payment-form');
-
     form.addEventListener('submit', function(ev) {
       ev.preventDefault(); // prevents page from refreshing on form submit
       // use the client secret from before
@@ -147,6 +142,8 @@ function buyProduct(_bizID){
         }
       });
     });
+
+    
 
     // Submit the form with the token ID.
     function stripeTokenHandler(token) {
@@ -240,7 +237,7 @@ function anonLogin(){
             };
 
           const _db = firebase.firestore();
-          
+
           dbu.addDoc(_db, "businesses", uid, data); // creates a new object in specified collection with data object
 
         } else {

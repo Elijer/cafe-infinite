@@ -26,15 +26,15 @@ document.addEventListener("DOMContentLoaded", event => {
       if (firebase.auth().currentUser != null){
         const uid = firebase.auth().currentUser.uid;
         console.log("Persistent user found in browser: " + uid);
-  
         dbu.isThere(_db, "businesses", uid) // checks if user is in db, if so returns that user
         .then(function(result){
           if (result) {
+            // #### If User Exists in DB
             console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
-            //loginFormat(user.uid)
             displayBizId(doc.data().stripeBusinessID);
             startFormInput();
           } else {
+            // #### If User does not exist in DB
             console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
             logOut();
           }
@@ -43,9 +43,7 @@ document.addEventListener("DOMContentLoaded", event => {
         console.log("No persistent user found in browser.")
       }
     }
-  
     firebase.checkComplete = true;
-    
   }
   
   
