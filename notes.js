@@ -5,6 +5,19 @@ Big To-DO
 2. Address firestore db rules
 3. Do Unit testing and epxlore possibly using 'Jest' (there's a fireship video on it)
 4. Add in a business name too cause it just looks depressing right now
+5. Make sure that the price goes in. And also that the server assesses the price and makes sure
+  that it's not too much, or that it's formatted correctly or whatever. The client should
+  also be doing that so that the client KNOWS when they haven't sent in a valid price.
+
+  In general, I can see how I really need to scrutinize the payment flow here and make sure it is
+  rock solid. If I'm working with real money, suddenly the UI and the little helper functions
+  aren't so trivial. They all matter.
+
+  And in addition, it means that the webhooks really should work -- 
+  that way there's a record of what has happened, and if they accidentally
+  navigate away from the page or fuck something up, they can see if
+  everything went through okay. That is more down the road, but it's on the same
+  subject.
 
 Question
 1. Can i create a state machine that communiates directly with vue to make the state visual?

@@ -67,24 +67,34 @@ function populateMarket(_db){
   dbu.where(_db, "businesses", "status", "==", "doingBusiness", addRow);
 
   function addRow(d) {
-    const row = document.createElement('tr');
-    row.className = 'product-row';
-
-    if (d.bizName){
-      var displayName = d.bizName;
-    } else {
-      var displayName = d.bizID;
+    if (d){
+      const row = document.createElement('tr');
+      row.className = 'product-row';
+  
+      if (d.bizName){
+        var displayName = d.bizName;
+      } else {
+        var displayName = d.bizID;
+      }
+  
+      row.innerHTML =
+      `
+          <td class = "td-first"> ${displayName} </td>
+          <td> ${d.prod} </td>
+          <td class = "td-money"> ${d.price} </td>
+          <td class = "product-detail-last" onclick = "buyProduct('${d.bizID}')" > buy </td>
+      `;
+  
+      // Actually adds the row
+      document.getElementById('product-table').appendChild(row);
     }
-
+  } else {
     row.innerHTML =
     `
-        <td class = "td-first"> ${displayName} </td>
-        <td> ${d.prod} </td>
-        <td class = "td-money"> ${d.price} </td>
-        <td class = "product-detail-last" onclick = "buyProduct('${d.bizID}')" > buy </td>
-    `;
+    <p> Well Gosh. There doesn't appear to be any data in the database. </p>
 
-    // Actually adds the row
+    `;
+    
     document.getElementById('product-table').appendChild(row);
   }
 }
