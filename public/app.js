@@ -38,13 +38,11 @@ function checkForUserPersistence(_db){
   if (firebase.checkComplete == false){
     if (firebase.auth().currentUser != null){
       const uid = firebase.auth().currentUser.uid;
-
       console.log("Persistent user found in browser: " + uid);
-      const docRef = _db.collection('businesses').doc(uid);
-      docRef.get()
-      .then(function(doc) {
-        const d = doc.data();
-        if (d) {
+
+      dbu.isThere(_db, "businesses", uid)
+      .then(function(result){
+        if (result) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
           loginFormat(uid);
           document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
@@ -53,10 +51,7 @@ function checkForUserPersistence(_db){
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
           logOut();
         }
-      }).catch(function(error) {
-          console.log("Error getting document:", error);
-      });
-
+      })
     } else {
       console.log("No persistent user found in browser.")
     }

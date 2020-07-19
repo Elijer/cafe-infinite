@@ -1,5 +1,7 @@
 var dbu = {};
 
+
+
 dbu.where = (_db, collection, a, enumerator, b, callback) => new Promise((resolve) => {
 
     _db.collection(collection).where(a, enumerator, b)
@@ -19,4 +21,14 @@ dbu.where = (_db, collection, a, enumerator, b, callback) => new Promise((resolv
         console.log("Error getting documents: ", error);
     });
 
+});
+
+
+dbu.isThere = (_db, collection, id) => new Promise((resolve) => {
+    const docRef = _db.collection(collection).doc(id); 
+    docRef.get()
+    .then(function(doc){
+        const d = doc.data();
+        resolve(d);
+    })
 });
