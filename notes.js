@@ -6,6 +6,11 @@ Big To-DO
 3. Do Unit testing and epxlore possibly using 'Jest' (there's a fireship video on it)
 4. Add in a business name too cause it just looks depressing right now
 
+Question
+1. Can i create a state machine that communiates directly with vue to make the state visual?
+  The idea is that all dom commands go to the state, and then the state doles them out to
+  The dom, through Vue or through a framework of my choosing/creation.
+
 
 
 0. Business stripe

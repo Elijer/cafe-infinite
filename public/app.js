@@ -247,6 +247,7 @@ function anonLogin(){
             };
 
           const _db = firebase.firestore();
+          // #### DBU ####
           dbu.addDoc(_db, "businesses", uid, data); // creates a new object in specified collection with data object
 
         } else {
@@ -271,34 +272,27 @@ function onboardBusiness(){
   } else {
     console.log("the user is " + user.displayName);
   }
-  
+
   //check to see if the account already has business ID
-      const db = firebase.firestore();
-      const docRef = db.collection('businesses').doc(user.uid);
-      docRef.get().then(function(doc) {
-        if (doc != null && doc != undefined){
-          if (doc.data().stripeBusinessID) {
-            // If there's already a business ID, user is navigated to biz.html
-            console.log("Nice, there's already a biz ID! Let's take you to the dashboard", doc.data().stripeBusinessID);
-            window.location.href = "/biz.html";
-          } else {
-              // doc.data() will be undefined in this case
-              console.log("No biz ID yet! Let's make it!");
-              const theURI = chooseURI();
-              var stripeState = firebase.functions().httpsCallable('stripeState');
-              stripeState({uri: theURI})
-              .then(function(result){
-                console.log("new state in database, URL returned successfully, redirecting now");
-                var returnedURL = result.data.text;
-                window.location.replace(returnedURL);
-              }).catch(function(error){
-                console.log("Error calling https-callable stripeState in firebase with error: ", error);
-              })
-          }
-        }
-    }).catch(function(error) {
-        console.log("Error getting document:", error);
-    });
+  const db = firebase.firestore();
+
+  dbu.isThere(db, "businesses", user.uid)
+  .then(function(data){
+    if (data.stripeBusinessID){
+      console.log("Nice, there's already a biz ID! Let's take you to the dashboard", doc.data().stripeBusinessID);
+      window.location.href = "/biz.html";
+    } else {
+      console.log("No biz ID yet! Let's make it!");
+      const theURI = chooseURI();
+      var stripeState = firebase.functions().httpsCallable('stripeState');
+      stripeState({uri: theURI})
+      .then(function(result){
+        console.log("new state in database, URL returned successfully, redirecting now");
+        var returnedURL = result.data.text;
+        window.location.replace(returnedURL);
+      })
+    }
+  })
 }
 
 function chooseURI(){
