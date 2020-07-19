@@ -108,9 +108,10 @@ function appendPaymentForm(){
     <button id="submit"></button>
     <p id = "payment-success"> Payment Success!!! </p>
     <p id = "reset-payform" onclick = "resetPaymentForm()"> Cancel </p>
-    <p4 id = "entry-note" > (Simulate a successful payment by entering "4242424" repeating) </p4>
     </form>
   `;
+
+  //    <p4 id = "entry-note" > (Simulate a successful payment by entering "4242424" repeating) </p4>
 
   document.getElementById('content').appendChild(payform);
 };
@@ -121,6 +122,7 @@ function appendPaymentForm(){
 
 // ######### Calls http callable function: paymentIntent()
 function buyProduct(_bizID){
+  appendPaymentForm();
   document.getElementById("loading-market").style.visibility = "visible";
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({bizID: _bizID})
@@ -137,8 +139,6 @@ function buyProduct(_bizID){
     var elements = stripe.elements();
     var style = styleStripeForm();
     var card = elements.create('card', {style: style});
-
-    appendPaymentForm();
     
     card.mount('#card-element');
     document.getElementById("loading-market").style.visibility = "hidden";

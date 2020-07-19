@@ -64,16 +64,18 @@ body {
   padding: 100px 10% 0px 10%; /*trbl*/
 }
 
-  #paying-now, #payment-success, #reset-payform {
+  #paying-now, #payment-success, #reset-payform, #entry-note {
     visibility: hidden;
     padding: 4px;
   }
 
   #entry-note {
-    visibility: "hidden";
-    padding-top: 100px;
-    color: #bd9e62;
+    padding: 15px 15px 12px 0px;
+    color: #aab7c4;
     font-size: 70%;
+    display: inline;
+    float: left;
+    font-weight: 300;
   }
 
   #loading-market {
