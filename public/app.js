@@ -57,6 +57,9 @@ function checkForUserPersistence(_db){
 
 // ### Queries DB to find products and prices using addRow()
 function populateMarket(_db){
+
+  document.getElementById('loading-market').style.visibility = "hidden";
+
   dbu.where(_db, "businesses", "status", "==", "doingBusiness", addRow);
 
   function addRow(d) {

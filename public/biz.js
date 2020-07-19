@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", event => {
   
     // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
     firebase.checkComplete = false;
-    firebase.auth().onAuthStateChanged(user => checkForUserPersistence(_db));
+    firebase.auth().onAuthStateChanged(user => checkForUserPersistence(db));
   });
   
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", event => {
           if (result) {
             // #### If User Exists in DB
             console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
-            displayBizId(doc.data().stripeBusinessID);
+            displayBizId(result.stripeBusinessID);
             startFormInput();
           } else {
             // #### If User does not exist in DB

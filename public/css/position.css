@@ -64,6 +64,12 @@ body {
   padding: 100px 10% 0px 10%; /*trbl*/
 }
 
+  #loading-market {
+    font-size: 220%;
+    color: #bd9e62;
+    position: absolute;
+  }
+
   #market-description, #market-list {
     float: left; /* float: right stacks them on top of each other neatly /* Give these two components width: 50% and they will take up the full horiz space neatly */
   }
