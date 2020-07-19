@@ -39,6 +39,7 @@ dbu.isThere = (_db, collection, id) => new Promise((resolve) => {
 });
 
 
+
 // ##### ADDS A DOCUMENT #########################
 dbu.addDoc = (_db, collection, id, data) => new Promise((resolve) => {
     const usersRef = _db.collection(collection).doc(id);

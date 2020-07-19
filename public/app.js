@@ -252,6 +252,7 @@ function anonLogin(){
 
 // ### Starts stripe business onboarding process
 function onboardBusiness(){
+  const db = firebase.firestore();
   var user = firebase.auth().currentUser;
   console.log(user);
 
@@ -262,9 +263,6 @@ function onboardBusiness(){
   } else {
     console.log("the user is " + user.displayName);
   }
-
-  //check to see if the account already has business ID
-  const db = firebase.firestore();
 
   dbu.isThere(db, "businesses", user.uid)
   .then(function(data){
@@ -294,7 +292,6 @@ function onboardBusiness(){
     }
   }
 }
-
 
 
 function setMockData(_db){
