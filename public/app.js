@@ -125,6 +125,7 @@ function buyProduct(_bizID){
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', function(ev) {
       ev.preventDefault(); // prevents page from refreshing on form submit
+      document.getElementById('submit').style.visibility = "hidden";
       // use the client secret from before
       stripe.confirmCardPayment(theBigSecret, {
         payment_method: {
