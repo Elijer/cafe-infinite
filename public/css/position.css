@@ -64,6 +64,10 @@ body {
   padding: 100px 10% 0px 10%; /*trbl*/
 }
 
+  #paying-now {
+    visibility: hidden;
+  }
+
   #loading-market {
     font-size: 220%;
     color: #bd9e62;
