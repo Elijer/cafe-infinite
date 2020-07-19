@@ -38,7 +38,11 @@ function checkForUserPersistence(_db){
         if (result) {
           console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
           loginFormat(uid);
-          document.getElementById("are-you-biz").innerText = 'Go to biz dash.';
+
+          var message = result.stripeBusinessID ? 'Business Dashboard' : 'Sign Up!';
+
+          document.getElementById("are-you-biz").innerText = message;
+
           populateMarket(_db);
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
@@ -255,6 +259,9 @@ function anonLogin(){
 
 // ### Starts stripe business onboarding process
 function onboardBusiness(){
+  document.getElementById("loading-market").style.visibility = "visible";
+  document.getElementById("market-list").style.visibility = "hidden";
+
   const db = firebase.firestore();
   var user = firebase.auth().currentUser;
   console.log(user);
@@ -262,6 +269,8 @@ function onboardBusiness(){
   // check to see if someone is logged in
   if (!user){
     alert("you have to be logged in to register your business with Cafe Infinite!");
+    document.getElementById("loading-market").style.visibility = "hidden";
+    //document.getElementById("market-list").style.visibility = "visible";
     return;
   } else {
     console.log("the user is " + user.displayName);
@@ -270,6 +279,7 @@ function onboardBusiness(){
   dbu.isThere(db, "businesses", user.uid)
   .then(function(data){
     if (data.stripeBusinessID){
+      document.getElementById("loading-market").style.visibility = "hidden";
       console.log("Nice, there's already a biz ID! Let's take you to the dashboard", data.stripeBusinessID);
       window.location.href = "/biz.html";
     } else {
