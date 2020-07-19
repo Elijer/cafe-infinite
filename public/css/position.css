@@ -69,6 +69,13 @@ body {
     padding: 4px;
   }
 
+  #entry-note {
+    visibility: "hidden";
+    padding-top: 100px;
+    color: #bd9e62;
+    font-size: 70%;
+  }
+
   #loading-market {
     font-size: 220%;
     color: #bd9e62;

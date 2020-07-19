@@ -108,6 +108,7 @@ function appendPaymentForm(){
     <button id="submit"></button>
     <p id = "payment-success"> Payment Success!!! </p>
     <p id = "reset-payform" onclick = "resetPaymentForm()"> Cancel </p>
+    <p4 id = "entry-note" > (Simulate a successful payment by entering "4242424" repeating) </p4>
     </form>
   `;
 
@@ -120,7 +121,6 @@ function appendPaymentForm(){
 
 // ######### Calls http callable function: paymentIntent()
 function buyProduct(_bizID){
-  appendPaymentForm();
   document.getElementById("loading-market").style.visibility = "visible";
   var paymentIntent = firebase.functions().httpsCallable('paymentIntent');
   paymentIntent({bizID: _bizID})
@@ -134,6 +134,7 @@ function buyProduct(_bizID){
       stripeAccount: _bizID
     });
 
+    appendPaymentForm();
     // create, style and mount card elements to the Dom
     var elements = stripe.elements();
     var style = styleStripeForm();
@@ -142,6 +143,7 @@ function buyProduct(_bizID){
     card.mount('#card-element');
     document.getElementById("loading-market").style.visibility = "hidden";
     document.getElementById("reset-payform").style.visibility = "visible";
+    document.getElementById("entry-note").style.visibility = "visible";
 
     //let thePrice = "$" + result.data.price;
     console.log("The price is $" + result.data.price + " Because it's currently hardcoded in index.js");
