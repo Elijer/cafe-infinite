@@ -76,14 +76,37 @@
 
       <div id = "fade-in">
         <div id = "biz-bio">
-          <p1 id = "biz-name"> Stripe ID: </p1>
+          <p1 id = "biz-name"> Business Profile </p1>
           <i id = "loading-stripe-ID" class="fa fa-circle-o-notch fa-spin"></i>
-          <span id = "stripe-ID"> loading </span>
+          <span id = "stripe-ID"> </span>
         </div>
       </div>
 
       <div id = "market-list">
         <table ">
+          <tr>
+          <!-- Business Name -->
+            <td class = "td--name-first" id = "td-1-name">
+              Business Name:
+            </td>
+
+            <td id = "fade-in">
+              <input
+              id = "td-name"
+              placeholder = "Name"
+              oninput = "handleName(event)"
+              >
+            </td>
+
+            <td class = "name-detail-last">
+              <button
+              id = "name-save"
+              onclick = "handleNameSave(event)">
+                Save
+              </button>
+            </td>
+          </tr>
+          <!-- Products-->
           <tr>
 
             <td class = "td-first" id = "td-1">

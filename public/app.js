@@ -70,9 +70,15 @@ function populateMarket(_db){
     const row = document.createElement('tr');
     row.className = 'product-row';
 
+    if (d.bizName){
+      var displayName = d.bizName;
+    } else {
+      var displayName = d.bizID;
+    }
+
     row.innerHTML =
     `
-        <td class = "td-first"> ${d.biz} </td>
+        <td class = "td-first"> ${displayName} </td>
         <td> ${d.prod} </td>
         <td class = "td-money"> ${d.price} </td>
         <td class = "product-detail-last" onclick = "buyProduct('${d.biz}')" > buy </td>

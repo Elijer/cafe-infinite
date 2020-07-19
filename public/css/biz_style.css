@@ -46,7 +46,8 @@
         font-size: 20px;
         }
 
-    #td-product, #td-money, #product-save {
+    #td-product, #td-money, #product-save,
+    #td-name, #name-save {
       padding: 5px;
       background-color: #f2e9d5;
       border: 0px;

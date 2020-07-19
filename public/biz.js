@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", event => {
             // #### If User Exists in DB
             console.log("And persistent user exists in DB. Okay! We'll let you stay logged in.");
             displayBizId(result.stripeBusinessID);
+            if (result.businessName) displayBusinessName(result.businessName);
             startFormInput();
           } else {
             // #### If User does not exist in DB
@@ -57,13 +58,19 @@ document.addEventListener("DOMContentLoaded", event => {
   }
 
   function displayBizId(id){
-    document.getElementById("stripe-ID").innerText = `${id}`;
+    document.getElementById("stripe-ID").innerText = `Stripe ID: ${id}`;
     document.getElementById("loading-stripe-ID").style.visibility = "hidden";
+  }
+  
+  function displayBusinessName(name){
+    document.getElementById("td-name").placeholder = name;
   }
 
   function startFormInput(){
     document.getElementById("td-1").style.visibility = "visible";
     document.getElementById("td-product").style.visibility = "visible";
+    document.getElementById("td-1-name").style.visibility = "visible";
+    document.getElementById("td-name").style.visibility = "visible";
   }
   
   
@@ -79,6 +86,41 @@ document.addEventListener("DOMContentLoaded", event => {
     });
   }
 
+  function handleName(e){
+    var val = e.target.value;
+    if (val == "" || val.length <= 2 || val.length >= 12){
+      return;
+    } else {
+      var user = firebase.auth().currentUser;
+      if (!user){
+        alert("you must be logged in to do that.");
+      } else {
+        firebase.businessName = val;
+        document.getElementById("name-save").style.visibility = 'visible';
+        document.getElementById("name-save").innerText = "Save";
+      }
+    }
+  }
+
+
+  function handleNameSave(e){
+
+    const db = firebase.firestore();
+    const user = firebase.auth().currentUser;
+    const post = db.collection('businesses').doc(user.uid);
+
+    const businessName = firebase.businessName;
+
+    post.update({businessName: businessName})
+    .then(function(doc) {
+      document.getElementById("name-save").innerText = "Product Saved";
+    }).catch(function(error) {
+      document.getElementById("name-save").innerText = "Save unsuccessful";
+      console.log("Error getting document:", error);
+    });
+  }
+
+  
 
   // ### Three functions of handle form input and saving
   function handleProduct(e){

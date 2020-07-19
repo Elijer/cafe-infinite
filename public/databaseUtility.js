@@ -11,7 +11,8 @@ dbu.where = (_db, collection, a, enumerator, b, callback) => new Promise((resolv
         querySnapshot.forEach(function(doc) {
           const d = doc.data();
           const data = {
-            biz: d.stripeBusinessID,
+            bizID: d.stripeBusinessID,
+            bizName: d.businessName,
             prod: d.product,
             price: "$" + d.price
           }
