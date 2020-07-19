@@ -107,7 +107,7 @@ function appendPaymentForm(){
   
     <button id="submit"></button>
     <p id = "payment-success"> Payment Success!!! </p>
-    <p id = "reset-payform" onclick = "resetPaymentForm()"> Cancel</p>
+    <p id = "reset-payform" onclick = "resetPaymentForm()"> Cancel </p>
     </form>
   `;
 
@@ -187,6 +187,7 @@ function buyProduct(_bizID){
             document.getElementById("loading-market").style.visibility = "hidden";
             console.log("Payment Success!");
             document.getElementById('payment-success').style.visibility = "visible";
+            document.getElementById('reset-payform').innerHTML = "Cool. Reset form.";
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback
             // execution. Set up a webhook or plugin to listen for the

@@ -66,6 +66,7 @@ body {
 
   #paying-now, #payment-success, #reset-payform {
     visibility: hidden;
+    padding: 4px;
   }
 
   #loading-market {
