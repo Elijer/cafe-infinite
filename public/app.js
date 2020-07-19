@@ -267,7 +267,7 @@ function onboardBusiness(){
   dbu.isThere(db, "businesses", user.uid)
   .then(function(data){
     if (data.stripeBusinessID){
-      console.log("Nice, there's already a biz ID! Let's take you to the dashboard", doc.data().stripeBusinessID);
+      console.log("Nice, there's already a biz ID! Let's take you to the dashboard", data.stripeBusinessID);
       window.location.href = "/biz.html";
     } else {
       console.log("No biz ID yet! Let's make it!");
