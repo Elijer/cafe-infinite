@@ -285,15 +285,13 @@ function onboardBusiness(){
 
     }
   })
-}
 
-
-
-function chooseURI(){
-  if(window.location.hostname === "localhost") {
-    return "http://localhost:5000/api";
-  } else {
-    return "https://firestripe-boilerplate.web.app/api";
+  function chooseURI(){
+    if(window.location.hostname === "localhost") {
+      return "http://localhost:5000/api";
+    } else {
+      return "https://firestripe-boilerplate.web.app/api";
+    }
   }
 }
 
