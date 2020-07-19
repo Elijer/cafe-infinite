@@ -81,7 +81,7 @@ function populateMarket(_db){
         <td class = "td-first"> ${displayName} </td>
         <td> ${d.prod} </td>
         <td class = "td-money"> ${d.price} </td>
-        <td class = "product-detail-last" onclick = "buyProduct('${d.biz}')" > buy </td>
+        <td class = "product-detail-last" onclick = "buyProduct('${d.bizID}')" > buy </td>
     `;
     // Actually adds the row
     document.getElementById('product-table').appendChild(row);
