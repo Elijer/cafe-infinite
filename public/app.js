@@ -133,13 +133,13 @@ function buyProduct(_bizID){
     var stripe = Stripe(result.data.publicKey, {
       stripeAccount: _bizID
     });
-
-    appendPaymentForm();
     // create, style and mount card elements to the Dom
     var elements = stripe.elements();
     var style = styleStripeForm();
     var card = elements.create('card', {style: style});
 
+    appendPaymentForm();
+    
     card.mount('#card-element');
     document.getElementById("loading-market").style.visibility = "hidden";
     document.getElementById("reset-payform").style.visibility = "visible";
