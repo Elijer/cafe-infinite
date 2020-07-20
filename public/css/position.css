@@ -80,7 +80,6 @@ body {
 
   #loading-market {
     font-size: 220%;
-    color: #bd9e62;
     position: absolute;
   }
 
@@ -130,7 +129,6 @@ body {
 
       .product-detail-last {
         padding: 8px;
-        background-color: #f2e9d5;
         border: 0px;
         font-size: 80%;
       }
