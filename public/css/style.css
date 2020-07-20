@@ -32,6 +32,12 @@
       color: #bd9e62;
     }
 
+    #the-the, #the-end {
+        color: #8b5b00; 
+        font-size: 20px;
+        font-family: 'Berkshire Swash', cursive;
+    }
+
     #market-title {
         color: #8b5b00;
         font-size: 45px;
