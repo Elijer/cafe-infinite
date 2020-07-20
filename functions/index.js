@@ -40,6 +40,10 @@ app.use((req, res, next) => {
 });
 */
 
+exports.testModeIsOn = functions.https.onCall (async(data, context) => {
+  return functions.config().state.testing;
+});
+
 
 // STRIPE: Creates Payment Intent Object
 exports.paymentIntent = functions.https.onCall (async(data, context) => {

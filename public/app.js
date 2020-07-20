@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", event => {
+
   //const app = firebase.app();
-  //var functions = firebase.functions();
   const db = firebase.firestore();
 
   // enforce use of EMULATED firestore and functions if app is local
@@ -22,8 +22,20 @@ document.addEventListener("DOMContentLoaded", event => {
   firebase.checkComplete = false;
   firebase.auth().onAuthStateChanged(user => checkForUserPersistence(db));
 
+  isTestModeOn();
+
 });
 
+
+
+function isTestModeOn(){
+  var functions = firebase.functions();
+  var testModeIsOn = firebase.functions().httpsCallable('testModeIsOn');
+  testModeIsOn({whatever: "this doesn't matter"}).
+  then(function(result){
+    document.getElementById("market-blurb").innerHTML = `Testmode: ${result.data}`
+  })
+}
 
 
 // ### Called once to see if a user already persists in browser
