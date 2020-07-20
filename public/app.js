@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", event => {
     });
     // If we're on localhost, add some mock data so we don't need to add it ourselves
     setMockData(db);
+    populateMarket(db);
   }
 
   document.getElementById("login").innerText = "login";
@@ -64,8 +65,6 @@ function checkForUserPersistence(_db){
           var message = result.stripeBusinessID ? 'Business Dashboard' : 'Sign Up!';
 
           document.getElementById("are-you-biz").innerText = message;
-
-          populateMarket(_db);
         } else {
           console.log("Hmm weird. Your account has no data in the database. Sorry, we're gonna log you out.");
           logOut();
@@ -83,8 +82,6 @@ function checkForUserPersistence(_db){
 
 // ### Queries DB to find products and prices using addRow()
 function populateMarket(_db){
-
-  document.getElementById('loading-market').style.visibility = "hidden";
 
   dbu.where(_db, "businesses", "status", "==", "doingBusiness", addRow);
 
@@ -107,6 +104,7 @@ function populateMarket(_db){
           <button class = "product-detail-last" onclick = "buyProduct('${d.bizID}')" > buy </button>
       `;
   
+      document.getElementById('loading-market').style.visibility = "hidden";
       // Actually adds the row
       document.getElementById('product-table').appendChild(row);
     } else {
