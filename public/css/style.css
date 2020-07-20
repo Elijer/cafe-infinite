@@ -12,7 +12,7 @@
 }
 
     .top {
-        color: #bd9e62;
+        color: #906a88;
         background: #f2e9d5;   /* this sets the backround, not the #banner background */
         outline: 0px; /* because these are buttons, this gets rid of the default outline */
         font-size: 150%;
