@@ -33,7 +33,17 @@ function isTestModeOn(){
   var testModeIsOn = firebase.functions().httpsCallable('testModeIsOn');
   testModeIsOn({whatever: "this doesn't matter"}).
   then(function(result){
-    document.getElementById("market-blurb").innerHTML = `Testmode: ${result.data}`
+    console.log("test mode is", result.data);
+
+    if (result.data == "true"){
+      document.getElementById("market-blurb-status").style.color = "#60b88d";
+      document.getElementById("market-blurb-status").innerHTML = "ON";
+    } else if (result.data == "false") {
+      document.getElementById("market-blurb-status").style.color = "#cc3c2c";
+      document.getElementById("market-blurb-status").innerHTML = "OFF. WARNING: Turn it back on; database rules are still completely insecure.";
+    } else {
+      document.getElementById("market-blurb-status").innerHTML = "...";
+    }
   })
 }
 
