@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", event => {
       ssl: false
     });
     // If we're on localhost, add some mock data so we don't need to add it ourselves
-    setMockData(db);
     populateMarket(db);
   }
 
@@ -110,7 +109,11 @@ function populateMarket(_db){
     } else {
       row.innerHTML =
       ` <p> Well Gosh. There doesn't appear to be any data in the database. </p> `;
-      
+      setMockData(db)
+      .then(function(r){
+        populateMarket();
+      })
+      document.getElementById('loading-market').style.visibility = "hidden";
       document.getElementById('product-table').appendChild(row);
     }
   }
@@ -397,8 +400,9 @@ function onboardBusiness(){
   }
 }
 
+setMockData = (db) => new Promise((resolve) => {
+  console.log("Preparing to Set Mock Data")
 
-function setMockData(_db){
   var data1 = { price: "1.00", product: "Sandals", businessName: "Chacos", isAnonymous: true, state: "HFH5XKnpQaJ", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" };
   var data2 = { price: "300.50", product: "Bananas", businessName: "Chiquita", isAnonymous: true, state: "eqo13tinhep", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" }
   var data3 = { price: "4.00", product: "Carabiner", businessName: "Black Diamond", isAnonymous: true, state: "ezvUkoL86Z8", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" }
@@ -407,5 +411,5 @@ function setMockData(_db){
   const usersRef3 = _db.collection('businesses').doc("heCh1pDwT5QYV61wwXtuoSUkkp42");
   usersRef1.set(data1);
   usersRef2.set(data2);
-  usersRef3.set(data3);
-}
+  usersRef3.set(data3)
+})
