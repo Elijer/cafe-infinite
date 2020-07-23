@@ -11,9 +11,12 @@ document.addEventListener("DOMContentLoaded", event => {
       host: "localhost:8080",
       ssl: false
     });
-    // If we're on localhost, add some mock data so we don't need to add it ourselves
-    populateMarket(db);
+
+    setMockData(db); // when localhost is restarted, there's no data, which is a hassle
+
   }
+
+  populateMarket(db);
 
   document.getElementById("login").innerText = "login";
   document.getElementById("loading-stripe-ID").style.visibility = "hidden";
@@ -107,12 +110,9 @@ function populateMarket(_db){
       // Actually adds the row
       document.getElementById('product-table').appendChild(row);
     } else {
+
       row.innerHTML =
       ` <p> Well Gosh. There doesn't appear to be any data in the database. </p> `;
-      setMockData(db)
-      .then(function(r){
-        populateMarket();
-      })
       document.getElementById('loading-market').style.visibility = "hidden";
       document.getElementById('product-table').appendChild(row);
     }
@@ -400,8 +400,8 @@ function onboardBusiness(){
   }
 }
 
-setMockData = (db) => new Promise((resolve) => {
-  console.log("Preparing to Set Mock Data")
+setMockData = (_db) => new Promise((resolve) => {
+  console.log("Setting mock data")
 
   var data1 = { price: "1.00", product: "Sandals", businessName: "Chacos", isAnonymous: true, state: "HFH5XKnpQaJ", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" };
   var data2 = { price: "300.50", product: "Bananas", businessName: "Chiquita", isAnonymous: true, state: "eqo13tinhep", status: "doingBusiness", stripeBusinessID: "acct_1Gn5TjGyLtyoABdR" }
