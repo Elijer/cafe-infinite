@@ -171,6 +171,7 @@ function buyProduct(_bizID){
     var card = elements.create('card', {style: style});
     
     card.mount('#card-element');
+    document.getElementById("market-display").style.display = "none";
     document.getElementById("loading-market").style.visibility = "hidden";
     document.getElementById("reset-payform").style.visibility = "visible";
     document.getElementById("entry-note").style.visibility = "visible";
@@ -216,6 +217,7 @@ function buyProduct(_bizID){
           console.log(result.error.message); // Show error to your customer (e.g., insufficient funds)
         } else {
           if (result.paymentIntent.status === 'succeeded') {
+            document.getElementById("market-display").style.display = "block";
             document.getElementById("loading-market").style.visibility = "hidden";
             console.log("Payment Success!");
             document.getElementById('payment-success').style.visibility = "visible";
@@ -270,6 +272,9 @@ function styleStripeForm(){
 
 
 function resetPaymentForm(){
+
+  document.getElementById("market-display").style.display = "block";
+  
   var el = document.getElementById("payment-form");
   el.remove();
 
