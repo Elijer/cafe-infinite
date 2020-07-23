@@ -30,7 +30,7 @@
     },
     "ui": {
       "enabled": true,
-      "port": "9000"
+      "port": "9001"
     }
   }
 }

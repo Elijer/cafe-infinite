@@ -47,31 +47,21 @@ exports.testModeIsOn = functions.https.onCall (async(data, context) => {
 
 // STRIPE: Creates Payment Intent Object
 exports.paymentIntent = functions.https.onCall (async(data, context) => {
-  console.log("Payment intent was called on the server");
-    
-  if (!context.auth) {
-      throw new functions.https.HttpsError('failed-precondition', 'The function must be called ' +
-          'while authenticated.');
-  } else {
-
-    console.log("going to make a payment to bizID of " + data.bizID);
+  console.log("Payment intent was called on the server: going to make a payment to bizID of " + data.bizID);
 
 
-    const paymentIntent = await stripe.paymentIntents.create({ //https://www.youtube.com/watch?v=vn3tm0quoqE
-      payment_method_types: ['card'],
-      amount: 1000,
-      currency: 'usd',
-      application_fee_amount: 123,
-    }, {
-      stripeAccount: data.bizID // this comma might be a typo
-    })
+  const paymentIntent = await stripe.paymentIntents.create({ //https://www.youtube.com/watch?v=vn3tm0quoqE
+    payment_method_types: ['card'],
+    amount: 1000,
+    currency: 'usd',
+    application_fee_amount: 123,
+  }, {
+    stripeAccount: data.bizID // this comma might be a typo
+  })
 
-    //console.log("Okay the client secret generated is this: " + paymentIntent.data.client_secret);
-    //return paymentIntent.client_secret;
-    return {secret: paymentIntent.client_secret, publicKey: public, price: paymentIntent.amount};
-  
-
-  }
+  //console.log("Okay the client secret generated is this: " + paymentIntent.data.client_secret);
+  //return paymentIntent.client_secret;
+  return {secret: paymentIntent.client_secret, publicKey: public, price: paymentIntent.amount};
 });
 
 
