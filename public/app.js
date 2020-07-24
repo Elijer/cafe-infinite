@@ -217,7 +217,7 @@ function buyProduct(_bizID){
           console.log(result.error.message); // Show error to your customer (e.g., insufficient funds)
         } else {
           if (result.paymentIntent.status === 'succeeded') {
-            document.getElementById("market-display").style.display = "block";
+            //document.getElementById("market-display").style.display = "block";
             document.getElementById("loading-market").style.visibility = "hidden";
             console.log("Payment Success!");
             document.getElementById('payment-success').style.visibility = "visible";
