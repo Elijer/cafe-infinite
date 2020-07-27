@@ -30,16 +30,6 @@ const app = express();
 app.use(cors({ origin: true }));
 
 
-/* this is for the webhook. Dunno what it does though. Info here: https://expressjs.com/en/guide/using-middleware.html
-app.use((req, res, next) => {
-  if (req.originalUrl === "/paymentsuccess") {
-    next();
-  } else {
-    bodyParser.json()(req, res, next);
-  }
-});
-*/
-
 exports.testModeIsOn = functions.https.onCall (async(data, context) => {
   return functions.config().state.testing;
 });
@@ -196,23 +186,13 @@ const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
   // Fulfill the purchase.
 
   console.log("webhook has caught a successful payment returned by stripe!");
-
-  //console.log('Connected account ID: ' + connectedAccountId);
-  //console.log(JSON.stringify(paymentIntent));
-
-  /* Database should probably get called right around here.
-  The code below was getting a 500 returned though. Somethings wrong with it.
-  Most likely it's just using variables, like uid, that haven't been declared here.
-  */
-
-  /*
   let db = admin.firestore();
-  return db.collection('businesses').doc(uid).set({succcessfulPay: true}, {merge: true}) //or use .update({state: state}), not sure
-  .then(() => {
-    console.log("Cool! A webhook has confirmed that a payment went through.");
+  var docRef = db.collection('payments').doc('payment');
+  docRef.set({paySuccess: true})
+  .then (() => {
+    console.log("Success!");
   })
-  */
-
+  
 }
 
 exports.app = functions.https.onRequest(app);

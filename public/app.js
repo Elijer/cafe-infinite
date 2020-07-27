@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", event => {
 
   // enforce use of EMULATED firestore and functions if app is local
   if (window.location.hostname === "localhost") {
-    firebase.functions().useFunctionsEmulator("http://localhost:5001");
+    /*firebase.functions().useFunctionsEmulator("http://localhost:5001");
     console.log("localhost detected! Will use firestore and functions emulators instead of actual firebase instances of those things.");
     db.settings({ 
       host: "localhost:8080",
       ssl: false
-    });
+    });*/
 
     setMockData(db); // when localhost is restarted, there's no data, which is a hassle
 
