@@ -1,34 +1,26 @@
 document.addEventListener("DOMContentLoaded", event => {
-
+  state.domLoaded = true;
+  dh.loginReady();
   //const app = firebase.app();
   const db = firebase.firestore();
-
   // enforce use of EMULATED firestore and functions if app is local
   if (window.location.hostname === "localhost") {
-    /*firebase.functions().useFunctionsEmulator("http://localhost:5001");
-    console.log("localhost detected! Will use firestore and functions emulators instead of actual firebase instances of those things.");
+    console.log("localhost detected! Using functions and firestore emulators instead of live instances");
+
+    firebase.functions().useFunctionsEmulator("http://localhost:5001");
     db.settings({ 
-      host: "localhost:8080",
+      host: "localhost:8081",
       ssl: false
-    });*/
-
+    });
     setMockData(db); // when localhost is restarted, there's no data, which is a hassle
-
   }
 
   populateMarket(db);
-
-  document.getElementById("login").innerText = "login";
-  document.getElementById("loading-stripe-ID").style.visibility = "hidden";
-
-  // checkComplete bool added to firebase object so that checkForUserPersistence() is only called once
-  firebase.checkComplete = false;
-  firebase.auth().onAuthStateChanged(user => checkForUserPersistence(db));
-
   isTestModeOn();
 
+  firebase.auth().onAuthStateChanged(user => checkForUserPersistence(db));
+  
 });
-
 
 
 function isTestModeOn(){
@@ -38,14 +30,16 @@ function isTestModeOn(){
   then(function(result){
     console.log("test mode is", result.data);
 
+    var testLight = document.getElementById("market-blurb-status");
+
     if (result.data == "true"){
-      document.getElementById("market-blurb-status").style.color = "#60b88d";
-      document.getElementById("market-blurb-status").innerHTML = "ON";
+      testLight.style.color = "#60b88d";
+      testLight.innerHTML = "ON";
     } else if (result.data == "false") {
-      document.getElementById("market-blurb-status").style.color = "#cc3c2c";
-      document.getElementById("market-blurb-status").innerHTML = "OFF. WARNING: Turn it back on; database rules are still completely insecure.";
+      testLight.style.color = "#cc3c2c";
+      testLight.innerHTML = "OFF. WARNING: Turn it back on; database rules are still completely insecure.";
     } else {
-      document.getElementById("market-blurb-status").innerHTML = "...";
+      testLight.innerHTML = "...";
     }
   })
 }
@@ -53,7 +47,7 @@ function isTestModeOn(){
 
 // ### Called once to see if a user already persists in browser
 function checkForUserPersistence(_db){
-  if (firebase.checkComplete == false){
+  if (state.userCheck == false){
     if (firebase.auth().currentUser != null){
       const uid = firebase.auth().currentUser.uid;
       console.log("Persistent user found in browser: " + uid);
@@ -77,7 +71,7 @@ function checkForUserPersistence(_db){
     }
   }
   // Mark checkComplete as true so that it only gets run once.
-  firebase.checkComplete = true;
+  state.userCheck = true;
 }
 
 
@@ -140,9 +134,6 @@ function appendPaymentForm(){
     <p id = "reset-payform" onclick = "resetPaymentForm()"> Cancel </p>
     </form>
   `;
-
-  //    <p4 id = "entry-note" > (Simulate a successful payment by entering "4242424" repeating) </p4>
-
   document.getElementById('content').appendChild(payform);
 };
 
