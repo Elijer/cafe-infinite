@@ -1,7 +1,7 @@
 # About
 This repo is a live demo of Stripe's payment API to register the bank info of businesses and then pay them with card transactions. [Check it out here](https://firestripe-boilerplate.web.app/).
 
-In live mode it works with real credit/debit cards, real money, and real bank data, but I turned it off because I only intended it as a boilerplate rather than a real website or a real marketplace. I made it as accessable as possible, but in order to use it you will have to make a developer account on stripe and get your own API key. It does use Node.js on the backend, and that code is included in the functions code. Stripe has an amazing set of CLI tools, so if you download this repo and create your own hosting and Stripe configuration, you can run both mock and real transactions to explore this very popular payment API.
+This project is capable of making real transactions with credit cards and bank data, but I have it set in test mode because it is only intended as a boilerplate. Stripe has a very robust set of testing tools that mimic the actual transactions in almost very way, allowing you to see the test transactions from the console. It's really cool. They even have a CLI that allows you to test your webhooks on the backend by sending test events to your server.
 
 **Firebase**: A rapid development web-development tool released by google in 2018. It modularly allows for the convenient integration of a database, hosting, a testing suite, file storage, and cloud functions. If you're interested in learning more, [this is the intro](https://www.youtube.com/watch?v=9kRgVxULbag) that peaked my interest initially.
 
